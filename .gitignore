@@ -1,0 +1,27 @@
+# Data files (Do not commit downloaded data)
+*.csv
+*.tsv
+*.parquet
+*.xlsx
+*.xls
+*.json
+*.zip
+*.tar.gz
+data/
+raw_data/
+downloads/
+
+# Python / Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
