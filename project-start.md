@@ -47,10 +47,14 @@ We would determine which retail channel offers the best route to target consumer
 
 **USC Passport / Euromonitor International**  
 
-- **Link:**
+**Links:**
+
 Market sizes: https://www-portal-euromonitor-com.libproxy1.usc.edu/?ppRfd%2ftD1eE0nPFfnbZg3qPldwHZDbR01B1rHCfgvgHKkj04AfTVgw%3d%3d
+
 Retail channels: https://www-portal-euromonitor-com.libproxy1.usc.edu/?9tk6Fp1C1rUIVVYNdMKxSjY8v3MtkXCzLg3M7Dsu3JUS8xTPvmhxdA%3d%3d
+
 Pack Type: https://www-portal-euromonitor-com.libproxy1.usc.edu/?fxGBUHpdBZfixYWKgsMoEAFGQl4u58y8U%2bxS6hb9rrvrLAYWGYz%2f5A%3d%3d 
+
 Pack size: https://www-portal-euromonitor-com.libproxy1.usc.edu/?5peXxV9FhWsJLphzvFeRz1jQk8H1uVAykqU3XK8Tr3Rb6BeED%2fV44w%3d%3d
 
 These are some datasets that can potentially be useful for our project. The links goes to the datasets landing page, with download and api options. 
