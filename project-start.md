@@ -48,16 +48,20 @@ We would determine which retail channel offers the best route to target consumer
 **USC Passport / Euromonitor International**  
 
 - **Link:**
-- **Access confirmed:**
+Market sizes: https://www-portal-euromonitor-com.libproxy1.usc.edu/?ppRfd%2ftD1eE0nPFfnbZg3qPldwHZDbR01B1rHCfgvgHKkj04AfTVgw%3d%3d
+Retail channels: https://www-portal-euromonitor-com.libproxy1.usc.edu/?9tk6Fp1C1rUIVVYNdMKxSjY8v3MtkXCzLg3M7Dsu3JUS8xTPvmhxdA%3d%3d
+Pack Type: https://www-portal-euromonitor-com.libproxy1.usc.edu/?fxGBUHpdBZfixYWKgsMoEAFGQl4u58y8U%2bxS6hb9rrvrLAYWGYz%2f5A%3d%3d 
+Pack size: https://www-portal-euromonitor-com.libproxy1.usc.edu/?5peXxV9FhWsJLphzvFeRz1jQk8H1uVAykqU3XK8Tr3Rb6BeED%2fV44w%3d%3d
+
+These are some datasets that can potentially be useful for our project. The links goes to the datasets landing page, with download and api options. 
 
 ## Three questions we still need to resolve
 
-1.
-2.
-3.
+1. **Which candidate vision (A, B, or C) will we commit to as our primary decision?**  
+   We need to decide whether to focus specifically on overseas market entry (Vision A), retail channel selection in APAC (Vision B), or packaging strategy (Vision C), or establish how they will be prioritized into a single main decision with secondary analysis.
 
-Antonio was here. This is a test push.
-Testing. Meichen (Nichole) Lin
-Kushal Test
+2. **Are the Passport/Euromonitor datasets sufficient enough, or will we need supplementary data?**  
+   We need to confirm whether Euromonitor market size, channel, and packaging data alone can support our specific decision, or if we need secondary sources. 
 
-Ralph was here. This is a test push.
+3. **What is the exact profile and baseline constraints of the subject coffee firm?**  
+   We need to define the firm's current scale, price tier, product line specialty whole bean vs. RTD canned coffee, and financial constraints Yunnan coffee producer to ensure our strategic recommendations are operationally realistic.
