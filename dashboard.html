@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Yunnan Coffee CPG Global Expansion Strategic Decision Platform - Interactive Analytics answering Candidate Vision A.">
+  <title>Yunnan Coffee Global Entry Strategy | Vision A Interactive Dashboard</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root {
+      --bg-base: #0c0a09;
+      --bg-surface: #141210;
+      --bg-card: rgba(26, 22, 19, 0.85);
+      --bg-card-hover: rgba(36, 31, 27, 0.95);
+      --bg-glass: rgba(255, 255, 255, 0.03);
+      --border-subtle: rgba(212, 163, 115, 0.15);
+      --border-accent: rgba(212, 163, 115, 0.45);
+
+      --brand-crema: #d4a373;
+      --brand-gold: #e9c46a;
+      --brand-copper: #c27847;
+      --brand-espresso: #43281c;
+      --brand-green: #2d6a4f;
+      --brand-green-light: #52b788;
+      --brand-ruby: #e76f51;
+      --brand-blue: #457b9d;
+
+      --text-primary: #f8f6f0;
+      --text-secondary: #c5bfb6;
+      --text-muted: #8d857b;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+      --shadow-glow: 0 0 25px rgba(212, 163, 115, 0.15);
+      --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      line-height: 1.55;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image:
+        radial-gradient(circle at 15% 10%, rgba(212, 163, 115, 0.07) 0%, transparent 40%),
+        radial-gradient(circle at 85% 65%, rgba(45, 106, 79, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(194, 120, 71, 0.05) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px 32px 60px;
+      width: 100%;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 24px 0 20px;
+      margin-bottom: 28px;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .brand-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      color: var(--brand-crema);
+      background: rgba(212, 163, 115, 0.12);
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(212, 163, 115, 0.25);
+      margin-bottom: 10px;
+    }
+
+    .brand-eyebrow span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brand-green-light);
+      box-shadow: 0 0 8px var(--brand-green-light);
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      background: linear-gradient(135deg, #fff 30%, var(--brand-crema) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-sub {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      max-width: 820px;
+    }
+
+    .status-badge-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .decision-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, rgba(45, 106, 79, 0.35), rgba(20, 18, 16, 0.8));
+      border: 1px solid var(--brand-green-light);
+      padding: 10px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: 0 4px 20px rgba(45, 106, 79, 0.25);
+    }
+
+    .decision-badge .badge-icon {
+      font-size: 1.25rem;
+    }
+
+    .decision-badge .badge-title {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      color: var(--brand-green-light);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .decision-badge .badge-val {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .data-source-meta {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs-wrapper {
+      margin-top: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+      overflow-x: auto;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      list-style: none;
+      padding-bottom: 2px;
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--brand-crema);
+      background: var(--bg-glass);
+    }
+
+    .nav-tab-btn.active {
+      color: var(--brand-crema);
+      background: rgba(212, 163, 115, 0.08);
+      border-bottom: 2px solid var(--brand-crema);
+    }
+
+    .nav-tab-btn .tab-num {
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 7px;
+      border-radius: 999px;
+    }
+
+    .nav-tab-btn.active .tab-num {
+      background: var(--brand-crema);
+      color: var(--bg-base);
+      font-weight: 700;
+    }
+
+    /* Tab Content Areas */
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* KPI Highlights Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin: 24px 0 28px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-smooth);
+    }
+
+    .kpi-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--brand-crema), var(--brand-copper));
+      opacity: 0.8;
+    }
+
+    .kpi-card.green::before {
+      background: linear-gradient(90deg, var(--brand-green-light), var(--brand-green));
+    }
+
+    .kpi-card.blue::before {
+      background: linear-gradient(90deg, #64dfdf, var(--brand-blue));
+    }
+
+    .kpi-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kpi-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.95rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .kpi-subtext {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .trend-up {
+      color: var(--brand-green-light);
+      font-weight: 600;
+    }
+
+    .trend-neutral {
+      color: var(--brand-gold);
+      font-weight: 600;
+    }
+
+    /* Cards & Layout */
+    .dashboard-row {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .col-12 {
+      grid-column: span 12;
+    }
+
+    .col-8 {
+      grid-column: span 8;
+    }
+
+    .col-7 {
+      grid-column: span 7;
+    }
+
+    .col-6 {
+      grid-column: span 6;
+    }
+
+    .col-5 {
+      grid-column: span 5;
+    }
+
+    .col-4 {
+      grid-column: span 4;
+    }
+
+    @media (max-width: 1024px) {
+
+      .col-8,
+      .col-7,
+      .col-6,
+      .col-5,
+      .col-4 {
+        grid-column: span 12;
+      }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title-badge {
+      font-size: 0.7rem;
+      background: rgba(212, 163, 115, 0.15);
+      color: var(--brand-crema);
+      border: 1px solid var(--border-subtle);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .card-desc {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Charts */
+    .chart-box {
+      position: relative;
+      height: 330px;
+      width: 100%;
+    }
+
+    .chart-box.tall {
+      height: 410px;
+    }
+
+    /* Decision Summary Callout */
+    .decision-banner {
+      background: linear-gradient(135deg, rgba(212, 163, 115, 0.12), rgba(45, 106, 79, 0.15));
+      border: 1px solid var(--brand-crema);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    .decision-banner-content h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .decision-banner-content p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 820px;
+    }
+
+    .decision-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand-crema), var(--brand-copper));
+      color: #0c0a09;
+      border: none;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      padding: 12px 22px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 14px rgba(212, 163, 115, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 163, 115, 0.45);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--brand-crema);
+      color: var(--brand-crema);
+    }
+
+    /* Comparison Table */
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    table.data-table th {
+      background: rgba(0, 0, 0, 0.4);
+      color: var(--brand-crema);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    table.data-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    table.data-table tr:hover td {
+      background: rgba(255, 255, 255, 0.03);
+      color: #fff;
+    }
+
+    .country-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      color: #fff !important;
+    }
+
+    .flag-icon {
+      font-size: 1.25rem;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-go {
+      background: rgba(45, 106, 79, 0.25);
+      color: #74c69d;
+      border: 1px solid rgba(116, 198, 157, 0.4);
+    }
+
+    .badge-conditional {
+      background: rgba(233, 196, 106, 0.2);
+      color: #f4a261;
+      border: 1px solid rgba(244, 162, 97, 0.4);
+    }
+
+    .badge-nogo {
+      background: rgba(231, 111, 81, 0.2);
+      color: #e76f51;
+      border: 1px solid rgba(231, 111, 81, 0.4);
+    }
+
+    .badge-domestic {
+      background: rgba(69, 123, 157, 0.25);
+      color: #a8dadc;
+      border: 1px solid rgba(168, 218, 220, 0.4);
+    }
+
+    /* Product Market Fit Cards */
+    .pmf-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .pmf-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition-smooth);
+    }
+
+    .pmf-card:hover {
+      border-color: var(--brand-crema);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .pmf-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+
+    .pmf-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .pmf-sub {
+      font-size: 0.85rem;
+      color: var(--brand-crema);
+      margin-bottom: 14px;
+      font-weight: 500;
+    }
+
+    .pmf-body {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
+      flex-grow: 1;
+    }
+
+    .pmf-features {
+      list-style: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 14px;
+      font-size: 0.82rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .pmf-features li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-muted);
+    }
+
+    .pmf-features li strong {
+      color: var(--text-primary);
+    }
+
+    /* Financial Simulator Interactive */
+    .simulator-container {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 28px;
+    }
+
+    @media (max-width: 980px) {
+      .simulator-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .simulator-controls {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sim-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sim-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .sim-label {
+      color: var(--text-secondary);
+    }
+
+    .sim-val {
+      color: var(--brand-crema);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+
+    .sim-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .sim-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--brand-crema);
+      box-shadow: 0 0 10px rgba(212, 163, 115, 0.6);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .sim-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      background: #fff;
+    }
+
+    .select-dropdown {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: #fff;
+      padding: 10px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .select-dropdown option {
+      background: #1a1613;
+      color: #fff;
+    }
+
+    .sim-output-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .sim-output-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sim-output-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 18px;
+    }
+
+    .sim-out-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .sim-out-val {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .sim-out-val.positive {
+      color: var(--brand-green-light);
+    }
+
+    .sim-out-val.negative {
+      color: var(--brand-ruby);
+    }
+
+    .sim-out-sub {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .verdict-box {
+      border-radius: var(--radius-sm);
+      padding: 18px 20px;
+      border: 1px solid var(--border-accent);
+      background: rgba(212, 163, 115, 0.07);
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .verdict-box-icon {
+      font-size: 1.8rem;
+    }
+
+    .verdict-box-text h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .verdict-box-text p {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+    }
+
+    /* MCDA Weighting Engine */
+    .mcda-sliders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    /* Risks & Objections */
+    .risk-card {
+      background: var(--bg-card);
+      border-left: 4px solid var(--brand-copper);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      border-top: 1px solid var(--border-subtle);
+      border-right: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .risk-card.high {
+      border-left-color: var(--brand-ruby);
+    }
+
+    .risk-card.med {
+      border-left-color: var(--brand-gold);
+    }
+
+    .risk-card.low {
+      border-left-color: var(--brand-green-light);
+    }
+
+    .risk-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .risk-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+    }
+
+    .risk-body {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .risk-mitigation {
+      background: rgba(255, 255, 255, 0.03);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+
+    .risk-mitigation strong {
+      color: var(--brand-crema);
+    }
+
+    /* Footer */
+    footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border-subtle);
+      padding: 24px 0 32px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--brand-crema);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="header-top">
+        <div>
+          <div class="brand-eyebrow">
+            <span class="dot"></span>
+            USC CPG Global Entry Strategy • Vision A Decision Engine
+          </div>
+          <h1>Yunnan Coffee Overseas Expansion Analytics</h1>
+          <p class="header-sub">
+            Evaluating whether a specialty coffee enterprise located in <strong>Yunnan Province, China</strong> should
+            expand into international markets vs. defend domestic tier 1/2 cities, identifying optimal target countries,
+            product formats, and financial hurdle rates.
+          </p>
+        </div>
+
+        <div class="status-badge-container">
+          <div class="decision-badge" id="executive-decision-badge">
+            <span class="badge-icon">🎯</span>
+            <div>
+              <div class="badge-title">Primary Strategic Recommendation</div>
+              <div class="badge-val">CONDITIONAL GO • EAST ASIA FIRST</div>
+            </div>
+          </div>
+          <div class="data-source-meta">
+            Model Benchmark: Passport / Euromonitor &amp; UN Comtrade 2024-2029
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="nav-tabs-wrapper">
+        <ul class="nav-tabs" role="tablist">
+          <li>
+            <button class="nav-tab-btn active" id="tab-btn-1" onclick="switchTab(1)" role="tab" aria-selected="true"
+              aria-controls="tab-pane-1">
+              <span class="tab-num">1</span> Executive Scorecard
+            </button>
+          </li>
+          <li>
+            <button class="nav-tab-btn" id="tab-btn-2" onclick="switchTab(2)" role="tab" aria-selected="false"
+              aria-controls="tab-pane-2">
+              <span class="tab-num">2</span> Market Attractiveness
+            </button>
+          </li>
+          <li>
+            <button class="nav-tab-btn" id="tab-btn-3" onclick="switchTab(3)" role="tab" aria-selected="false"
+              aria-controls="tab-pane-3">
+              <span class="tab-num">3</span> Product-Market Fit
+            </button>
+          </li>
+          <li>
+            <button class="nav-tab-btn" id="tab-btn-4" onclick="switchTab(4)" role="tab" aria-selected="false"
+              aria-controls="tab-pane-4">
+              <span class="tab-num">4</span> Financial Simulator
+            </button>
+          </li>
+          <li>
+            <button class="nav-tab-btn" id="tab-btn-5" onclick="switchTab(5)" role="tab" aria-selected="false"
+              aria-controls="tab-pane-5">
+              <span class="tab-num">5</span> MCDA Decision Matrix
+            </button>
+          </li>
+          <li>
+            <button class="nav-tab-btn" id="tab-btn-6" onclick="switchTab(6)" role="tab" aria-selected="false"
+              aria-controls="tab-pane-6">
+              <span class="tab-num">6</span> Strategic Risks &amp; Objections
+            </button>
+          </li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- TAB 1: EXECUTIVE SCORECARD -->
+    <main>
+      <section id="tab-pane-1" class="tab-panel active" role="tabpanel" aria-labelledby="tab-btn-1">
+        <!-- Decision Banner -->
+        <div class="decision-banner">
+          <div class="decision-banner-content">
+            <h2>Strategic Verdict: Pursue Phased Expansion (Japan &amp; South Korea First)</h2>
+            <p>
+              While China's domestic specialty coffee demand is rapidly expanding (+14.8% CAGR), brutal domestic retail
+              price wars (¥9.90 cup discounting) compress producer net margins to <strong>12.5%</strong>. Entering
+              RCEP-partner markets (Japan and South Korea) unlocks <strong>21–24% net margins</strong> with near-zero
+              tariffs, 4–6 day ocean shipping, and high consumer willingness-to-pay for Yunnan single-origin specialty
+              beans and premium drip bags.
+            </p>
+          </div>
+          <div class="decision-actions">
+            <button class="btn-primary" onclick="switchTab(4)">Launch Sensitivity Simulator</button>
+            <button class="btn-outline" onclick="switchTab(5)">Review MCDA Rankings</button>
+          </div>
+        </div>
+
+        <!-- Top KPIs -->
+        <div class="kpi-grid">
+          <div class="kpi-card green">
+            <div class="kpi-label">
+              <span>Overseas Net Margin Premium</span>
+              <span>📈</span>
+            </div>
+            <div class="kpi-value">+9.3%</div>
+            <div class="kpi-subtext">
+              <span class="trend-up">21.8%</span> avg in Target APAC vs 12.5% Domestic China
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Top Expansion Target</span>
+              <span>🇯🇵</span>
+            </div>
+            <div class="kpi-value">Japan</div>
+            <div class="kpi-subtext">
+              <span class="trend-up">Score 86.4 / 100</span> • Drip bags &amp; specialty whole bean
+            </div>
+          </div>
+
+          <div class="kpi-card blue">
+            <div class="kpi-label">
+              <span>Addressable Phase 1 TAM</span>
+              <span>🌏</span>
+            </div>
+            <div class="kpi-value">$15.5 B</div>
+            <div class="kpi-subtext">
+              Japan ($9.4B) + South Korea ($6.1B) retail coffee
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>RCEP Tariff Barrier</span>
+              <span>🚢</span>
+            </div>
+            <div class="kpi-value">0% - 2%</div>
+            <div class="kpi-subtext">
+              Zero tariff on green bean; preferential rate on roasted
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts Row: Attractiveness Radar & Margin Waterfall -->
+        <div class="dashboard-row">
+          <div class="col-6">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">
+                    Multi-Vector Strategic Readiness
+                    <span class="card-title-badge">Radar Profile</span>
+                  </h3>
+                  <p class="card-desc">Comparing China domestic benchmark against key overseas expansion candidates</p>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="radarChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">
+                    Per-Kilogram Economics &amp; Margin Breakdown
+                    <span class="card-title-badge">USD / kg</span>
+                  </h3>
+                  <p class="card-desc">Production, logistics, tariffs, distributor margin, and retained net producer
+                    profit</p>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="marginChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Summary Table -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Candidate Market Evaluation Matrix (Vision A Core Evidence)</h3>
+              <p class="card-desc">Summarizing demand, tariff regimes, competition density, and strategic recommendation
+              </p>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Market</th>
+                  <th>Market Size (2024)</th>
+                  <th>5-Yr CAGR</th>
+                  <th>Per Capita Consumption</th>
+                  <th>Import Tariff</th>
+                  <th>Logistics Time</th>
+                  <th>Specialty Avg Retail</th>
+                  <th>Recommendation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="country-cell"><span class="flag-icon">🇨🇳</span> China (Domestic Benchmark)</td>
+                  <td>$18.2 B</td>
+                  <td>+14.8%</td>
+                  <td>0.15 kg/yr</td>
+                  <td>0%</td>
+                  <td>2 days</td>
+                  <td>$18.50 / kg</td>
+                  <td><span class="badge-pill badge-domestic">BASE: DEFEND</span></td>
+                </tr>
+                <tr>
+                  <td class="country-cell"><span class="flag-icon">🇯🇵</span> Japan</td>
+                  <td>$9.4 B</td>
+                  <td>+3.8%</td>
+                  <td>3.60 kg/yr</td>
+                  <td>0% (RCEP)</td>
+                  <td>6 days</td>
+                  <td>$38.20 / kg</td>
+                  <td><span class="badge-pill badge-go">PHASE 1: PRIORITY GO</span></td>
+                </tr>
+                <tr>
+                  <td class="country-cell"><span class="flag-icon">🇰🇷</span> South Korea</td>
+                  <td>$6.1 B</td>
+                  <td>+6.5%</td>
+                  <td>4.20 kg/yr</td>
+                  <td>2% (FTA)</td>
+                  <td>4 days</td>
+                  <td>$35.00 / kg</td>
+                  <td><span class="badge-pill badge-go">PHASE 1: PRIORITY GO</span></td>
+                </tr>
+                <tr>
+                  <td class="country-cell"><span class="flag-icon">🇦🇺</span> Australia</td>
+                  <td>$3.2 B</td>
+                  <td>+5.1%</td>
+                  <td>3.90 kg/yr</td>
+                  <td>0% (ChAFTA)</td>
+                  <td>18 days</td>
+                  <td>$45.50 / kg</td>
+                  <td><span class="badge-pill badge-conditional">PHASE 2: CONDITIONAL</span></td>
+                </tr>
+                <tr>
+                  <td class="country-cell"><span class="flag-icon">🇸🇬</span> Singapore</td>
+                  <td>$0.65 B</td>
+                  <td>+7.2%</td>
+                  <td>2.80 kg/yr</td>
+                  <td>0% (ACFTA)</td>
+                  <td>8 days</td>
+                  <td>$40.00 / kg</td>
+                  <td><span class="badge-pill badge-conditional">PILOT: TEST BED</span></td>
+                </tr>
+                <tr>
+                  <td class="country-cell"><span class="flag-icon">🇺🇸</span> United States</td>
+                  <td>$28.5 B</td>
+                  <td>+4.2%</td>
+                  <td>4.80 kg/yr</td>
+                  <td>15-25% (Sec 301)</td>
+                  <td>24 days</td>
+                  <td>$42.00 / kg</td>
+                  <td><span class="badge-pill badge-nogo">HIGH RISK: HOLD</span></td>
+                </tr>
+                <tr>
+                  <td class="country-cell"><span class="flag-icon">🇩🇪</span> Germany (EU)</td>
+                  <td>$12.8 B</td>
+                  <td>+2.9%</td>
+                  <td>5.50 kg/yr</td>
+                  <td>7.5% + EUDR</td>
+                  <td>32 days</td>
+                  <td>$34.00 / kg</td>
+                  <td><span class="badge-pill badge-nogo">HIGH BARRIER: HOLD</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: MARKET ATTRACTIVENESS DEEP DIVE -->
+      <section id="tab-pane-2" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-2">
+        <div class="card-header" style="margin-bottom: 24px;">
+          <div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; color: #fff;">Global Market Attractiveness
+              Analysis</h2>
+            <p class="card-desc">Euromonitor market sizing, growth rates, retail price dispersion, and market
+              concentration</p>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <div class="col-8">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">
+                    Market Attractiveness Matrix
+                    <span class="card-title-badge">Bubble Chart</span>
+                  </h3>
+                  <p class="card-desc">X: 5-Yr Growth Rate (%) • Y: Avg Retail Specialty Price ($/kg) • Bubble Size:
+                    Market TAM ($B)</p>
+                </div>
+              </div>
+              <div class="chart-box tall">
+                <canvas id="bubbleChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="card" style="height: 100%;">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Key Strategic Takeaways</h3>
+                  <p class="card-desc">Why Asia-Pacific outperforms US/EU for Yunnan</p>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div
+                  style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--brand-green-light);">
+                  <div style="font-weight: 700; color: #fff; font-size: 0.92rem; margin-bottom: 4px;">1. The RCEP Free
+                    Trade Dividend</div>
+                  <div style="font-size: 0.84rem; color: var(--text-secondary);">
+                    Under RCEP, China exports green and roasted coffee to Japan and ASEAN with 0% tariff, saving
+                    $3–$6/kg compared to US Section 301 punitive duties (25%).
+                  </div>
+                </div>
+
+                <div
+                  style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--brand-crema);">
+                  <div style="font-weight: 700; color: #fff; font-size: 0.92rem; margin-bottom: 4px;">2. Per Capita
+                    Headroom</div>
+                  <div style="font-size: 0.84rem; color: var(--text-secondary);">
+                    South Korea (4.2 kg) and Japan (3.6 kg) consume 24x more coffee per capita than China (0.15 kg),
+                    providing deep, stable replenishment cycles.
+                  </div>
+                </div>
+
+                <div
+                  style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--brand-copper);">
+                  <div style="font-weight: 700; color: #fff; font-size: 0.92rem; margin-bottom: 4px;">3. Freshness &amp;
+                    Shipping Advantage</div>
+                  <div style="font-size: 0.84rem; color: var(--text-secondary);">
+                    Ocean transit from Shanghai/Ningbo to Yokohama or Busan is 4–6 days vs. 24–32 days to Long Beach or
+                    Rotterdam, preserving specialty roast aromatics.
+                  </div>
+                </div>
+
+                <div
+                  style="background: rgba(255,255,255,0.03); padding: 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--brand-ruby);">
+                  <div style="font-weight: 700; color: #fff; font-size: 0.92rem; margin-bottom: 4px;">4. EUDR Regulatory
+                    Moat in Europe</div>
+                  <div style="font-size: 0.84rem; color: var(--text-secondary);">
+                    The EU Deforestation Regulation (EUDR) requires GPS polygon tracing of every micro-lot farm,
+                    imposing substantial audit costs on Yunnan smallholders.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Brand Concentration &amp; Market Saturation (Euromonitor Channel Data)</h3>
+                  <p class="card-desc">Herfindahl-Hirschman Index (HHI) and top incumbent market share across targets
+                  </p>
+                </div>
+              </div>
+              <div class="chart-box">
+                <canvas id="concentrationChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: PRODUCT-MARKET FIT & CHANNELS -->
+      <section id="tab-pane-3" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-3">
+        <div class="card-header" style="margin-bottom: 24px;">
+          <div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; color: #fff;">Yunnan Coffee Product-Market
+              Fit &amp; Channel Route</h2>
+            <p class="card-desc">Matching Yunnan's agricultural strengths (Catimor, Typica, Anaerobic Fermentation) with
+              foreign consumer habits</p>
+          </div>
+        </div>
+
+        <div class="pmf-grid" style="margin-bottom: 28px;">
+          <!-- Product 1 -->
+          <div class="pmf-card">
+            <div>
+              <div class="pmf-icon">🫘</div>
+              <h3 class="pmf-title">Specialty Whole Bean (Micro-Lot)</h3>
+              <div class="pmf-sub">SCA Score 84+ • Catimor / Typica / Bourbon</div>
+              <p class="pmf-body">
+                Premium single-origin beans highlighting Yunnan terroir (Pu'er &amp; Baoshan, 1,400m+ elevation). Double
+                fermentation with floral and honeyed notes designed for pour-over cafes.
+              </p>
+            </div>
+            <ul class="pmf-features">
+              <li><strong>Target Geographies:</strong> Australia, Japan, South Korea</li>
+              <li><strong>Primary Channel:</strong> Third-Wave Specialty Roasteries &amp; Boutique Cafes</li>
+              <li><strong>Target Retail Price:</strong> $40.00 – $48.00 / kg</li>
+              <li><strong>Gross Margin:</strong> 42% – 48%</li>
+              <li><strong>Packaging Spec:</strong> 250g foil valve bags with degassing valve</li>
+            </ul>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="pmf-card">
+            <div>
+              <div class="pmf-icon">☕</div>
+              <h3 class="pmf-title">Single-Serve Nitro Drip Filter Bags</h3>
+              <div class="pmf-sub">Ultrasonic Sealed • Nitrogen Flushed</div>
+              <p class="pmf-body">
+                Convenience-meets-craft format invented in Japan and dominant in East Asia. Delivers freshly-ground
+                pour-over quality with just a cup and hot water in office environments.
+              </p>
+            </div>
+            <ul class="pmf-features">
+              <li><strong>Target Geographies:</strong> Japan, South Korea, Singapore, Taiwan</li>
+              <li><strong>Primary Channel:</strong> Premium Supermarkets &amp; Cross-Border E-Commerce (Rakuten,
+                Coupang)</li>
+              <li><strong>Target Retail Price:</strong> $1.40 – $1.80 / filter pouch ($14–$18 per 10-pack)</li>
+              <li><strong>Gross Margin:</strong> 52% – 58%</li>
+              <li><strong>Packaging Spec:</strong> Individual nitrogen sealed foil pouch, compostable filter</li>
+            </ul>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="pmf-card">
+            <div>
+              <div class="pmf-icon">🥫</div>
+              <h3 class="pmf-title">Ready-to-Drink (RTD) Cold Brew Cans</h3>
+              <div class="pmf-sub">Single-Origin Arabica Extract • 0 Sugar</div>
+              <p class="pmf-body">
+                Grab-and-go aluminum cans targeting Gen Z and young corporate workers seeking functional caffeine
+                without milk or sugar. High impulse purchase frequency in convenience chains.
+              </p>
+            </div>
+            <ul class="pmf-features">
+              <li><strong>Target Geographies:</strong> South Korea, Japan, Singapore</li>
+              <li><strong>Primary Channel:</strong> Convenience Stores (Lawson, 7-Eleven, CU, GS25)</li>
+              <li><strong>Target Retail Price:</strong> $2.50 – $3.20 / 250ml can</li>
+              <li><strong>Gross Margin:</strong> 35% – 40% (high co-packing &amp; canning capex)</li>
+              <li><strong>Packaging Spec:</strong> 250ml slimline recyclable aluminum cans</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Channel Fit Heatmap Across Candidate Markets</h3>
+              <p class="card-desc">Suitability score (1–5) based on channel margin, distributor access, and Yunnan brand
+                recognition</p>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="channelFitChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: FINANCIAL SIMULATOR -->
+      <section id="tab-pane-4" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-4">
+        <div class="card-header" style="margin-bottom: 20px;">
+          <div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; color: #fff;">Interactive Financial
+              Sensitivity &amp; Trade Simulator</h2>
+            <p class="card-desc">Model landed export costs, tariff impact, shipping fees, and compare net margins
+              against domestic China sales</p>
+          </div>
+        </div>
+
+        <div class="simulator-container">
+          <!-- Controls Panel -->
+          <div class="simulator-controls">
+            <div class="sim-group">
+              <label class="sim-header" for="sim-country">
+                <span class="sim-label">Target Market Destination</span>
+              </label>
+              <select id="sim-country" class="select-dropdown" onchange="recalculateSimulator()">
+                <option value="japan" selected>🇯🇵 Japan (RCEP - 0% Tariff)</option>
+                <option value="korea">🇰🇷 South Korea (FTA - 2% Tariff)</option>
+                <option value="australia">🇦🇺 Australia (ChAFTA - 0% Tariff)</option>
+                <option value="singapore">🇸🇬 Singapore (ACFTA - 0% Tariff)</option>
+                <option value="usa">🇺🇸 United States (Sec 301 - 25% Tariff)</option>
+                <option value="germany">🇩🇪 Germany (EU - 7.5% + Compliance)</option>
+              </select>
+            </div>
+
+            <div class="sim-group">
+              <div class="sim-header">
+                <span class="sim-label">Annual Export Volume</span>
+                <span class="sim-val" id="val-volume">50 MT</span>
+              </div>
+              <input type="range" id="input-volume" class="sim-slider" min="10" max="300" step="5" value="50"
+                oninput="recalculateSimulator()">
+              <span style="font-size: 0.75rem; color: var(--text-muted);">1 Metric Ton (MT) = 1,000 kg</span>
+            </div>
+
+            <div class="sim-group">
+              <div class="sim-header">
+                <span class="sim-label">FOB Export Price (USD / kg)</span>
+                <span class="sim-val" id="val-price">$26.00</span>
+              </div>
+              <input type="range" id="input-price" class="sim-slider" min="15" max="50" step="1" value="26"
+                oninput="recalculateSimulator()">
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Specialty whole bean / drip blend
+                wholesale</span>
+            </div>
+
+            <div class="sim-group">
+              <div class="sim-header">
+                <span class="sim-label">Ocean Freight &amp; Insurance ($/kg)</span>
+                <span class="sim-val" id="val-freight">$0.80</span>
+              </div>
+              <input type="range" id="input-freight" class="sim-slider" min="0.3" max="3.5" step="0.1" value="0.8"
+                oninput="recalculateSimulator()">
+            </div>
+
+            <div class="sim-group">
+              <div class="sim-header">
+                <span class="sim-label">Import Tariff Rate (%)</span>
+                <span class="sim-val" id="val-tariff">0%</span>
+              </div>
+              <input type="range" id="input-tariff" class="sim-slider" min="0" max="35" step="1" value="0"
+                oninput="recalculateSimulator()">
+            </div>
+
+            <div class="sim-group">
+              <div class="sim-header">
+                <span class="sim-label">Annual Foreign Marketing Budget</span>
+                <span class="sim-val" id="val-marketing">$60,000</span>
+              </div>
+              <input type="range" id="input-marketing" class="sim-slider" min="10000" max="250000" step="5000"
+                value="60000" oninput="recalculateSimulator()">
+            </div>
+          </div>
+
+          <!-- Live Dynamic Outputs -->
+          <div>
+            <div class="sim-output-grid">
+              <div class="sim-output-card">
+                <div class="sim-out-label">Projected Gross Revenue</div>
+                <div class="sim-out-val" id="out-revenue">$1,300,000</div>
+                <div class="sim-out-sub" id="out-revenue-sub">50,000 kg @ $26.00/kg</div>
+              </div>
+
+              <div class="sim-output-card">
+                <div class="sim-out-label">Total Landed Costs</div>
+                <div class="sim-out-sub" id="out-cogs-sub">Green bean + Roasting + Pack + Freight + Duties</div>
+                <div class="sim-out-val" id="out-cogs">$940,000</div>
+              </div>
+
+              <div class="sim-output-card" style="border-color: var(--brand-crema);">
+                <div class="sim-out-label">Net Operating Profit</div>
+                <div class="sim-out-val positive" id="out-profit">$300,000</div>
+                <div class="sim-out-sub">After all shipping, tariffs, and marketing</div>
+              </div>
+
+              <div class="sim-output-card" style="border-color: var(--brand-green-light);">
+                <div class="sim-out-label">Net Operating Margin %</div>
+                <div class="sim-out-val positive" id="out-margin">23.1%</div>
+                <div class="sim-out-sub" id="out-margin-vs-domestic">+10.6% vs. China Domestic (12.5%)</div>
+              </div>
+            </div>
+
+            <!-- Profit Comparison Bar Chart -->
+            <div class="card" style="padding: 18px 20px;">
+              <div class="card-header" style="margin-bottom: 12px;">
+                <h4 style="font-size: 0.98rem; font-family: 'Outfit'; color: #fff;">
+                  Simulated Net Profit Comparison: Overseas Export vs. Domestic China
+                </h4>
+                <span class="card-title-badge">Dynamic Scenario</span>
+              </div>
+              <div style="height: 180px; width: 100%;">
+                <canvas id="simComparisonChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Dynamic Decision Verdict -->
+            <div class="verdict-box" id="sim-verdict-box">
+              <div class="verdict-box-icon" id="sim-verdict-icon">✅</div>
+              <div class="verdict-box-text">
+                <h4 id="sim-verdict-title">Strategic Verdict: ACCRETIVE OVERSEAS EXPANSION</h4>
+                <p id="sim-verdict-desc">
+                  Under current parameters, this export venture yields an attractive 23.1% net margin, generating
+                  $137,500 more annual operating profit than selling the identical volume in price-competitive Chinese
+                  tier 1/2 cities.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: MCDA DECISION MATRIX -->
+      <section id="tab-pane-5" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-5">
+        <div class="card-header" style="margin-bottom: 20px;">
+          <div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; color: #fff;">Multi-Criteria Decision
+              Analysis (MCDA) Scoring Engine</h2>
+            <p class="card-desc">Adjust strategic weighting criteria based on executive priorities to see real-time
+              algorithmic ranking of target markets</p>
+          </div>
+        </div>
+
+        <!-- Interactive Weights Sliders -->
+        <div class="mcda-sliders-grid">
+          <div class="sim-group">
+            <div class="sim-header">
+              <span class="sim-label">Market Growth Rate</span>
+              <span class="sim-val" id="weight-growth-val">25%</span>
+            </div>
+            <input type="range" id="weight-growth" class="sim-slider" min="5" max="50" step="5" value="25"
+              oninput="updateMCDA()">
+          </div>
+
+          <div class="sim-group">
+            <div class="sim-header">
+              <span class="sim-label">Profit Margin Potential</span>
+              <span class="sim-val" id="weight-margin-val">30%</span>
+            </div>
+            <input type="range" id="weight-margin" class="sim-slider" min="5" max="50" step="5" value="30"
+              oninput="updateMCDA()">
+          </div>
+
+          <div class="sim-group">
+            <div class="sim-header">
+              <span class="sim-label">Tariff &amp; Trade Ease</span>
+              <span class="sim-val" id="weight-tariff-val">20%</span>
+            </div>
+            <input type="range" id="weight-tariff" class="sim-slider" min="5" max="50" step="5" value="20"
+              oninput="updateMCDA()">
+          </div>
+
+          <div class="sim-group">
+            <div class="sim-header">
+              <span class="sim-label">Logistics Proximity</span>
+              <span class="sim-val" id="weight-logistics-val">15%</span>
+            </div>
+            <input type="range" id="weight-logistics" class="sim-slider" min="5" max="50" step="5" value="15"
+              oninput="updateMCDA()">
+          </div>
+
+          <div class="sim-group">
+            <div class="sim-header">
+              <span class="sim-label">Specialty Coffee Affinity</span>
+              <span class="sim-val" id="weight-affinity-val">10%</span>
+            </div>
+            <input type="range" id="weight-affinity" class="sim-slider" min="5" max="50" step="5" value="10"
+              oninput="updateMCDA()">
+          </div>
+        </div>
+
+        <!-- MCDA Ranking Table -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Dynamically Ranked Global Entry Candidates</h3>
+              <p class="card-desc">Weighted scores normalized on 0–100 scale; automatically resorts as you tweak weights
+                above</p>
+            </div>
+            <button class="btn-outline" onclick="resetMCDAWeights()">Reset Default Weights</button>
+          </div>
+          <div class="table-container">
+            <table class="data-table" id="mcda-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Country / Territory</th>
+                  <th>Composite Score</th>
+                  <th>Growth Score</th>
+                  <th>Margin Score</th>
+                  <th>Tariff Ease</th>
+                  <th>Logistics Speed</th>
+                  <th>Specialty Affinity</th>
+                  <th>Entry Roadmap</th>
+                </tr>
+              </thead>
+              <tbody id="mcda-tbody">
+                <!-- Dynamically populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: RISKS & OBJECTIONS -->
+      <section id="tab-pane-6" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-6">
+        <div class="card-header" style="margin-bottom: 24px;">
+          <div>
+            <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.6rem; color: #fff;">Strategic Objections &amp;
+              Governance Safeguards</h2>
+            <p class="card-desc">Directly resolving stakeholder pushbacks identified in the project scoping phase
+              (objections.md)</p>
+          </div>
+        </div>
+
+        <div class="dashboard-row">
+          <div class="col-6">
+            <div class="risk-card med">
+              <div class="risk-header">
+                <div class="risk-title">Objection 1: Domestic Growth Myth vs Reality</div>
+                <span class="badge-pill badge-conditional">Medium Risk</span>
+              </div>
+              <p class="risk-body">
+                <strong>Stakeholder Pushback:</strong> "China's domestic coffee market is growing at 15%+ per year. Why
+                waste capital fighting foreign giants in Japan or the US when we can just expand into domestic
+                second-tier cities?"
+              </p>
+              <div class="risk-mitigation">
+                <strong>Data Counter-Evidence:</strong> While top-line volume is growing, aggressive price wars led by
+                Luckin Coffee and Cotti Coffee (¥9.9 / $1.40 cups) have severely eroded green bean procurement margins.
+                Overseas expansion provides critical margin diversification and insulates the firm from single-market
+                price cannibalization.
+              </div>
+            </div>
+
+            <div class="risk-card high">
+              <div class="risk-header">
+                <div class="risk-title">Objection 2: The Yunnan "Cheap Commodity" Origin Stigma</div>
+                <span class="badge-pill badge-nogo">Critical Risk</span>
+              </div>
+              <p class="risk-body">
+                <strong>Stakeholder Pushback:</strong> "Historically, Yunnan coffee was bought in bulk by Nestlé for
+                cheap instant coffee powder. Foreign specialty consumers will reject Chinese beans as lacking pedigree."
+              </p>
+              <div class="risk-mitigation">
+                <strong>Strategic Safeguard:</strong> Avoid raw bulk green bean export. Export exclusively finished,
+                SCA-graded 84+ single-origin lots with double-anaerobic honey processing, highlighting high-elevation
+                Pu'er terroir and smallholder farmer stories. Partner with respected local micro-roasters in Tokyo and
+                Melbourne to validate provenance.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-6">
+            <div class="risk-card high">
+              <div class="risk-header">
+                <div class="risk-title">Objection 3: Geopolitical Tariffs &amp; Section 301 Penalties</div>
+                <span class="badge-pill badge-nogo">Critical Risk</span>
+              </div>
+              <p class="risk-body">
+                <strong>Stakeholder Pushback:</strong> "Exporting to the United States carries 25% Section 301 tariffs,
+                and European compliance is increasingly onerous. Policy shocks could bankrupt export shipments."
+              </p>
+              <div class="risk-mitigation">
+                <strong>Strategic Safeguard:</strong> Strictly exclude the United States from Phase 1. Focus 100% of
+                initial resources on RCEP treaty partners (Japan, South Korea, Singapore, Australia) where China enjoys
+                0% or low preferential tariffs, transparent customs clearing, and 4–8 day ocean shipping.
+              </div>
+            </div>
+
+            <div class="risk-card low">
+              <div class="risk-header">
+                <div class="risk-title">Objection 4: Foreign Exchange &amp; Currency Volatility</div>
+                <span class="badge-pill badge-go">Low / Manageable</span>
+              </div>
+              <p class="risk-body">
+                <strong>Stakeholder Pushback:</strong> "Fluctuations in JPY, KRW, and USD against RMB could wipe out
+                thin trading margins."
+              </p>
+              <div class="risk-mitigation">
+                <strong>Strategic Safeguard:</strong> In Japan and South Korea, quote export contracts in USD or RMB
+                cross-border settlement (CIPS), or utilize forward foreign exchange contracts for deliveries exceeding
+                20 Metric Tons.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <h3 class="card-title">Regulatory Compliance Roadmap (EUDR &amp; FDA/JAS Certification)</h3>
+              <p class="card-desc">Timeline and certification gates required prior to container dispatch</p>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Compliance Gate</th>
+                  <th>Applicable Markets</th>
+                  <th>Mandatory Documentation</th>
+                  <th>Lead Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>RCEP Certificate of Origin</strong></td>
+                  <td>Japan, South Korea, Singapore, Australia</td>
+                  <td>China Council for the Promotion of International Trade (CCPIT) Form RCEP</td>
+                  <td>5 business days</td>
+                  <td><span class="badge-pill badge-go">Ready to File</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Phytosanitary Inspection</strong></td>
+                  <td>All overseas destinations</td>
+                  <td>China Customs (GACC) Plant Health Inspection &amp; Fumigation Certificate</td>
+                  <td>7 business days</td>
+                  <td><span class="badge-pill badge-go">Standard Process</span></td>
+                </tr>
+                <tr>
+                  <td><strong>JAS Organic / Pesticide Screen</strong></td>
+                  <td>Japan</td>
+                  <td>Positive List System testing (zero trace of banned pesticides on green beans)</td>
+                  <td>3 weeks</td>
+                  <td><span class="badge-pill badge-conditional">Testing in Progress</span></td>
+                </tr>
+                <tr>
+                  <td><strong>EUDR Geolocation Mapping</strong></td>
+                  <td>Germany &amp; European Union</td>
+                  <td>GPS polygon coordinates verifying no deforestation post-Dec 2020</td>
+                  <td>4–6 months</td>
+                  <td><span class="badge-pill badge-nogo">Phase 3 Requirement</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div>
+        <strong>Yunnan Coffee CPG Global Strategy Decision System</strong> • DSO Strategic Analytics Framework
+      </div>
+      <div class="footer-links">
+        <span>Course Role Alignment:</span>
+        <a href="#tab-1" onclick="switchTab(1)">Objectives</a>
+        <a href="#tab-2" onclick="switchTab(2)">Data Fit</a>
+        <a href="#tab-4" onclick="switchTab(4)">Financials</a>
+        <a href="#tab-6" onclick="switchTab(6)">Objections</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC & CHARTS -->
+  <script>
+    // Tab Switching Logic
+    function switchTab(tabIndex) {
+      document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+
+      const selectedPane = document.getElementById(`tab-pane-${tabIndex}`);
+      const selectedBtn = document.getElementById(`tab-btn-${tabIndex}`);
+
+      if (selectedPane && selectedBtn) {
+        selectedPane.classList.add('active');
+        selectedBtn.classList.add('active');
+        selectedBtn.setAttribute('aria-selected', 'true');
+      }
+
+      // Re-render / resize chart instances if needed
+      window.dispatchEvent(new Event('resize'));
+    }
+
+    // Chart.js Default Theming
+    Chart.defaults.color = '#c5bfb6';
+    Chart.defaults.font.family = "'Inter', sans-serif";
+    Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.08)';
+
+    // Global Chart References
+    let radarChartInst, marginChartInst, bubbleChartInst, concentrationChartInst, channelFitChartInst, simComparisonChartInst;
+
+    // 1. Radar Chart: Multi-Vector Readiness
+    function initRadarChart() {
+      const ctx = document.getElementById('radarChart');
+      if (!ctx) return;
+
+      radarChartInst = new Chart(ctx, {
+        type: 'radar',
+        data: {
+          labels: ['Market Growth', 'Margin Potential', 'Tariff Ease', 'Logistics Proximity', 'Specialty Coffee Affinity'],
+          datasets: [
+            {
+              label: 'Japan (Phase 1 Target)',
+              data: [65, 92, 95, 90, 88],
+              backgroundColor: 'rgba(212, 163, 115, 0.25)',
+              borderColor: '#d4a373',
+              borderWidth: 2,
+              pointBackgroundColor: '#d4a373',
+              pointRadius: 4
+            },
+            {
+              label: 'South Korea (Phase 1 Target)',
+              data: [78, 90, 92, 94, 85],
+              backgroundColor: 'rgba(82, 183, 136, 0.2)',
+              borderColor: '#52b788',
+              borderWidth: 2,
+              pointBackgroundColor: '#52b788',
+              pointRadius: 4
+            },
+            {
+              label: 'China (Domestic Benchmark)',
+              data: [98, 48, 100, 100, 52],
+              backgroundColor: 'rgba(69, 123, 157, 0.15)',
+              borderColor: '#457b9d',
+              borderWidth: 2,
+              borderDash: [4, 4],
+              pointBackgroundColor: '#457b9d',
+              pointRadius: 3
+            },
+            {
+              label: 'United States (Hold)',
+              data: [70, 75, 30, 40, 92],
+              backgroundColor: 'rgba(231, 111, 81, 0.15)',
+              borderColor: '#e76f51',
+              borderWidth: 2,
+              pointBackgroundColor: '#e76f51',
+              pointRadius: 3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              ticks: { stepSize: 20, backdropColor: 'transparent', color: '#8d857b' },
+              grid: { color: 'rgba(255, 255, 255, 0.06)' },
+              angleLines: { color: 'rgba(255, 255, 255, 0.08)' },
+              pointLabels: { color: '#f8f6f0', font: { size: 11, weight: '600' } }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 14 } }
+          }
+        }
+      });
+    }
+
+    // 2. Margin Breakdown Waterfall (Stacked Bar)
+    function initMarginChart() {
+      const ctx = document.getElementById('marginChart');
+      if (!ctx) return;
+
+      marginChartInst = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['China (Domestic)', 'Japan (Export)', 'South Korea (Export)', 'Australia (Export)', 'United States (Export)'],
+          datasets: [
+            {
+              label: 'Green Bean & Farm Cost',
+              data: [6.5, 7.5, 7.5, 8.0, 7.5],
+              backgroundColor: '#43281c'
+            },
+            {
+              label: 'Roasting & Packaging',
+              data: [3.2, 4.5, 4.2, 4.5, 4.2],
+              backgroundColor: '#6b4c35'
+            },
+            {
+              label: 'Freight & Port Duties',
+              data: [0.6, 1.2, 1.0, 2.5, 5.8],
+              backgroundColor: '#c27847'
+            },
+            {
+              label: 'Distributor / Channel Cut',
+              data: [5.9, 16.8, 14.0, 20.4, 17.7],
+              backgroundColor: 'rgba(255, 255, 255, 0.12)'
+            },
+            {
+              label: 'Net Producer Profit (Retained)',
+              data: [2.3, 8.2, 8.3, 10.1, 6.8],
+              backgroundColor: '#52b788',
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { stacked: true, grid: { display: false } },
+            y: {
+              stacked: true,
+              title: { display: true, text: 'USD per kg (Retail Equivalent)', color: '#8d857b' },
+              grid: { color: 'rgba(255, 255, 255, 0.06)' }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  return context.dataset.label + ': $' + context.raw.toFixed(2) + ' / kg';
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // 3. Bubble Chart: Market Attractiveness Matrix
+    function initBubbleChart() {
+      const ctx = document.getElementById('bubbleChart');
+      if (!ctx) return;
+
+      bubbleChartInst = new Chart(ctx, {
+        type: 'bubble',
+        data: {
+          datasets: [
+            {
+              label: 'Phase 1 Priority Targets (East Asia)',
+              data: [
+                { x: 3.8, y: 38.2, r: 24, country: 'Japan (TAM $9.4B)' },
+                { x: 6.5, y: 35.0, r: 20, country: 'South Korea (TAM $6.1B)' }
+              ],
+              backgroundColor: 'rgba(82, 183, 136, 0.7)',
+              borderColor: '#52b788'
+            },
+            {
+              label: 'Phase 2 Candidates (Oceania & SE Asia)',
+              data: [
+                { x: 5.1, y: 45.5, r: 14, country: 'Australia (TAM $3.2B)' },
+                { x: 7.2, y: 40.0, r: 9, country: 'Singapore (TAM $0.65B)' }
+              ],
+              backgroundColor: 'rgba(212, 163, 115, 0.7)',
+              borderColor: '#d4a373'
+            },
+            {
+              label: 'High Barrier / Hold Markets',
+              data: [
+                { x: 4.2, y: 42.0, r: 35, country: 'United States (TAM $28.5B)' },
+                { x: 2.9, y: 34.0, r: 26, country: 'Germany / EU (TAM $12.8B)' }
+              ],
+              backgroundColor: 'rgba(231, 111, 81, 0.6)',
+              borderColor: '#e76f51'
+            },
+            {
+              label: 'Domestic Benchmark',
+              data: [
+                { x: 14.8, y: 18.5, r: 30, country: 'China Domestic (TAM $18.2B)' }
+              ],
+              backgroundColor: 'rgba(69, 123, 157, 0.7)',
+              borderColor: '#457b9d'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              title: { display: true, text: '5-Year Forecasted CAGR (%)', color: '#8d857b' },
+              grid: { color: 'rgba(255, 255, 255, 0.06)' }
+            },
+            y: {
+              title: { display: true, text: 'Specialty Retail Price (USD / kg)', color: '#8d857b' },
+              grid: { color: 'rgba(255, 255, 255, 0.06)' }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom', labels: { boxWidth: 12, padding: 12 } },
+            tooltip: {
+              callbacks: {
+                label: function (context) {
+                  const raw = context.raw;
+                  return `${raw.country}: Growth ${raw.x}% | Price $${raw.y}/kg`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // 4. Market Saturation & Concentration (Bar Chart)
+    function initConcentrationChart() {
+      const ctx = document.getElementById('concentrationChart');
+      if (!ctx) return;
+
+      concentrationChartInst = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['China', 'Japan', 'South Korea', 'Australia', 'United States', 'Germany'],
+          datasets: [
+            {
+              label: 'Top 4 Brand Concentration (CR4 %)',
+              data: [68, 42, 38, 22, 54, 62],
+              backgroundColor: '#d4a373',
+              borderRadius: 4
+            },
+            {
+              label: 'Independent / Specialty Fragment Share (%)',
+              data: [32, 58, 62, 78, 46, 38],
+              backgroundColor: '#2d6a4f',
+              borderRadius: 4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { grid: { display: false } },
+            y: {
+              max: 100,
+              title: { display: true, text: 'Share of Coffee Volume (%)', color: '#8d857b' },
+              grid: { color: 'rgba(255, 255, 255, 0.06)' }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+    }
+
+    // 5. Channel Fit Heatmap / Bar
+    function initChannelFitChart() {
+      const ctx = document.getElementById('channelFitChart');
+      if (!ctx) return;
+
+      channelFitChartInst = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Specialty Cafes', 'Cross-Border E-Commerce', 'Premium Supermarkets', 'Convenience Chains (C-Stores)', 'Office / B2B Corporate'],
+          datasets: [
+            {
+              label: 'Japan Fit Score (1-5)',
+              data: [4.8, 4.5, 3.8, 4.2, 4.6],
+              backgroundColor: 'rgba(212, 163, 115, 0.85)'
+            },
+            {
+              label: 'South Korea Fit Score (1-5)',
+              data: [4.9, 4.7, 3.6, 4.8, 4.3],
+              backgroundColor: 'rgba(82, 183, 136, 0.85)'
+            },
+            {
+              label: 'Australia Fit Score (1-5)',
+              data: [5.0, 3.2, 2.5, 1.8, 3.5],
+              backgroundColor: 'rgba(233, 196, 106, 0.85)'
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              max: 5,
+              title: { display: true, text: 'Channel Viability Score (Max 5.0)', color: '#8d857b' },
+              grid: { color: 'rgba(255, 255, 255, 0.06)' }
+            }
+          },
+          plugins: {
+            legend: { position: 'bottom' }
+          }
+        }
+      });
+    }
+
+    // 6. Financial Sensitivity Simulator Logic
+    const countryTariffDefaults = {
+      japan: { tariff: 0, freight: 0.8, price: 26, name: 'Japan' },
+      korea: { tariff: 2, freight: 0.7, price: 25, name: 'South Korea' },
+      australia: { tariff: 0, freight: 1.5, price: 29, name: 'Australia' },
+      singapore: { tariff: 0, freight: 0.9, price: 27, name: 'Singapore' },
+      usa: { tariff: 25, freight: 2.2, price: 28, name: 'United States' },
+      germany: { tariff: 7.5, freight: 2.0, price: 24, name: 'Germany' }
+    };
+
+    function recalculateSimulator() {
+      const countryKey = document.getElementById('sim-country').value;
+      const defaultData = countryTariffDefaults[countryKey];
+
+      const volumeMT = parseFloat(document.getElementById('input-volume').value);
+      const fobPrice = parseFloat(document.getElementById('input-price').value);
+      const freightPerKg = parseFloat(document.getElementById('input-freight').value);
+      const tariffRate = parseFloat(document.getElementById('input-tariff').value);
+      const marketingBudget = parseFloat(document.getElementById('input-marketing').value);
+
+      // Update UI labels
+      document.getElementById('val-volume').innerText = `${volumeMT} MT`;
+      document.getElementById('val-price').innerText = `$${fobPrice.toFixed(2)}`;
+      document.getElementById('val-freight').innerText = `$${freightPerKg.toFixed(2)}`;
+      document.getElementById('val-tariff').innerText = `${tariffRate}%`;
+      document.getElementById('val-marketing').innerText = `$${marketingBudget.toLocaleString()}`;
+
+      // Calculations
+      const volumeKg = volumeMT * 1000;
+      const totalRevenue = volumeKg * fobPrice;
+
+      // Cost of Goods: Green bean ($7.50/kg) + Processing/Roasting ($4.00/kg) = $11.50/kg production cost
+      const productionCostPerKg = 11.50;
+      const baseProductionCost = volumeKg * productionCostPerKg;
+      const totalFreight = volumeKg * freightPerKg;
+      const totalDuties = totalRevenue * (tariffRate / 100);
+      const totalLandedAndOps = baseProductionCost + totalFreight + totalDuties + marketingBudget;
+
+      const netProfit = totalRevenue - totalLandedAndOps;
+      const netMargin = (netProfit / totalRevenue) * 100;
+
+      // Domestic China Benchmark: Selling identical volume in China at $16.50/kg wholesale, cost $12.00, marketing $30k
+      const domesticRevenue = volumeKg * 16.50;
+      const domesticCost = (volumeKg * 12.00) + 30000;
+      const domesticProfit = domesticRevenue - domesticCost;
+      const domesticMargin = (domesticProfit / domesticRevenue) * 100;
+      const profitDelta = netProfit - domesticProfit;
+
+      // Update KPI Elements
+      document.getElementById('out-revenue').innerText = `$${Math.round(totalRevenue).toLocaleString()}`;
+      document.getElementById('out-revenue-sub').innerText = `${volumeKg.toLocaleString()} kg @ $${fobPrice.toFixed(2)}/kg`;
+      document.getElementById('out-cogs').innerText = `$${Math.round(totalLandedAndOps).toLocaleString()}`;
+
+      const profitEl = document.getElementById('out-profit');
+      profitEl.innerText = `$${Math.round(netProfit).toLocaleString()}`;
+      profitEl.className = 'sim-out-val ' + (netProfit >= 0 ? 'positive' : 'negative');
+
+      const marginEl = document.getElementById('out-margin');
+      marginEl.innerText = `${netMargin.toFixed(1)}%`;
+      marginEl.className = 'sim-out-val ' + (netMargin >= 15 ? 'positive' : (netMargin > 0 ? '' : 'negative'));
+
+      const marginSubEl = document.getElementById('out-margin-vs-domestic');
+      const spread = netMargin - domesticMargin;
+      marginSubEl.innerText = `${spread >= 0 ? '+' : ''}${spread.toFixed(1)}% vs. China Domestic (${domesticMargin.toFixed(1)}%)`;
+
+      // Update dynamic verdict box
+      const verdictBox = document.getElementById('sim-verdict-box');
+      const verdictIcon = document.getElementById('sim-verdict-icon');
+      const verdictTitle = document.getElementById('sim-verdict-title');
+      const verdictDesc = document.getElementById('sim-verdict-desc');
+
+      if (netMargin >= 18 && profitDelta > 0) {
+        verdictBox.style.borderColor = 'var(--brand-green-light)';
+        verdictBox.style.background = 'rgba(45, 106, 79, 0.15)';
+        verdictIcon.innerText = '🚀';
+        verdictTitle.innerText = `STRATEGIC VERDICT: HIGHLY ACCRETIVE EXPORT TO ${defaultData.name.toUpperCase()}`;
+        verdictDesc.innerText = `This scenario yields a healthy ${netMargin.toFixed(1)}% net margin, generating $${Math.round(profitDelta).toLocaleString()} in incremental profit over domestic China deployment. RCEP tariff advantages and premium pricing deliver strong ROI.`;
+      } else if (netMargin >= 10 && netProfit > 0) {
+        verdictBox.style.borderColor = 'var(--brand-gold)';
+        verdictBox.style.background = 'rgba(233, 196, 106, 0.12)';
+        verdictIcon.innerText = '⚖️';
+        verdictTitle.innerText = `STRATEGIC VERDICT: CONDITIONAL / FEASIBLE`;
+        verdictDesc.innerText = `Export generates positive cash flow ($${Math.round(netProfit).toLocaleString()}) but margin spread over domestic China is modest (${spread >= 0 ? '+' : ''}${spread.toFixed(1)}%). Consider negotiating lower freight or packaging smaller retail pouches.`;
+      } else {
+        verdictBox.style.borderColor = 'var(--brand-ruby)';
+        verdictBox.style.background = 'rgba(231, 111, 81, 0.15)';
+        verdictIcon.innerText = '⚠️';
+        verdictTitle.innerText = `STRATEGIC VERDICT: MARGIN DILUTIVE / HOLD`;
+        verdictDesc.innerText = `High tariff barrier (${tariffRate}%), elevated freight, or insufficient wholesale price make this route less profitable than domestic sales (Profit Delta: -$${Math.abs(Math.round(profitDelta)).toLocaleString()}). Defend domestic China or switch target markets.`;
+      }
+
+      // Update comparison chart
+      updateSimChart(netProfit, domesticProfit, defaultData.name);
+    }
+
+    function initSimChart() {
+      const ctx = document.getElementById('simComparisonChart');
+      if (!ctx) return;
+
+      simComparisonChartInst = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Overseas Export Route', 'Domestic China Benchmark'],
+          datasets: [{
+            label: 'Net Operating Profit ($ USD)',
+            data: [300000, 195000],
+            backgroundColor: ['#52b788', '#457b9d'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: {
+              grid: { color: 'rgba(255, 255, 255, 0.06)' },
+              ticks: {
+                callback: function (val) { return '$' + (val / 1000).toFixed(0) + 'k'; }
+              }
+            },
+            y: { grid: { display: false } }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+    }
+
+    function updateSimChart(exportProfit, domesticProfit, countryName) {
+      if (!simComparisonChartInst) return;
+      simComparisonChartInst.data.labels = [`Export to ${countryName}`, 'Domestic China Benchmark'];
+      simComparisonChartInst.data.datasets[0].data = [Math.round(exportProfit), Math.round(domesticProfit)];
+      simComparisonChartInst.data.datasets[0].backgroundColor = [
+        exportProfit >= domesticProfit ? '#52b788' : '#e76f51',
+        '#457b9d'
+      ];
+      simComparisonChartInst.update();
+    }
+
+    // Synchronize default slider values when country changes
+    document.getElementById('sim-country')?.addEventListener('change', function () {
+      const cfg = countryTariffDefaults[this.value];
+      if (cfg) {
+        document.getElementById('input-tariff').value = cfg.tariff;
+        document.getElementById('input-freight').value = cfg.freight;
+        document.getElementById('input-price').value = cfg.price;
+        recalculateSimulator();
+      }
+    });
+
+    // 7. Multi-Criteria Decision Analysis (MCDA) Scoring Engine
+    const mcdaData = [
+      { id: 'jp', country: 'Japan', flag: '🇯🇵', rawGrowth: 68, rawMargin: 94, rawTariff: 100, rawLogistics: 92, rawAffinity: 88, roadmap: 'Phase 1: Priority Entry' },
+      { id: 'kr', country: 'South Korea', flag: '🇰🇷', rawGrowth: 80, rawMargin: 90, rawTariff: 95, rawLogistics: 95, rawAffinity: 86, roadmap: 'Phase 1: Priority Entry' },
+      { id: 'au', country: 'Australia', flag: '🇦🇺', rawGrowth: 72, rawMargin: 92, rawTariff: 100, rawLogistics: 75, rawAffinity: 96, roadmap: 'Phase 2: Specialty Whole Bean' },
+      { id: 'sg', country: 'Singapore', flag: '🇸🇬', rawGrowth: 85, rawMargin: 88, rawTariff: 100, rawLogistics: 88, rawAffinity: 75, roadmap: 'Phase 2: Pilot / Regional Hub' },
+      { id: 'cn', country: 'China (Domestic)', flag: '🇨🇳', rawGrowth: 98, rawMargin: 45, rawTariff: 100, rawLogistics: 100, rawAffinity: 55, roadmap: 'Base: Maintain & Defend' },
+      { id: 'us', country: 'United States', flag: '🇺🇸', rawGrowth: 70, rawMargin: 72, rawTariff: 25, rawLogistics: 40, rawAffinity: 92, roadmap: 'Phase 3 / Hold (High Tariffs)' },
+      { id: 'de', country: 'Germany (EU)', flag: '🇩🇪', rawGrowth: 55, rawMargin: 65, rawTariff: 50, rawLogistics: 35, rawAffinity: 78, roadmap: 'Phase 3 / Hold (EUDR Barrier)' }
+    ];
+
+    function updateMCDA() {
+      const wGrowth = parseFloat(document.getElementById('weight-growth').value);
+      const wMargin = parseFloat(document.getElementById('weight-margin').value);
+      const wTariff = parseFloat(document.getElementById('weight-tariff').value);
+      const wLogistics = parseFloat(document.getElementById('weight-logistics').value);
+      const wAffinity = parseFloat(document.getElementById('weight-affinity').value);
+
+      document.getElementById('weight-growth-val').innerText = `${wGrowth}%`;
+      document.getElementById('weight-margin-val').innerText = `${wMargin}%`;
+      document.getElementById('weight-tariff-val').innerText = `${wTariff}%`;
+      document.getElementById('weight-logistics-val').innerText = `${wLogistics}%`;
+      document.getElementById('weight-affinity-val').innerText = `${wAffinity}%`;
+
+      const totalWeight = wGrowth + wMargin + wTariff + wLogistics + wAffinity;
+
+      const scored = mcdaData.map(c => {
+        const composite = (
+          (c.rawGrowth * wGrowth) +
+          (c.rawMargin * wMargin) +
+          (c.rawTariff * wTariff) +
+          (c.rawLogistics * wLogistics) +
+          (c.rawAffinity * wAffinity)
+        ) / totalWeight;
+
+        return { ...c, composite: parseFloat(composite.toFixed(1)) };
+      });
+
+      // Sort descending
+      scored.sort((a, b) => b.composite - a.composite);
+
+      // Render Table
+      const tbody = document.getElementById('mcda-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      scored.forEach((row, idx) => {
+        const tr = document.createElement('tr');
+
+        let rankBadgeClass = 'badge-go';
+        if (idx === 0) rankBadgeClass = 'badge-go" style="background: var(--brand-crema); color: #000;';
+        else if (idx > 3) rankBadgeClass = 'badge-nogo';
+
+        let verdictBadge = `<span class="badge-pill ${row.id === 'cn' ? 'badge-domestic' : (idx < 2 ? 'badge-go' : (idx < 4 ? 'badge-conditional' : 'badge-nogo'))}">${row.roadmap}</span>`;
+
+        tr.innerHTML = `
+          <td><span class="badge-pill ${rankBadgeClass}">#${idx + 1}</span></td>
+          <td class="country-cell"><span class="flag-icon">${row.flag}</span> ${row.country}</td>
+          <td style="font-weight: 700; color: var(--brand-crema); font-size: 1.05rem;">${row.composite}</td>
+          <td>${row.rawGrowth}</td>
+          <td>${row.rawMargin}</td>
+          <td>${row.rawTariff}</td>
+          <td>${row.rawLogistics}</td>
+          <td>${row.rawAffinity}</td>
+          <td>${verdictBadge}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function resetMCDAWeights() {
+      document.getElementById('weight-growth').value = 25;
+      document.getElementById('weight-margin').value = 30;
+      document.getElementById('weight-tariff').value = 20;
+      document.getElementById('weight-logistics').value = 15;
+      document.getElementById('weight-affinity').value = 10;
+      updateMCDA();
+    }
+
+    // Window Load Initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      initRadarChart();
+      initMarginChart();
+      initBubbleChart();
+      initConcentrationChart();
+      initChannelFitChart();
+      initSimChart();
+      recalculateSimulator();
+      updateMCDA();
+    });
+  </script>
+</body>
+
+</html>
