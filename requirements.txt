@@ -1,0 +1,5 @@
+# Python 3.11 or newer (tested on 3.12)
+pandas==3.0.2
+numpy==2.4.4
+xlrd==2.0.2      # reads the legacy .xls files exported by Passport
+ipykernel==7.4.0 # lets VS Code run the notebook

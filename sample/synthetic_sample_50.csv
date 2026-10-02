@@ -1,0 +1,51 @@
+SYNTHETIC_DATA,dataset,geography,category,data_type,segment,year,value,is_missing,why_selected
+"YES - values are random, not Euromonitor data",market_sizes,India,RTD Coffee,Off-trade Volume,,2015,,True,"Whole series is '-' in source; kept as NaN, not 0"
+"YES - values are random, not Euromonitor data",market_sizes,India,RTD Coffee,Off-trade Value RSP,,2015,,True,"Whole series is '-' in source; kept as NaN, not 0"
+"YES - values are random, not Euromonitor data",market_sizes,India,RTD Coffee,Off-trade Volume,,2025,,True,"Whole series is '-' in source; kept as NaN, not 0"
+"YES - values are random, not Euromonitor data",market_sizes,India,RTD Coffee,Off-trade Value RSP,,2025,,True,"Whole series is '-' in source; kept as NaN, not 0"
+"YES - values are random, not Euromonitor data",market_sizes,Japan,Coffee,Retail Value RSP,,2020,396.3000,False,Unit rescaled JPY billion -> JPY million (x1000)
+"YES - values are random, not Euromonitor data",market_sizes,Japan,Coffee,Retail Value RSP,,2025,881.2000,False,Unit rescaled JPY billion -> JPY million (x1000)
+"YES - values are random, not Euromonitor data",market_sizes,China,Coffee,Retail Value RSP,,2020,300.0000,False,Local currency (CNY); cannot be compared to USD rows
+"YES - values are random, not Euromonitor data",market_sizes,China,Coffee,Retail Value RSP,,2025,444.6000,False,Local currency (CNY); cannot be compared to USD rows
+"YES - values are random, not Euromonitor data",market_sizes,United Kingdom,RTD Coffee,Off-trade Value RSP,,2015,311.5000,False,Very large YoY growth; unusual but kept
+"YES - values are random, not Euromonitor data",market_sizes,United Kingdom,RTD Coffee,Off-trade Value RSP,,2016,279.6000,False,Very large YoY growth; unusual but kept
+"YES - values are random, not Euromonitor data",market_sizes,World,Coffee,Retail Volume,,2025,536.3000,False,Ordinary World total row (control case)
+"YES - values are random, not Euromonitor data",pack_type,World,Coffee,Retail/off-trade Unit Volume,PET Jars,2025,816.3000,False,Label had trailing space 'PET Jars ' in source
+"YES - values are random, not Euromonitor data",pack_type,United Kingdom,Coffee,Retail/off-trade Unit Volume,Flexible Paper/Plastic,2015,,True,Series entirely '-' in source
+"YES - values are random, not Euromonitor data",pack_type,United Kingdom,Coffee,Retail/off-trade Unit Volume,Flexible Paper/Plastic,2025,,True,Series entirely '-' in source
+"YES - values are random, not Euromonitor data",pack_type,China,RTD Coffee,Retail/off-trade Unit Volume,Brick Liquid Cartons,2025,,True,Series entirely '-' in source
+"YES - values are random, not Euromonitor data",pack_type,World,RTD Coffee,Retail/off-trade Unit Volume,Stand-Up Pouches,2025,541.8000,False,Nested level: Stand-Up Pouches sits inside Flexible Packaging (do not add both)
+"YES - values are random, not Euromonitor data",retail_channels,World,RTD Coffee,Off-trade Volume,Food/drink/tobacco specialists,2015,0.0000,False,'-' (not tracked) vs true 0 share - kept distinct
+"YES - values are random, not Euromonitor data",retail_channels,World,RTD Coffee,Off-trade Volume,Apparel and Footwear Specialists,2015,,True,'-' (not tracked) vs true 0 share - kept distinct
+"YES - values are random, not Euromonitor data",retail_channels,World,RTD Coffee,Off-trade Volume,Direct Selling,2015,,True,'-' (not tracked) vs true 0 share - kept distinct
+"YES - values are random, not Euromonitor data",retail_channels,Japan,RTD Coffee,Off-trade Volume,Vending,2025,213.6000,False,Key channels for Japan RTD
+"YES - values are random, not Euromonitor data",retail_channels,Japan,RTD Coffee,Off-trade Volume,Retail E-Commerce,2025,198.9000,False,Key channels for Japan RTD
+"YES - values are random, not Euromonitor data",pack_size,Eastern Europe,Coffee,Retail/off-trade Unit Volume,Total Packaging | 10 g,2015,803.5000,False,Sharp decline 2015 -> 2025; unusual but kept
+"YES - values are random, not Euromonitor data",pack_size,Eastern Europe,Coffee,Retail/off-trade Unit Volume,Total Packaging | 10 g,2025,660.5000,False,Sharp decline 2015 -> 2025; unusual but kept
+"YES - values are random, not Euromonitor data",pack_size,Japan,RTD Coffee,Retail/off-trade Unit Volume,Metal Beverage Cans | 185 ml,2025,278.9000,False,RTD sizes are in ml (Coffee in g) - parsed separately
+"YES - values are random, not Euromonitor data",pack_size,Japan,RTD Coffee,Retail/off-trade Unit Volume,Metal Beverage Cans | 190 ml,2025,119.5000,False,RTD sizes are in ml (Coffee in g) - parsed separately
+"YES - values are random, not Euromonitor data",pack_size,Japan,RTD Coffee,Retail/off-trade Unit Volume,Metal Beverage Cans | 230 ml,2025,407.5000,False,RTD sizes are in ml (Coffee in g) - parsed separately
+"YES - values are random, not Euromonitor data",pack_size,Latin America,Coffee,Retail/off-trade Unit Volume,Folding Cartons | 150 g,2016,376.1000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,World,Coffee,Retail/off-trade Unit Volume,Total Packaging | 110 g,2025,820.7000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Middle East and Africa,Coffee,Retail/off-trade Unit Volume,Metal Tins | 500 g,2022,79.9000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_type,Australia,Coffee,Retail/off-trade Unit Volume,Flexible Packaging,2018,345.7000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Middle East and Africa,Coffee,Retail/off-trade Unit Volume,Folding Cartons | 120 g,2020,578.9000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",retail_channels,World,Coffee,Retail Volume,Direct Selling,2022,248.0000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Middle East and Africa,Coffee,Retail/off-trade Unit Volume,Paper-based Containers | 180 g,2016,538.5000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,World,Coffee,Retail/off-trade Unit Volume,Flexible Packaging | 225 g,2020,187.2000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Asia Pacific,Coffee,Retail/off-trade Unit Volume,Paper-based Containers | 1170 g,2025,717.6000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Asia Pacific,Coffee,Retail/off-trade Unit Volume,Flexible Aluminium/Plastic | 480 g,2017,570.2000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Australasia,RTD Coffee,Retail/off-trade Unit Volume,Total Packaging | 2000 ml,2025,89.0000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",retail_channels,Australasia,Coffee,Retail Volume,Vending,2018,788.4000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,North America,Coffee,Retail/off-trade Unit Volume,PET Jars | 340 g,2025,426.6000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",retail_channels,Eastern Europe,RTD Coffee,Off-trade Volume,Small Local Grocers,2021,731.5000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Eastern Europe,Coffee,Retail/off-trade Unit Volume,Stand-Up Pouches | 140 g,2017,936.4000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Japan,RTD Coffee,Retail/off-trade Unit Volume,Metal | 300 ml,2019,578.7000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,France,Coffee,Retail/off-trade Unit Volume,Metal Tins | 125 g,2022,538.4000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Western Europe,Coffee,Retail/off-trade Unit Volume,Total Packaging | 125 g,2025,660.1000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_type,USA,Coffee,Retail/off-trade Unit Volume,Total Packaging,2023,495.9000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,World,Coffee,Retail/off-trade Unit Volume,Total Packaging | 36 g,2018,337.7000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Asia Pacific,Coffee,Retail/off-trade Unit Volume,Glass | 130 g,2022,410.0000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,Australia,Coffee,Retail/off-trade Unit Volume,Total Packaging | 125 g,2018,476.5000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",retail_channels,Western Europe,Coffee,Retail Volume,Forecourt Retailers,2019,973.0000,False,Random ordinary row (seed 576)
+"YES - values are random, not Euromonitor data",pack_size,World,Coffee,Retail/off-trade Unit Volume,Paper-based Containers | 124 g,2025,227.7000,False,Random ordinary row (seed 576)
