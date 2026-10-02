@@ -4,12 +4,12 @@ DSO 576 Project: Decision-support analytics for international market prioritizat
 
 ---
 
-## Module 6: Project data cleaning (branch `[your-branch-name]`)
+## Module 6: Project data cleaning (branch `cleaning-liuhuang-lang`)
 
-**Student:** Antonio
-**Branch:** `[your-branch-name]`
-**Branch URL:** [paste link to your branch]
-**Commit ID:** [paste the commit ID you submit]
+- **Student:** Antonio
+- **Branch:** `cleaning-liuhuang-lang`
+- **Branch URL:** https://github.com/betakappa123/cpg-global-entry-strategy/tree/cleaning-liuhuang-lang
+- **Commit ID (code and results):** `479ef5e`
 
 ### Data source and version
 
