@@ -354,4 +354,4 @@ The following table records the historical state before the student's implementa
 
 ## Submission revision - October 3, 2026
 
-The updated handout supersedes the former group/ZIP submission instructions: Wendy Sun submits one personal PDF on Gradescope and code, notebook, sample, dependencies, and README on branch Wendy. The data-cleaning rules remain unchanged. A synthetic 40-row demonstration sample is provided for public sharing; all validation evidence comes from the real local data. The report describes the student's actual review of missing-value handling, not a claimed manual Excel audit.
+The updated handout supersedes the former group/ZIP submission instructions: Wendy Sun submits one personal PDF on Gradescope and code, notebook, sample, dependencies, and README on branch Wendy. The data-cleaning rules remain unchanged. The submission contains 40 selected real cleaned rows; all validation evidence comes from the full real dataset. The temporary synthetic alternative was replaced at the student's request. The report describes the student's actual review of missing-value handling, not a claimed manual Excel audit.

@@ -1,52 +1,36 @@
-"""Create invented schema examples, never samples of Passport observations."""
+"""Publish the 40 selected real cleaned rows; verify every field before copying.
+
+Run clean_coffee.py first to regenerate the deterministic local samples.
+"""
 import csv
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-YEARS = [str(y) for y in range(2015, 2026)]
-KEYS = {
-    'market_sizes': ['Geography', 'Category', 'Data Type', 'Unit', 'Current Constant'],
-    'retail_channels': ['Geography', 'Category', 'Outlet Type', 'Data Type', 'Unit'],
-    'pack_type': ['Geography', 'Category', 'Packaging Class', 'Pack Type', 'Data Type', 'Unit'],
-    'pack_size': ['Geography', 'Category', 'Packaging Class', 'Pack Type', 'Pack Size', 'Data Type', 'Unit'],
-}
+NAMES = ['market_sizes', 'retail_channels', 'pack_type', 'pack_size']
+
+def read(path):
+    with path.open(encoding='utf-8-sig', newline='') as stream:
+        reader=csv.DictReader(stream)
+        return reader.fieldnames, list(reader)
 
 def generate():
-    folder = ROOT / 'submission/samples'
-    folder.mkdir(parents=True, exist_ok=True)
-    cases = ['Ordinary numeric values', 'Missing first year', 'All years missing',
-             'Explicit zero retained', 'Large change retained', 'Regional context',
-             'World context', 'RTD category kept separate', 'Aggregate label retained',
-             'Normalized text label']
-    for dataset, keys in KEYS.items():
-        rows = []
-        for i, case in enumerate(cases):
-            rtd = i == 7
-            row = {'Sample Type': 'SYNTHETIC - NOT PASSPORT DATA', 'Case': case,
-                   'Geography': f'Example Country {i+1}', 'Category': 'RTD Coffee' if rtd else 'Coffee',
-                   'Data Type': 'Off-trade Volume' if rtd else 'Retail Volume',
-                   'Unit': 'million litres' if rtd else 'Tonnes', 'Current Constant': '-',
-                   'Outlet Type': 'Retail E-Commerce', 'Packaging Class': 'Total',
-                   'Pack Type': 'PET Jars' if i == 9 else 'Total Packaging',
-                   'Pack Size': '250 ml' if rtd else 'Total' if i == 8 else '100 g'}
-            if i in (5, 6): row['Geography'] = 'Example Region' if i == 5 else 'World'
-            if dataset == 'retail_channels':
-                row['Unit'] = '%'
-                if i == 8: row['Outlet Type'] = 'Total'
-            if dataset in ('pack_type', 'pack_size'):
-                row.update({'Unit': 'million units', 'Data Type': 'Retail/off-trade Unit Volume'})
-            for j, year in enumerate(YEARS):
-                value = round((i+1)*2 + j*0.3, 1)
-                if i == 1 and j == 0 or i == 2: value = ''
-                if i == 3 and j == 0: value = 0
-                if i == 4 and j > 0: value = 35
-                if dataset == 'retail_channels' and i == 8: value = 100
-                row[year] = value
-            rows.append({key: row[key] for key in ['Sample Type', 'Case'] + keys + YEARS})
-        with (folder / f'{dataset}_synthetic.csv').open('w', newline='', encoding='utf-8') as stream:
-            writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
-            writer.writeheader(); writer.writerows(rows)
-    print('Created 40 synthetic demonstration rows; no original data read.')
+    destination=ROOT/'submission/samples'
+    destination.mkdir(parents=True,exist_ok=True)
+    count=0
+    for name in NAMES:
+        source=ROOT/f'data/samples/{name}_sample.csv'
+        columns, sample=read(source)
+        clean_columns, cleaned=read(ROOT/f'data/{name}_clean.csv')
+        assert columns==['Source Excel Row']+clean_columns
+        assert len(sample)==10
+        for row in sample:
+            # The retained records are contiguous from Excel row 7 in these exports.
+            expected=cleaned[int(row['Source Excel Row'])-7]
+            assert {column:row[column] for column in clean_columns}==expected
+        (destination/f'{name}_sample.csv').write_bytes(source.read_bytes())
+        count+=len(sample)
+    assert count==40
+    print('Copied 40 real cleaned rows; all fields match the full cleaned tables.')
 
-if __name__ == '__main__':
+if __name__=='__main__':
     generate()

@@ -11,8 +11,8 @@ data/
 raw_data/
 downloads/
 
-# Only explicitly synthetic submission samples may be versioned.
-!submission/samples/*_synthetic.csv
+# Only the selected coursework samples may be versioned.
+!submission/samples/*_sample.csv
 
 # Python / Environment
 __pycache__/
