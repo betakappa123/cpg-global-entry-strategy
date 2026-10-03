@@ -1,13 +1,21 @@
 # Coffee Data Cleaning: Individual Evidence and Checklist
 
 **Project:** Yunnan Coffee Overseas-Entry Strategy  
-**Individual workspace:** Wendy  
-**Prepared:** October 2, 2026  
-**Status:** Local implementation and validation evidence; team reconciliation and student review remain outstanding. This is not a completed group submission.
+**Student:** Wendy Sun  
+**Prepared:** October 3, 2026  
+**Status:** Individual submission under the updated Module 6 instructions. No group submission or ZIP is required.
+
+**Branch:** Wendy
+
+**Branch URL:** https://github.com/betakappa123/cpg-global-entry-strategy/tree/Wendy
+
+**Submitted implementation commit:** 22722b9b5fc136c01b9d2cebea9dc6f000623aa4
+
+This immutable commit identifies the submitted code, notebook and demonstration sample. A later documentation-only commit adds its ID to the report and README. Instructor repository access must be available; a URL does not grant private-repository access.
 
 ## Vision and analytical purpose
 
-Prepare four Passport datasets to investigate: (1) country-level Coffee and RTD Coffee demand scale and historical volume growth, (2) retail-channel patterns, and (3) packaging formats and sizes. Market Sizes enables a descriptive 2015–2025 volume screen; channel and packaging tables support subsequent country-specific investigation. A broad category's historical performance is not a direct estimate of demand for a Yunnan company's particular product.
+Prepare four Passport datasets to investigate: (1) country-level Coffee and RTD Coffee demand scale and historical volume growth, (2) retail-channel patterns, and (3) packaging formats and sizes. Market Sizes enables a descriptive 2015-2025 volume screen; channel and packaging tables support subsequent country-specific investigation. A broad category's historical performance is not a direct estimate of demand for a Yunnan company's particular product.
 
 Preserve all observed countries and contextual regions, treating China as the domestic benchmark. Do not preselect a winning market. The company product, price tier, capacity, budget, cost structure, and export constraints are not yet established. Both Coffee and RTD remain available as separate product paths.
 
@@ -28,20 +36,20 @@ Full evidence is in `data/quality/summary.csv`, the four dataset subdirectories,
 
 ## Cleaning decision log
 
-| Decision | Reason | Implemented result / boundary |
+| Rule | Reason | Check and result |
 | --- | --- | --- |
-| Preserve sources and clean separately | Reproducibility and different row definitions | Four untouched XLS sources and four independent wide CSVs; hashes recorded |
-| Exclude verified footer/blank rows only | Notes are not market records | 26 non-data rows excluded; an unexpected footer value stops the run |
-| Trim surrounding descriptor whitespace | Fix observed formatting without recategorizing | 65 `PET Jars ` labels become `PET Jars`; internal spaces and other labels remain |
-| Convert annual numbers; annual dash becomes missing | Unavailable quantities must not become zero | 6,260 missing observations retained; unknown text stops the run |
-| Preserve `Current Constant = -` | It is a volume-row descriptor, not an annual value | No descriptor-to-missing conversion |
-| Add `%` to Channels | Source title explicitly states percentage breakdown | Scale stays 0–100; no numeric changes |
-| Preserve original unit/currency/category boundaries | Avoid invalid comparisons | No FX, scale, price-basis, mass, or volume conversion |
-| Keep hierarchy and total labels | Parents and children can overlap | No automatic summation or total removal |
-| Flag, do not erase, unusual changes | A large change need not be an error | Threshold flags retained with source row, year, value, and previous value |
-| Add optional analytical views | Make subsequent country/year/size filtering explicit | Geography level and market role in long views; pack size numeric/unit fields preserve original labels |
-| Derive country volume screen | Provide a narrow, reproducible starting comparison | Separate categories; 19 valid growth estimates out of 20 country-category rows |
-| Defer cross-table merge and shares | Grain and denominators require confirmation | No multiplied rows, inferred hierarchy shares, or manufactured regional percentages |
+| Preserve sources and clean separately | Reproducibility and different row definitions | Original XLS SHA-256 hashes unchanged; separate CSV paths and row counts verified. |
+| Exclude verified footer/blank rows only | Notes are not market records | Excluded rows must have missing non-Geography fields and recognized note/blank labels; 26 rows logged. |
+| Trim surrounding descriptor whitespace | Fix observed formatting without recategorizing | Text-change log records 65 corrections; key collisions remain zero; all descriptors independently compared. |
+| Convert annual numbers; annual dash becomes missing | Unavailable quantities must not become zero | Per-column before/after missing counts reconcile; conversion failures zero; every numeric/missing cell checked. |
+| Preserve `Current Constant = -` | It is a volume-row descriptor, not an annual value | Independent descriptor comparison confirms the source dash is retained on the same records. |
+| Add `%` to Channels | Source title explicitly states percentage breakdown | Source title contains % breakdown; validator checks the added unit on every channel record. |
+| Preserve original unit/currency/category boundaries | Avoid invalid comparisons | Independent comparison verifies every original unit/category and available number unchanged. |
+| Keep hierarchy and total labels | Parents and children can overlap | Composite keys and source labels preserved; no totals calculated across hierarchy levels. |
+| Flag, do not erase, unusual changes | A large change need not be an error | Complete flag lists saved; all flagged cells included in source comparisons; zero negative/non-finite values. |
+| Add optional analytical views | Make subsequent country/year/size filtering explicit | Long row count equals wide rows times 11; long keys unique; all non-total sizes parse as positive g/ml. |
+| Derive country volume screen | Provide a narrow, reproducible starting comparison | Independent recalculation matches all 19 computable CAGRs; India RTD remains uncomputable. |
+| Defer cross-table merge and shares | Grain and denominators require confirmation | No cross-table analytical joins; each table independently reconciles its source/output row counts. |
 
 **Workflow history:** the first Market Sizes notebook draft preceded `plan.md`. The original four-table proposals were based on source inspection. The October 2 revision in `plan.md` was written before this implementation following the student's request to prepare all datasets for the overseas strategy. That revision moved optional size parsing into a separate analytical view and added the descriptive country screen. This history must not be represented as a plan that preceded the first draft.
 
@@ -84,7 +92,7 @@ The descriptive screen contains 10 countries for each category: China as benchma
 
 Full numeric profiles report rows, valid count, missing count, minimum, quartiles, median, and maximum by year within category/metric/unit/geographic-level groups, retaining outlet, pack type, and size distinctions where applicable. Quantiles exclude missing values; the valid count makes that denominator visible. Missing group keys would stop cleaning; profiling also uses `dropna=False` defensively. No cross-currency or hierarchy totals or pooled averages are used for strategy. If totals are added later, all-missing inputs must stay missing (for example, pandas `sum(min_count=1)`), and only a verified non-overlapping set may be summed.
 
-## Individual checklist for team reconciliation
+## Individual 14-item checklist
 
 | Item | Status | Evidence / explanation |
 | --- | --- | --- |
@@ -114,13 +122,21 @@ The full twenty-case log records source Excel row, selection key, year, original
 
 Expected rules preserve reported values and their units; missing stays unknown; whitespace correction preserves category meaning; totals remain explicitly distinguishable from details. Five checks per dataset exceed the assignment's five-record minimum and supplement the full-data comparison.
 
-## Codex verification response
+## How I checked one Codex suggestion
+
+Codex suggested converting annual dash markers to missing numeric values while retaining the affected records rather than filling them with zero or deleting them. I inspected the notebook's before/after missingness table and questioned why every year still had two missing values, what the columns meant, and why keeping the incomplete records was useful. I also asked why dashes remained in Current Constant and learned that descriptor markers and annual observations require different rules.
+
+For Market Sizes, the displayed evidence was 72 records per year = 70 available numeric values + 2 missing values, with zero unexpected conversion failures. The same two India RTD records have unavailable annual observations throughout the period. This count reconciliation, together with the distinction between unknown quantities and confirmed zero sales, supported retaining the records and excluding unavailable growth estimates from calculation. I accepted that decision after the explanation. Source definitions remain a limitation.
+
+This was a review of displayed results and the reasoning behind the suggestion. I did not personally verify every Excel cell or independently establish Passport's business meaning for the dash. Codex performed the separate full-source comparison described below. This distinction preserves an accurate account of my role.
+
+## Automated verification evidence
 
 The implementation was checked against the documented rules. An independent validator reads original workbook cells with xlrd, without importing the cleaning functions to calculate expected values. It verified all 89,165 available annual values, 6,260 missing observations, and 57,459 original descriptor cells against the CSVs. The channel unit is separately checked. Twenty illustrative record checks passed, as did the country-growth calculations and CSV reload checks. A fresh Python process reproduced identical generated data and audit files, and all four original workbook hashes stayed unchanged. Tested versions and the verification command are recorded in `data/quality/independent_validation.json`.
 
-This evidence supports faithful, reproducible cleaning for the stated initial comparisons. It does not validate Passport's missing-value meanings, the causes of flagged changes, company-product fit, or the feasibility of entering a country. Student review and independent team reconciliation have not been performed by Codex.
+This evidence supports faithful, reproducible cleaning for the stated initial comparisons. It does not validate Passport's missing-value meanings, the causes of flagged changes, company-product fit, or the feasibility of entering a country. Student review is described below from the actual discussion; no manual source-workbook audit by the student is claimed. Team reconciliation is not required by the updated assignment.
 
-The 33-cell notebook was also executed from a fresh `coffee-market` kernel, with all 16 code cells completed and outputs saved. A structural scan found no error outputs or Chinese text. A rendered HTML preview was generated for presentation review, but browser policy blocked opening the local file; visual layout has not been verified in a notebook viewer. Open `DataClean.ipynb` in VS Code to review the saved presentation.
+The 33-cell notebook was also executed from a fresh `coffee-market` kernel, with all 16 code cells completed and outputs saved. A structural scan found no error outputs or Chinese text. The student reviewed the saved notebook output during the discussion. PDF presentation is checked separately before delivery.
 
 ## Limitations and next evidence
 
@@ -131,4 +147,197 @@ The 33-cell notebook was also executed from a fresh `coffee-market` kernel, with
 5. **Hierarchies:** region/world, channel, pack-type, and size totals overlap with components. Definitions and complete non-overlapping coverage must be verified before adding detail or calculating new shares.
 6. **Source precision and unusual changes:** rounded values and small baselines affect rates. Flags have been retained and traced; business causes remain unknown. A clean file is not necessarily an error-free source.
 7. **Strategy:** competition, import access, logistics, duties, landed cost, margins, consumer preferences, and company capacity/budget are missing. These can reverse a volume-based preference.
-8. **Submission:** local real-data samples total forty rows. They are not a substitute for full checks or evidence of redistribution permission. Use licensed/approved review access or a clearly labeled synthetic sample if actual redistribution is prohibited. The group's final PDF/checklist needs reconciliation with teammates' independent results.
+8. **Submission:** local real-data samples total forty rows. They are not a substitute for full checks or evidence of redistribution permission. Use licensed/approved review access or a clearly labeled synthetic sample if actual redistribution is prohibited. The updated assignment requires this personal PDF on Gradescope and the accompanying materials on the individual branch.
+
+
+## Additional source-based check of the Codex suggestion
+
+
+
+### Suggestion
+Convert annual dash markers to missing numeric observations, retain their rows,
+and do not fill zero. Keep the descriptor dash in Current Constant separate.
+
+### Expected results specified before comparison
+The two India / RTD Coffee records (Off-trade Volume and Off-trade Value RSP)
+should both remain. If all eleven source annual cells in each record are dashes,
+the cleaned output should have 22 missing observations, no imputed zeros, and no
+dropped record. A missing baseline must not produce a fabricated growth estimate.
+
+### Test and actual results
+The script reads original XLS cells using xlrd and cleaned CSV cells using csv.
+Two matching source records found: PASS.
+All 22 original annual observations are literal dashes: PASS.
+Both records remain in the CSV: PASS.
+All 22 annual CSV fields are missing, with no zero imputation: PASS.
+Current Constant remains a literal dash on the volume row: PASS.
+India RTD country screen has zero available years and missing CAGR: PASS.
+
+### Decision and limits
+Accept this conservative rule: the source provides no numeric basis for zero-fill.
+Unknown observations stay missing. These checks demonstrate faithful conversion,
+not the exact business meaning of Passport's marker. Student review consisted of
+questioning and evaluating the notebook results and this rule's reasoning; this
+additional source-based test was executed with Codex assistance. No manual
+cell-by-cell Excel audit by the student is claimed.
+
+Reproduce: `.venv/bin/python verify_missing_rule.py`.
+
+
+## Embedded evidence A: Five original-to-cleaned record checks
+
+Expected rules and selected cases were documented in plan.md before the four-table implementation; the earlier Market Sizes draft is explicitly disclosed in the workflow history. These five cases cover all four datasets and include missing values and whitespace correction. They supplement, rather than replace, the full-data validation.
+
+### Record 1: market_sizes
+
+Category: Coffee; Data Type: Retail Volume; Geography: China.
+
+| Excel row | Year | Original | Expected | Actual | Match |
+| --- | --- | --- | --- | --- | --- |
+| 15 | 2025 | 61314.5 | 61314.5 | 61314.5 | True |
+
+Reason: Preserve reported number, original unit, and row identity.
+
+### Record 2: market_sizes
+
+Category: RTD Coffee; Data Type: Off-trade Volume; Geography: India.
+
+| Excel row | Year | Original | Expected | Actual | Match |
+| --- | --- | --- | --- | --- | --- |
+| 21 | 2015 | - | Missing (NaN) | Missing (NaN) | True |
+
+Reason: Preserve unavailable observation, not zero.
+
+### Record 3: retail_channels
+
+Category: Coffee; Geography: World; Outlet Type: Retail Offline.
+
+| Excel row | Year | Original | Expected | Actual | Match |
+| --- | --- | --- | --- | --- | --- |
+| 8 | 2015 | 97.8 | 97.8 | 97.8 | True |
+
+Reason: Preserve reported number, original unit, and row identity.
+
+### Record 4: pack_type
+
+Category: Coffee; Geography: Thailand; Pack Type: PET Jars.
+
+| Excel row | Year | Original | Expected | Actual | Match |
+| --- | --- | --- | --- | --- | --- |
+| 297 | 2025 | PET Jars [trailing space]; 24.2 | PET Jars; 24.2 | PET Jars; 24.2 | True |
+
+Reason: Preserve reported number, original unit, and row identity; trim the observed trailing space without changing category meaning.
+
+### Record 5: pack_size
+
+Category: RTD Coffee; Geography: World; Pack Size: 250 ml; Pack Type: Total Packaging.
+
+| Excel row | Year | Original | Expected | Actual | Match |
+| --- | --- | --- | --- | --- | --- |
+| 6021 | 2025 | 2508.1 | 2508.1 | 2508.1 | True |
+
+Reason: Preserve reported number, original unit, and row identity.
+
+## Embedded evidence B: Missingness and types by year column
+
+All affected year columns are shown. Before types are object; after types are float64. Original blanks exclude the separately logged footer rows. A dash is not an original blank, but becomes a missing numeric observation. Descriptor fields have zero missing/empty keys after trimming.
+
+### market_sizes
+
+| Year | Blanks before | Dashes before | Missing after | Valid after | Failures |
+| --- | --- | --- | --- | --- | --- |
+| 2015 | 0 | 2 | 2 | 70 | 0 |
+| 2016 | 0 | 2 | 2 | 70 | 0 |
+| 2017 | 0 | 2 | 2 | 70 | 0 |
+| 2018 | 0 | 2 | 2 | 70 | 0 |
+| 2019 | 0 | 2 | 2 | 70 | 0 |
+| 2020 | 0 | 2 | 2 | 70 | 0 |
+| 2021 | 0 | 2 | 2 | 70 | 0 |
+| 2022 | 0 | 2 | 2 | 70 | 0 |
+| 2023 | 0 | 2 | 2 | 70 | 0 |
+| 2024 | 0 | 2 | 2 | 70 | 0 |
+| 2025 | 0 | 2 | 2 | 70 | 0 |
+
+### retail_channels
+
+| Year | Blanks before | Dashes before | Missing after | Valid after | Failures |
+| --- | --- | --- | --- | --- | --- |
+| 2015 | 0 | 315 | 315 | 549 | 0 |
+| 2016 | 0 | 314 | 314 | 550 | 0 |
+| 2017 | 0 | 310 | 310 | 554 | 0 |
+| 2018 | 0 | 314 | 314 | 550 | 0 |
+| 2019 | 0 | 310 | 310 | 554 | 0 |
+| 2020 | 0 | 309 | 309 | 555 | 0 |
+| 2021 | 0 | 308 | 308 | 556 | 0 |
+| 2022 | 0 | 301 | 301 | 563 | 0 |
+| 2023 | 0 | 304 | 304 | 560 | 0 |
+| 2024 | 0 | 298 | 298 | 566 | 0 |
+| 2025 | 0 | 301 | 301 | 563 | 0 |
+
+### pack_type
+
+| Year | Blanks before | Dashes before | Missing after | Valid after | Failures |
+| --- | --- | --- | --- | --- | --- |
+| 2015 | 0 | 14 | 14 | 516 | 0 |
+| 2016 | 0 | 13 | 13 | 517 | 0 |
+| 2017 | 0 | 11 | 11 | 519 | 0 |
+| 2018 | 0 | 8 | 8 | 522 | 0 |
+| 2019 | 0 | 8 | 8 | 522 | 0 |
+| 2020 | 0 | 8 | 8 | 522 | 0 |
+| 2021 | 0 | 5 | 5 | 525 | 0 |
+| 2022 | 0 | 5 | 5 | 525 | 0 |
+| 2023 | 0 | 8 | 8 | 522 | 0 |
+| 2024 | 0 | 8 | 8 | 522 | 0 |
+| 2025 | 0 | 8 | 8 | 522 | 0 |
+
+### pack_size
+
+| Year | Blanks before | Dashes before | Missing after | Valid after | Failures |
+| --- | --- | --- | --- | --- | --- |
+| 2015 | 0 | 411 | 411 | 6798 | 0 |
+| 2016 | 0 | 329 | 329 | 6880 | 0 |
+| 2017 | 0 | 303 | 303 | 6906 | 0 |
+| 2018 | 0 | 264 | 264 | 6945 | 0 |
+| 2019 | 0 | 218 | 218 | 6991 | 0 |
+| 2020 | 0 | 216 | 216 | 6993 | 0 |
+| 2021 | 0 | 197 | 197 | 7012 | 0 |
+| 2022 | 0 | 197 | 197 | 7012 | 0 |
+| 2023 | 0 | 207 | 207 | 7002 | 0 |
+| 2024 | 0 | 207 | 207 | 7002 | 0 |
+| 2025 | 0 | 209 | 209 | 7000 | 0 |
+
+## Embedded evidence C: Source identity and reproducibility
+
+**market_sizes:** coffee_market_sizes_2015_2025.xls
+
+Date Exported (GMT): 9/20/2026 11:17:37 PM
+
+SHA-256: 59b9fc4d303afc574511f7dcc0afa05492fad2018710af013871639fcd725610
+
+**retail_channels:** coffee_retail_channels_2015_2025.xls
+
+Date Exported (GMT): 10/1/2026 7:02:34 AM
+
+SHA-256: e89b35df48517582555a4d4b5c536596455fb381fb2afa98300469b54d7c036b
+
+**pack_type:** coffee_pack_type_2015_2025.xls
+
+Date Exported (GMT): 10/1/2026 7:05:16 AM
+
+SHA-256: 3f5eb428ce383f559065f8e46213c849e25f0355dbfd5f81d09043a57eec3248
+
+**pack_size:** coffee_pack_size_2015_2025.xls
+
+Date Exported (GMT): 10/1/2026 7:07:44 AM
+
+SHA-256: cbd41411e801df73685710bc8ba814359bde9a5f75569492392cd99d917807ba
+
+Command: `python validate_cleaning.py --reproduce`. A new Python process reproduced all checked CSV/audit files byte-for-byte and the original workbook hashes were unchanged. The notebook was also restarted and run from top to bottom. Python 3.14.7; pandas 3.0.6; xlrd 2.0.2.
+
+## Sample selection and instructor access
+
+The branch includes 40 explicitly synthetic cleaned-schema examples under submission/samples/, ten per dataset. They were constructed to illustrate valid numbers, missing years, all-missing records, explicit zero, large changes, geography levels, channel totals, package size totals and normalized labels. They include all cleaned columns plus Sample Type and Case. No sample row is a real Passport observation, and no validation claim or market conclusion is derived from these examples. The generator does not read original data.
+
+The actual local sample selection starts with planned record-check cases, adds missing/all-missing/zero/whitespace examples where available, then fills in source order to ten rows per table. All data checks use the full real dataset, not either sample. Real local data remains under data/.
+
+README lists USC Passport access links via project-start.md, filenames, export versions, dependencies, exact run commands and expected outputs. An instructor with authorized source access can rerun the workflow. Wendy can arrange review of the exact originals and local outputs through a course-approved channel; no such access approval is claimed here. Repository visibility and instructor access should be confirmed before submission. The original local evidence files can be regenerated using the documented commands; essential counts and five record checks are embedded in this PDF so they do not depend on local paths.

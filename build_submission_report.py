@@ -171,10 +171,13 @@ def render_pdf(text, destination):
             story.append(Paragraph(fmt(line[level:].strip()),styles[f'Heading{min(level,3)}']))
         else:
             paragraph = [line]
-            while i+1 < len(lines) and lines[i+1].strip() and not lines[i+1].strip().startswith(('#', '|', '- ')) and not line.startswith('- '):
+            while i+1 < len(lines) and lines[i+1].strip() and not lines[i+1].strip().startswith(('#', '|', '- ', '**')) and not re.match(r'^\d+\.', lines[i+1].strip()) and not line.startswith(('- ', '**')) and not re.match(r'^\d+\.', line):
                 i += 1
                 paragraph.append(lines[i].strip())
-            story.append(Paragraph(fmt(' '.join(paragraph)),styles['BodyReport']))
+            para = Paragraph(fmt(' '.join(paragraph)),styles['BodyReport'])
+            if line.startswith('Category:'):
+                para.keepWithNext = True
+            story.append(para)
         i+=1
     def footer(canvas,doc):
         canvas.setFont('Helvetica',8);canvas.setFillColor(colors.HexColor('#64748b'))

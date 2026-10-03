@@ -11,7 +11,7 @@ Prepare data for a Yunnan coffee company's overseas-entry strategy: investigate 
 - `DataClean.ipynb`: one executed notebook with four dataset sections, short explanations, checks, and a descriptive country screen.
 - `clean_coffee.py`: reusable cleaning and audit functions, also callable from the command line.
 - `validate_cleaning.py`: independent Excel-cell validation and fresh-process reproducibility check.
-- `cleaning-report.md`: individual checklist draft, decision log, verification response, and limitations. Team reconciliation is still required before it becomes a group submission.
+- `cleaning-report.md`: individual checklist, decision log, student review of a Codex suggestion, and limitations. The final personal report is submitted as a PDF.
 - `requirements-cleaning.txt`: tested dependency versions.
 
 ## Source and access
@@ -38,6 +38,7 @@ python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements-cleaning.txt
 .venv/bin/python clean_coffee.py
 .venv/bin/python validate_cleaning.py --reproduce
+.venv/bin/python verify_missing_rule.py
 ```
 
 For Jupyter / VS Code:
@@ -71,7 +72,34 @@ The four local inspection samples contain ten rows each, all cleaned columns, an
 
 These actual samples are **not certified for public redistribution**. Use them only through a permitted review channel. If source data cannot be shared for submission, provide a clearly labeled synthetic sample and explain how the instructor can access the actual results through approved access. Do not force-add ignored downloaded files to Git.
 
-The assignment requests individual code/notebook/sample on each person's own branch and a reconciled group checklist PDF; it also lists a ZIP containing report, environment, README, data/access method, and evidence. This repository currently contains Wendy's local implementation and evidence, not a reconciled group submission. Review the checklist with teammates and prepare the required submission package after reconciliation. No commit, push, or submission is performed by the cleaning commands.
+The updated Module 6 instructions require **one PDF per student on Gradescope**, with no group submission or ZIP. Submit scripts, notebook, a sample, dependencies, and README on the student's own branch. The individual report includes all 14 checklist items, a rule/reason/check log, original/expected/actual record checks, and the student's review of a Codex suggestion.
+
+## Individual submission
+
+Student: **Wendy Sun**. Branch: **Wendy**.
+Branch URL: https://github.com/betakappa123/cpg-global-entry-strategy/tree/Wendy
+Submitted implementation commit: `22722b9b5fc136c01b9d2cebea9dc6f000623aa4`
+
+The implementation commit identifies the submitted code, notebook and sample. A later documentation-only commit records that immutable ID in this README and the report, avoiding a self-referential Git hash. Repository visibility was checked as public on October 3, 2026; the instructor can view the branch without a private-repository invitation.
+
+Gradescope file: `output/pdf/Wendy_Sun_Module_6_Data_Cleaning.pdf`.
+
+### Public sample and actual-data review
+
+`submission/samples/` contains **40 clearly labeled synthetic rows**, ten for each cleaned table, with the same cleaned data columns plus `Sample Type` and `Case`. These are invented examples, not Passport observations, and do not support any reported analytical result. They demonstrate numeric values, missing years, an all-missing record, explicit zero, a large movement, country/region/world labels, retained price-basis dashes, channel totals, and package sizes/totals. Regenerate them with `.venv/bin/python make_submission_samples.py`.
+
+Actual local inspection samples remain under `data/samples/`, and full checks use the real workbooks. Synthetic examples are provided while public redistribution of source-derived rows is unconfirmed; this does not assert that educational use is prohibited. An instructor with authorized USC Passport access can retrieve the listed exports and rerun the scripts. For the exact export version, Wendy can arrange review of the unchanged originals and local results through a course-approved channel; access has not been granted or certified by the script. Workbook fingerprints appear in the report.
+
+### Rebuild the report
+
+After running the cleaning and verification commands, install the optional `requirements-report.txt` and run:
+
+```bash
+python build_submission_report.py --commit IMPLEMENTATION_COMMIT
+```
+
+This reads local evidence and renders `cleaning-report.md` and the personal PDF. It does not modify original data or submit to Gradescope.
+
 
 ## Interpretation boundaries
 
