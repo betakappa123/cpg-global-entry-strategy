@@ -25,7 +25,7 @@ The student requested implementation for all four datasets and clarified the obj
 - Export a descriptive country screen using only Coffee / Retail Volume / Tonnes and RTD Coffee / Off-trade Volume / million litres. Keep categories separate. Show 2015 and 2025 values, available-year counts, and 10-year CAGR only when both endpoints exist and the starting value is positive. Keep uncomputable growth missing and explain why. Do not rank countries, combine indicators into a score, or use monetary rows for international value comparisons.
 - Record full-data missingness, types, text changes, categories, duplicates, numeric distributions within compatible groups, and every suspicious-value flag. Use >50% adjacent-year relative movement for absolute quantities and >10 percentage points for channel shares, as review thresholds rather than error classifications. Flag nonzero movement from zero separately. Retain flagged numbers unchanged.
 - Keep source hashes and original Excel row references in audit outputs. Verify all numeric observations and descriptors against the source, plus five illustrative checks per dataset. Reload exports and rerun in a fresh Python process and notebook kernel.
-- Produce local English evidence and an individual checklist draft. Team reconciliation, student review of unresolved definitions, and final submission remain separate tasks; no Git commit, push, or submission is part of this implementation.
+- Produce local English evidence and an individual checklist draft. Student review of unresolved definitions and individual submission remain separate tasks; no Git commit, push, or submission is part of this implementation.
 
 ### Purpose and remaining evidence needs
 
@@ -146,7 +146,7 @@ The current Git ignore rules exclude data files. Do not force-add, commit, or pu
 
 **Approval record:** Student review pending. Writing this plan does not approve its proposed decisions or authorize further cleaning.
 
-**Assistance disclosure:** Codex inspected the source and prepared this plan and the earlier notebook draft. The student must review and direct the decisions and reconcile results with independent team-member work.
+**Assistance disclosure:** Codex inspected the source and prepared this plan and the earlier notebook draft. The student must review and direct the decisions. The updated assignment is an individual submission.
 
 ---
 
@@ -337,7 +337,7 @@ Keep code and explanations in English. The existing `DataClean.ipynb` may contai
 
 **Cross-table checks are optional future work, not automatic merges.** For example, Pack Size totals may be compared with Pack Type on Geography, Category, Packaging Class, Pack Type, Data Type, Unit, and Year, after confirming matching coverage and unique keys. Any actual join must report unmatched keys, expected cardinality, and before/after row counts. Do not join all four tables on country and year alone.
 
-The group's final checklist should reference evidence from every dataset used. Keep current unresolved source meanings and hierarchy definitions visible. Later submission preparation must follow the assignment's instructions for individual branch work, team reconciliation, shareable samples, code, environment, README, and report; this plan does not create or publish those deliverables.
+The student's final checklist should reference evidence from every dataset used. Keep current unresolved source meanings and hierarchy definitions visible. Later submission preparation must follow the assignment's instructions for individual branch work, shareable samples, code, environment, README, and report; this plan does not create or publish those deliverables.
 
 The following table records the historical state before the student's implementation request; it is superseded by the October 2 revision above.
 
@@ -350,4 +350,8 @@ The following table records the historical state before the student's implementa
 
 **Historical approval boundary:** At the planning-only stage, adding the three plans did not authorize execution. The student's later request to prepare all four datasets for the overseas strategy authorized the implementation revision above.
 
-**Current implementation:** All four tables are cleaned and independently verified. Original sources remain unchanged; no datasets are merged. `DataClean.ipynb` and `cleaning-report.md` contain the execution evidence and unresolved domain questions. Team reconciliation is still outstanding.
+**Current implementation:** All four tables are cleaned and independently verified. Original sources remain unchanged; no datasets are merged. `DataClean.ipynb` and `cleaning-report.md` contain the execution evidence and unresolved domain questions. The updated assignment requires an individual PDF rather than team reconciliation.
+
+## Submission revision - October 3, 2026
+
+The updated handout supersedes the former group/ZIP submission instructions: Wendy Sun submits one personal PDF on Gradescope and code, notebook, sample, dependencies, and README on branch Wendy. The data-cleaning rules remain unchanged. A synthetic 40-row demonstration sample is provided for public sharing; all validation evidence comes from the real local data. The report describes the student's actual review of missing-value handling, not a claimed manual Excel audit.

@@ -11,6 +11,9 @@ data/
 raw_data/
 downloads/
 
+# Only explicitly synthetic submission samples may be versioned.
+!submission/samples/*_synthetic.csv
+
 # Python / Environment
 __pycache__/
 *.py[cod]

@@ -1,0 +1,11 @@
+Sample Type,Case,Geography,Category,Packaging Class,Pack Type,Pack Size,Data Type,Unit,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025
+SYNTHETIC - NOT PASSPORT DATA,Ordinary numeric values,Example Country 1,Coffee,Total,Total Packaging,100 g,Retail/off-trade Unit Volume,million units,2.0,2.3,2.6,2.9,3.2,3.5,3.8,4.1,4.4,4.7,5.0
+SYNTHETIC - NOT PASSPORT DATA,Missing first year,Example Country 2,Coffee,Total,Total Packaging,100 g,Retail/off-trade Unit Volume,million units,,4.3,4.6,4.9,5.2,5.5,5.8,6.1,6.4,6.7,7.0
+SYNTHETIC - NOT PASSPORT DATA,All years missing,Example Country 3,Coffee,Total,Total Packaging,100 g,Retail/off-trade Unit Volume,million units,,,,,,,,,,,
+SYNTHETIC - NOT PASSPORT DATA,Explicit zero retained,Example Country 4,Coffee,Total,Total Packaging,100 g,Retail/off-trade Unit Volume,million units,0,8.3,8.6,8.9,9.2,9.5,9.8,10.1,10.4,10.7,11.0
+SYNTHETIC - NOT PASSPORT DATA,Large change retained,Example Country 5,Coffee,Total,Total Packaging,100 g,Retail/off-trade Unit Volume,million units,10.0,35,35,35,35,35,35,35,35,35,35
+SYNTHETIC - NOT PASSPORT DATA,Regional context,Example Region,Coffee,Total,Total Packaging,100 g,Retail/off-trade Unit Volume,million units,12.0,12.3,12.6,12.9,13.2,13.5,13.8,14.1,14.4,14.7,15.0
+SYNTHETIC - NOT PASSPORT DATA,World context,World,Coffee,Total,Total Packaging,100 g,Retail/off-trade Unit Volume,million units,14.0,14.3,14.6,14.9,15.2,15.5,15.8,16.1,16.4,16.7,17.0
+SYNTHETIC - NOT PASSPORT DATA,RTD category kept separate,Example Country 8,RTD Coffee,Total,Total Packaging,250 ml,Retail/off-trade Unit Volume,million units,16.0,16.3,16.6,16.9,17.2,17.5,17.8,18.1,18.4,18.7,19.0
+SYNTHETIC - NOT PASSPORT DATA,Aggregate label retained,Example Country 9,Coffee,Total,Total Packaging,Total,Retail/off-trade Unit Volume,million units,18.0,18.3,18.6,18.9,19.2,19.5,19.8,20.1,20.4,20.7,21.0
+SYNTHETIC - NOT PASSPORT DATA,Normalized text label,Example Country 10,Coffee,Total,PET Jars,100 g,Retail/off-trade Unit Volume,million units,20.0,20.3,20.6,20.9,21.2,21.5,21.8,22.1,22.4,22.7,23.0
