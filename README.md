@@ -70,25 +70,23 @@ CSV missing numeric observations are empty fields, which pandas normally reads a
 
 The four local inspection samples contain ten rows each, all cleaned columns, and an added source Excel row reference. Selection is deterministic: start with the five record-check cases, include missing observations, all-missing rows where available, explicit zeros where available, and whitespace corrections, then fill from source order. These are illustrative cases, not a random or representative analytical sample. Every validation check runs on the full data.
 
-These actual samples are **not certified for public redistribution**. Use them only through a permitted review channel. If source data cannot be shared for submission, provide a clearly labeled synthetic sample and explain how the instructor can access the actual results through approved access. Do not force-add ignored downloaded files to Git.
-
 The updated Module 6 instructions require **one PDF per student on Gradescope**, with no group submission or ZIP. Submit scripts, notebook, a sample, dependencies, and README on the student's own branch. The individual report includes all 14 checklist items, a rule/reason/check log, original/expected/actual record checks, and the student's review of a Codex suggestion.
 
 ## Individual submission
 
 Student: **Wendy Sun**. Branch: **Wendy**.
 Branch URL: https://github.com/betakappa123/cpg-global-entry-strategy/tree/Wendy
-Submitted implementation commit: `22722b9b5fc136c01b9d2cebea9dc6f000623aa4`
+Submitted implementation commit: `04b6d32e57b1e559e8a1ccda4f7793502bbad252`
 
-The implementation commit identifies the submitted code, notebook and sample. A later documentation-only commit records that immutable ID in this README and the report, avoiding a self-referential Git hash. Repository visibility was checked as public on October 3, 2026; the instructor can view the branch without a private-repository invitation.
+The submitted implementation commit identifies the verified code, notebook and sample. A subsequent documentation-only commit records that immutable ID in this README and the report. Repository visibility was checked as public on October 3, 2026; the instructor can view the branch without a private-repository invitation.
 
 Gradescope file: `output/pdf/Wendy_Sun_Module_6_Data_Cleaning.pdf`.
 
-### Public sample and actual-data review
+### Real cleaned-data sample
 
-`submission/samples/` contains **40 clearly labeled synthetic rows**, ten for each cleaned table, with the same cleaned data columns plus `Sample Type` and `Case`. These are invented examples, not Passport observations, and do not support any reported analytical result. They demonstrate numeric values, missing years, an all-missing record, explicit zero, a large movement, country/region/world labels, retained price-basis dashes, channel totals, and package sizes/totals. Regenerate them with `.venv/bin/python make_submission_samples.py`.
+`submission/samples/` contains **40 real cleaned records**, ten per table, copied from `data/samples/` with every value verified against the complete cleaned CSV. All cleaned columns are included plus `Source Excel Row` for traceability. These are subsets of the real data, not invented examples. Selection prioritizes planned record checks and missing/all-missing/zero/whitespace cases, then fills from source order; it is deliberately illustrative rather than statistically representative. Full validation uses the entire dataset.
 
-Actual local inspection samples remain under `data/samples/`, and full checks use the real workbooks. Synthetic examples are provided while public redistribution of source-derived rows is unconfirmed; this does not assert that educational use is prohibited. An instructor with authorized USC Passport access can retrieve the listed exports and rerun the scripts. For the exact export version, Wendy can arrange review of the unchanged originals and local results through a course-approved channel; access has not been granted or certified by the script. Workbook fingerprints appear in the report.
+Regenerate with `.venv/bin/python clean_coffee.py`, then `.venv/bin/python make_submission_samples.py`. README's source/access instructions support instructor review of the complete data. Original workbooks and full cleaned tables remain local and ignored by Git; only the selected coursework samples are versioned. The current version contains the selected real-data samples; obsolete synthetic examples have been removed.
 
 ### Rebuild the report
 
