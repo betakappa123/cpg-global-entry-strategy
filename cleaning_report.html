@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Individual Data Cleaning Deliverable</title>
+  <style>
+    @page { size: letter; margin: 0.65in; }
+    body { font: 10pt/1.4 Calibri, Arial, sans-serif; color: #17212b; }
+    h1 { color: #123b5d; font-size: 24pt; margin: 0 0 6pt; }
+    h2 { color: #123b5d; font-size: 15pt; margin: 18pt 0 6pt; border-bottom: 1px solid #b8c7d3; padding-bottom: 3pt; }
+    h3 { color: #285675; font-size: 11pt; margin: 10pt 0 4pt; }
+    p { margin: 4pt 0 7pt; }
+    .subtitle { color: #526474; font-size: 12pt; }
+    .meta { background: #eef4f8; padding: 9pt; margin: 12pt 0; }
+    .note { background: #fff6df; border-left: 3px solid #d5a12c; padding: 7pt 9pt; }
+    table { border-collapse: collapse; width: 100%; margin: 7pt 0 12pt; font-size: 8.5pt; }
+    th { background: #123b5d; color: white; text-align: left; }
+    th, td { border: 1px solid #bdc8d0; padding: 4pt 5pt; vertical-align: top; }
+    tr:nth-child(even) td { background: #f3f6f8; }
+    .small { font-size: 8.5pt; color: #526474; }
+    .page { page-break-before: always; }
+    ul { margin-top: 3pt; }
+  </style>
+</head>
+<body>
+  <h1>Individual Data Cleaning Deliverable</h1>
+  <p class="subtitle">DSO 576 | Global CPG market data cleaning and validation</p>
+  <div class="meta">
+    <p><strong>Student:</strong> Ralph Jiang</p>
+    <p><strong>Project:</strong> International market prioritization using beverage market, packaging, and retail-channel evidence.</p>
+    <p><strong>Data period:</strong> 2015–2025 | <strong>Report date:</strong> October 3, 2026</p>
+  </div>
+  <p>This report accompanies the executable <code>datacleaning.ipynb</code> and <code>datacleaning.py</code>. The notebook is not the PDF; it contains runnable code and detailed checks, while this PDF is the per-student report.</p>
+
+  <h2>Data source, version, and scope</h2>
+  <p><strong>Primary data:</strong> Euromonitor International Passport exports supplied for this project: Market Sizes, Pack Size, Pack type, and Retail channels. All cover 2015–2025. Footer export timestamps identify Market Sizes as September 20, 2026, and the other three exports as October 1, 2026. The files do not state a separate Passport release or dataset-version number, so none is asserted here.</p>
+  <p><strong>Exchange rates:</strong> World Bank indicator PA.NUS.FCRF, “Official exchange rate (LCU per US$, period average),” annual 2015–2025 observations. The notebook records the API retrieval metadata (retrieved 2026-10-02; API metadata last updated 2026-07-13). The rates are pinned in the script for repeatable runs.</p>
+  <p class="note"><strong>Licensing note:</strong> Passport exports may be subject to institutional/course license terms. The small data sample in <code>data/sample/</code> is a short excerpt for the course deliverable; check applicable terms before distributing it outside the course.</p>
+
+  <h2>Cleaning decision log</h2>
+  <table>
+    <thead><tr><th>Rule</th><th>Reason</th><th>Check / evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Skip the five export preamble lines; remove recognized source/date/copyright footers.</td><td>Keep the tabular records without accidentally treating export notes as observations.</td><td>18 footer rows removed across all four exports; resulting business-row counts reconcile in the notebook summary.</td></tr>
+      <tr><td>Trim surrounding text whitespace; retain category, geography, and dimension labels.</td><td>Normalize formatting without changing business meaning.</td><td>All record keys are checked for missing values; input files are fingerprinted before and after cleaning.</td></tr>
+      <tr><td>Interpret “-” as unavailable, not zero; remove rows with no observed annual values.</td><td>Zero is a meaningful quantity and should not be fabricated from unavailable data.</td><td>380 wholly unavailable records removed; remaining 2,080 missing annual cells imputed; no missing year values remain.</td></tr>
+      <tr><td>Use row-wise cubic-spline interpolation only with at least four observed values spanning the full series; otherwise use linear interpolation. Reject invalid or out-of-bounds spline estimates.</td><td>Interpolate only when supported by observations and preserve applicable non-negative / 0–100 constraints.</td><td>Notebook probes verify a spline example (64) and linear fallback example (2); output assertions verify no missing or negative annual values and channel shares within 0–100.</td></tr>
+      <tr><td>Convert local-currency market values to USD million using annual World Bank rates; preserve already-USD values.</td><td>Make value comparisons comparable while retaining original market-value scale.</td><td>Five record checks include independent AUD and JPY calculations, an unchanged USD value, pack-size volume, and channel percentage. See table below.</td></tr>
+      <tr><td>Standardize comparable labels only: tonnes to metric tonnes; liters to million liters; pack sizes to normalized g/ml; retain million units and percentage measures.</td><td>Do not combine unlike physical quantities or erase the unit meaning.</td><td>Assertions check market units, pack-size formats, and retail-channel bounds.</td></tr>
+      <tr><td>Remove exact duplicate rows; report repeated business keys rather than silently dropping them.</td><td>Prevent exact duplicate inflation without discarding potentially distinct records that share dimensions.</td><td>Run found 0 exact duplicates and 0 repeated business-key rows.</td></tr>
+      <tr><td>Do not impute missing identifiers; fail explicitly for missing key fields or unrecognized numeric/unit values.</td><td>Keys and units are essential for interpreting records; guessing would conceal data-quality issues.</td><td>Cleaner contains explicit validation errors for missing keys, invalid annual values, and unsupported currency/unit mappings.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Five individual record checks</h2>
+  <p>Expected results were calculated from the source row and the documented transformation, then compared with the cleaned output. Values are shown at full useful precision; floating-point comparisons use a small tolerance.</p>
+  <table>
+    <thead><tr><th>#</th><th>Record / field</th><th>Original</th><th>Expected</th><th>Actual</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Australia, Coffee, Retail Value RSP, 2025</td><td>1,389.8 AUD million</td><td>1,389.8 / 1.55199789 = 895.490908 USD million</td><td>895.490908 USD million</td><td>Pass</td></tr>
+      <tr><td>2</td><td>Japan, Coffee, Retail Value RSP, 2015</td><td>365.1 JPY billion</td><td>365.1 × 1,000 / 121.04402568 = 3,016.257911 USD million</td><td>3,016.257911 USD million</td><td>Pass</td></tr>
+      <tr><td>3</td><td>World, Coffee, Retail Value RSP, 2025</td><td>125,307.9 USD million</td><td>125,307.9 USD million (unchanged)</td><td>125,307.9 USD million</td><td>Pass</td></tr>
+      <tr><td>4</td><td>USA, Coffee, 10 g, retail/off-trade unit volume, 2025</td><td>40.8 million units</td><td>40.8 million units (value retained; pack size normalized)</td><td>40.8 million units</td><td>Pass</td></tr>
+      <tr><td>5</td><td>World, Coffee, Retail Channels, Retail Volume, 2025</td><td>100%</td><td>100% (unchanged)</td><td>100%</td><td>Pass</td></tr>
+    </tbody>
+  </table>
+
+  <h2>How a cleaning decision was checked</h2>
+  <p>No Codex suggestion was used to choose the cleaning rules. To independently verify the currency-conversion decision, I selected the original Australia coffee retail-value row for 2025 (AUD 1,389.8 million), looked up the pinned World Bank annual-average rate (1.55199789 AUD per USD), calculated 1,389.8 ÷ 1.55199789 = 895.490908 USD million, and compared it with the cleaned CSV. The actual output matches the independent calculation. I also checked the JPY-billion scale conversion separately using 365.1 × 1,000 ÷ 121.04402568 = 3,016.257911 USD million.</p>
+
+  <h2>14-item data-cleaning checklist</h2>
+  <table>
+    <thead><tr><th>#</th><th>Checklist item</th><th>Status</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>State the project vision and question</td><td>Done</td><td>Compare geography/category opportunities using values, volumes, packaging, and channel trends.</td></tr>
+      <tr><td>2</td><td>Define one row</td><td>Done</td><td>Each row is a geography/category/measure record with table-specific dimensions and annual observations.</td></tr>
+      <tr><td>3</td><td>Preserve the source</td><td>Done</td><td>Read-only inputs; SHA-256 fingerprints before/after cleaning match.</td></tr>
+      <tr><td>4</td><td>Inspect columns and types</td><td>Done</td><td>Four schemas and 2015–2025 annual numeric values validated.</td></tr>
+      <tr><td>5</td><td>Standardize text and units</td><td>Done</td><td>Whitespace, currency, volume, and pack-size transformations documented and checked.</td></tr>
+      <tr><td>6</td><td>Investigate duplicates</td><td>Done</td><td>Zero exact duplicates and zero repeated business keys reported.</td></tr>
+      <tr><td>7</td><td>Handle missing data</td><td>Done</td><td>380 fully unavailable rows removed; 2,080 annual gaps imputed; no annual gaps remain.</td></tr>
+      <tr><td>8</td><td>Check suspicious values</td><td>Done</td><td>Numeric, non-negative, currency/geography, and 0–100 share constraints asserted.</td></tr>
+      <tr><td>9</td><td>Verify merges</td><td>N/A</td><td>No tables are merged in this workflow.</td></tr>
+      <tr><td>10</td><td>Reconcile changes</td><td>Done</td><td>8,693 rows including footer text → 8,675 business rows → 8,295 cleaned rows.</td></tr>
+      <tr><td>11</td><td>Check calculations</td><td>Done</td><td>Imputation counts, unit assertions, bounds, and five independent record checks pass.</td></tr>
+      <tr><td>12</td><td>Verify individual records</td><td>Done</td><td>Five records have explicit original, expected, and actual values.</td></tr>
+      <tr><td>13</td><td>Test reproducibility</td><td>Done</td><td>Pinned dependencies and FX rates; script and notebook rerun from local files.</td></tr>
+      <tr><td>14</td><td>Document remaining limitations</td><td>Done</td><td>FX/inflation, interpolation estimates, exclusions, and unlike units are disclosed below.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Run instructions and expected files</h2>
+  <p>Install dependencies with <code>python -m pip install -r requirements.txt</code>, then run <code>python datacleaning.py</code> from the project directory. Run <code>python create_data_sample.py</code> to regenerate four sample excerpts. Or run all cells in <code>datacleaning.ipynb</code>.</p>
+  <p>Expected cleaned outputs: <code>data/cleaned/Market Sizes.csv</code>, <code>data/cleaned/Pack Size.csv</code>, <code>data/cleaned/Pack type.csv</code>, and <code>data/cleaned/Retail channels.csv</code>. Sample outputs are the corresponding four CSVs under <code>data/sample/</code>.</p>
+
+  <h2>Limitations</h2>
+  <ul>
+    <li>Annual-average exchange rates do not adjust for inflation, purchasing power, or within-year currency changes.</li>
+    <li>Interpolated values are estimates, not source observations. Linear fallback is used where cubic spline interpolation is unsupported or invalid.</li>
+    <li>Rows with no annual observations are excluded; the workflow does not impute missing key fields.</li>
+    <li>Metric tonnes, liters, pack units, and channel percentages are distinct dimensions and should not be directly combined.</li>
+    <li>These data support descriptive comparisons, not causal claims or proof that the market estimates are representative.</li>
+  </ul>
+  <p class="small">Source row counts and calculations in this report were cross-checked against the supplied exports, the cleaning script, and notebook validation outputs. Complete executable evidence is in <code>datacleaning.ipynb</code>.</p>
+</body>
+</html>
