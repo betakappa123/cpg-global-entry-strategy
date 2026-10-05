@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DSO 576 Module 6: Project Data Cleaning Assignment</title>
+<style>
+  @page {
+    size: letter;
+    margin: 0.6in 0.6in 0.6in 0.6in;
+    @bottom-right {
+      content: "DSO 576 | Project data cleaning | " counter(page);
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #212121;
+    line-height: 1.35;
+    font-size: 9.5pt;
+  }
+  h1 {
+    color: #1B365D;
+    font-size: 16pt;
+    margin-top: 14pt;
+    margin-bottom: 4pt;
+    border-bottom: 1.5pt solid #1B365D;
+    padding-bottom: 2pt;
+    page-break-after: avoid;
+  }
+  h2 {
+    color: #1B365D;
+    font-size: 12pt;
+    margin-top: 10pt;
+    margin-bottom: 3pt;
+    page-break-after: avoid;
+  }
+  h3 {
+    color: #1B365D;
+    font-size: 10.5pt;
+    margin-top: 8pt;
+    margin-bottom: 2pt;
+    page-break-after: avoid;
+  }
+  .meta-header {
+    font-size: 9pt;
+    font-weight: bold;
+    color: #B4823C;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2pt;
+  }
+  .main-title {
+    font-size: 20pt;
+    font-weight: 800;
+    color: #1B365D;
+    margin: 2pt 0 4pt 0;
+  }
+  .sub-title {
+    font-size: 10pt;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8pt;
+  }
+  .info-box {
+    background-color: #F0F4F8;
+    border-left: 4pt solid #1B365D;
+    padding: 6pt 10pt;
+    margin-bottom: 10pt;
+    font-size: 9pt;
+  }
+  .info-box strong {
+    color: #1B365D;
+  }
+  .status-tag {
+    display: inline-block;
+    padding: 1pt 6pt;
+    background-color: #E8F5E9;
+    color: #2E7D32;
+    font-weight: bold;
+    border-radius: 3px;
+    font-size: 9pt;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 6pt 0 10pt 0;
+    font-size: 8pt;
+    page-break-inside: auto;
+  }
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  th {
+    background-color: #1B365D;
+    color: white;
+    font-weight: 600;
+    text-align: left;
+    padding: 4pt 6pt;
+    border: 0.5pt solid #1B365D;
+  }
+  td {
+    padding: 3.5pt 6pt;
+    border: 0.5pt solid #E0E0E0;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td {
+    background-color: #F9FAFB;
+  }
+  .checklist-item {
+    margin-bottom: 8pt;
+    page-break-inside: avoid;
+  }
+  .prompt-text {
+    font-style: italic;
+    color: #666;
+    font-size: 8.5pt;
+    margin-bottom: 2pt;
+  }
+  .page-footer {
+    text-align: right;
+    font-size: 8pt;
+    color: #888;
+    margin-top: 15pt;
+    border-top: 0.5pt solid #DDD;
+    padding-top: 3pt;
+  }
+  code {
+    background-color: #F4F4F4;
+    padding: 1pt 3pt;
+    font-family: Consolas, monospace;
+    font-size: 8pt;
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="meta-header">DSO 576 | MODULE 6 | Individual Homework Deliverable</div>
+<div class="main-title">Inspect and Clean the Data</div>
+<div class="sub-title">
+  <strong>Project:</strong> Consumer Strategy, Food and Agriculture — CPG Global Entry Strategy<br>
+  <strong>Student Name:</strong> Benjamin (Ru Yi) Cai (<code>betakappa123</code>) | <strong>Team:</strong> Wendy S (<code>WendyS-28</code>)
+</div>
+
+<div class="info-box">
+  <strong>Which branch did you push to GitHub?</strong> <code>cleaning-ben</code><br>
+  <strong>Branch URL:</strong> <a href="https://github.com/betakappa123/cpg-global-entry-strategy/tree/cleaning-ben">https://github.com/betakappa123/cpg-global-entry-strategy/tree/cleaning-ben</a><br>
+  <strong>Commit ID:</strong> <code>afdfe60bf84efeae7688d00dd1fce84483c9c244</code><br>
+  <strong>Primary Execution Notebook:</strong> <code>DATA/Datacleaner.ipynb</code> | <strong>Clean Output Directory:</strong> <code>DATA/clean/</code>
+</div>
+
+<h1>1. Cleaning Decision Log (Rule, Reason, Check)</h1>
+<table>
+  <tr>
+    <th style="width: 5%;">ID</th>
+    <th style="width: 22%;">Cleaning Rule</th>
+    <th style="width: 38%;">Rationale / Reason</th>
+    <th style="width: 35%;">Verification Check Applied</th>
+  </tr>
+  <tr><td><strong>R1</strong></td><td><strong>Header & Footer Boundary Isolation</strong></td><td>Euromonitor exports contain title blocks in rows 0-4 and multi-row research/copyright footers that corrupt table parsing if ingested blindly.</td><td>Dynamically detect Geography header at row 5; terminate ingest at footer boundary ('Research Sources:'). Verified data row counts: 72, 864, 530, 7209.</td></tr><tr><td><strong>R2</strong></td><td><strong>Non-Destructive Source Ingestion</strong></td><td>Raw source files must remain 100% unchanged, reproducible, and verifiable.</td><td>Ingest raw .xls files in read-only mode via xlrd; execute cleaning in-memory; export clean files to separate DATA/clean/ directory.</td></tr><tr><td><strong>R3</strong></td><td><strong>Text Standardization & Whitespace Cleaning</strong></td><td>Pack type.xls (9 rows) and Pack Size.xls (56 rows) had 'PET Jars ' with trailing whitespace, breaking equality joins.</td><td>Strip leading/trailing whitespace across all text columns. Standardized 'PET Jars ' -> 'PET Jars'. Post-cleaning whitespace audit confirmed 0 remaining anomalies.</td></tr><tr><td><strong>R4</strong></td><td><strong>Selective Hyphen / Missing Data Treatment</strong></td><td>Text hyphens '-' represent two distinct realities: (a) genuinely unobserved markets (India RTD), vs (b) non-existent/inactive retail channels.</td><td>In Retail channels, hyphens treated as 0.0% volume share. In Market Sizes, India RTD hyphens kept strictly as NaN to prevent false zero consumption reporting.</td></tr><tr><td><strong>R5</strong></td><td><strong>Semantic Duplicate Total Removal</strong></td><td>In Retail channels.xls, both Outlet Type == 'Retail Channels' and Outlet Type == 'Total' report identical values (100.0% across all years), causing potential double counting.</td><td>Confirmed max absolute difference between 'Retail Channels' and 'Total' is 0.0 across all 385 comparisons. Dropped redundant 'Total' rows (396 tidy rows) from analytical merged files.</td></tr><tr><td><strong>R6</strong></td><td><strong>Currency Scaling & FX Inconsistency Protection</strong></td><td>In Market Sizes.xls, regional aggregates are in USD million, but countries are in local currencies, and Japan is reported in JPY billion (a 1,000x scale difference).</td><td>Flagged that cross-country dollar comparisons require external FX conversion. Preserved exact currency labels and units; used physical Market Volume (Tonnes / Litres) as primary cross-country comparison metric.</td></tr><tr><td><strong>R7</strong></td><td><strong>Tidy Long-Format Reshaping</strong></td><td>Raw wide formats (years as columns 2015–2025) impede multi-table joins, panel filtering, and regression/visualization.</td><td>Reshaped tables using pd.melt() into tidy long format: Year cast to int64, values cast to float64. Zero failed conversions.</td></tr><tr><td><strong>R8</strong></td><td><strong>Multi-Table Relational Merge & Metric Derivation</strong></td><td>Analyzing channel strategy requires knowing physical volume sold through each channel, not merely percentage shares.</td><td>Merged Market Sizes (Volume) with Retail Channels (% Share) on ['Geography', 'Category', 'Year']. Computed Channel_Volume = Market_Volume * (Channel_Share_Pct / 100). Exactly 9,108 rows; 0 unmatched keys.</td></tr>
+</table>
+
+<h1>2. Explanation of How One Codex / AI Suggestion Was Checked</h1>
+<p>
+  <strong>Context:</strong> During exploratory automated script generation, an AI coding assistant (Codex/LLM) suggested a blanket imputation snippet: <code>df = df.replace('-', 0).infer_objects(copy=False)</code> to streamline numeric conversion and avoid handling missing values.<br><br>
+  <strong>Audit & Verification Applied:</strong> We inspected which exact rows in each dataset contained hyphens. In <code>Market Sizes.xls</code>, hyphens appeared exclusively in India RTD Coffee Off-trade Volume and Off-trade Value RSP across all 11 years (2015–2025). Consulting Euromonitor's research methodologies revealed that hyphens signify unobserved or untracked market segments (Euromonitor did not measure RTD liquid coffee in India during this horizon), <em>not</em> zero consumption.<br><br>
+  <strong>Downstream Mathematical Fallout:</strong> Imputing India RTD volume as <code>0.0</code> would falsely imply zero consumption, cause divide-by-zero errors in CAGR calculations, and artificially dilute Asia-Pacific per-capita benchmarks across India's 1.4 billion population.<br><br>
+  <strong>Decision Made:</strong> We <strong>rejected</strong> the uniform zero-imputation rule. In <code>Retail channels</code>, where hyphens represent inactive/unmeasured channels (e.g. forecourt retailers in China), values are treated as <code>0.0%</code>; in <code>Market Sizes</code>, hyphens are preserved strictly as <code>NaN</code> so unobserved market segments are excluded from aggregates without corrupting averages.
+</p>
+
+<h1>3. The 14-Item DSO 576 Data Cleaning Checklist</h1>
+
+<div class="checklist-item">
+  <h3>1 State the project vision and question</h3>
+  <div class="prompt-text">State your project vision and one business question. Name the main metric or comparison.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Documented in <code>project-start.md</code> (lines 5–45), <code>dashboard.html</code> (lines 7–10), and Section 1 of <code>DATA/Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Project Vision:</strong> Evaluate whether a Chinese coffee enterprise originating from Yunnan Province should expand into international overseas markets, identifying the highest-potential target markets in Asia-Pacific and globally to support strategic entry, category selection, and channel deployment.<br>
+  &bull; <strong>One Business Question:</strong> <em>"Which international markets and categories (packaged coffee vs. ready-to-drink [RTD] coffee) offer the highest sustainable volume growth and accessible retail/channel entry routes for a Yunnan coffee enterprise looking to expand overseas?"</em><br>
+  &bull; <strong>Main Metric or Comparison:</strong> Market volume (Tonnes for Packaged Coffee, Million Litres for RTD Coffee) and 10-year CAGR (2015–2025), evaluated alongside off-trade retail channel shares (% E-commerce, Supermarkets, Hypermarkets, Convenience) and packaging unit volume mix (million units by pack format).
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>2 Define one row</h3>
+  <div class="prompt-text">What does one row represent? Name the column or combination that should uniquely identify a row, if any.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically verified in Section 2 of <code>Datacleaner.ipynb</code> (zero duplicate candidate keys across all 4 datasets):<br>
+  1. <strong><code>Market Sizes.xls</code>:</strong> In wide format, one row represents an 11-year time series (2015–2025) of category volume or value for a unique Geography &times; Category &times; Data Type &times; Unit &times; Current Constant. In tidy long format, one row represents a single annual volume or retail value observation for a given Geography, Category, Data Type, and Year. Unique Key: <code>['Geography', 'Category', 'Data Type', 'Year']</code>.<br>
+  2. <strong><code>Retail channels.xls</code>:</strong> In wide format, one row represents the annual percentage distribution of sales volume across 2015–2025 for a specific Geography, Category, Outlet Type, and Data Type. In tidy format, one row represents the percentage share of volume sold through one Outlet Type in a given Geography, Category, and Year. Unique Key: <code>['Geography', 'Category', 'Outlet Type', 'Year']</code>.<br>
+  3. <strong><code>Pack type.xls</code>:</strong> In wide format, one row represents annual unit volume (million units) for a specific packaging container format (Pack Type) within a Geography, Category, and Packaging Class ('Total'). In tidy format, one row represents annual unit volume of a specific Pack Type in a given Geography, Category, and Year. Unique Key: <code>['Geography', 'Category', 'Packaging Class', 'Pack Type', 'Year']</code>.<br>
+  4. <strong><code>Pack Size.xls</code>:</strong> In wide format, one row represents annual unit volume (million units) for a granular pack size/capacity (Pack Size, e.g. '100 g', '250 ml', or 'Total') nested within a Pack Type, Packaging Class, Category, and Geography. In tidy format, one row represents annual unit volume of a specific Pack Size in a given Geography, Category, Pack Type, and Year. Unique Key: <code>['Geography', 'Category', 'Packaging Class', 'Pack Type', 'Pack Size', 'Year']</code>.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>3 Preserve the source</h3>
+  <div class="prompt-text">List the data source and version or download date. Keep the original files unchanged. Explain how to load them.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Documented in sheet footers and implemented via <code>inspect_and_load_source()</code> in Section 3 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Data Source:</strong> Euromonitor International via USC Libraries Passport database subscription (Hot Drinks, Soft Drinks, and Beverage Packaging modules).<br>
+  &bull; <strong>Export Timestamps & Provenance:</strong> Market Sizes.xls (GMT 9/20/2026 11:17:37 PM, 72 data rows); Retail channels.xls (GMT 10/1/2026 7:02:34 AM, 864 data rows); Pack type.xls (GMT 10/1/2026 7:05:16 AM, 530 data rows); Pack Size.xls (GMT 10/1/2026 7:07:44 AM, 7,209 data rows).<br>
+  &bull; <strong>Preservation:</strong> Original binary .xls files in <code>DATA/</code> remain strictly read-only and untouched.<br>
+  &bull; <strong>Loading Procedure:</strong> Loaded via <code>inspect_and_load_source()</code>. The parser dynamically locates the header row (Geography at row index 5), parses data rows up to the footer boundary, and isolates clean tables in-memory before exporting them to separate CSV files in <code>DATA/clean/</code>.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>4 Inspect columns and types</h3>
+  <div class="prompt-text">List incorrect types and your conversions. Count failed conversions and explain how you handled them.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically audited in Section 4 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Conversions:</strong> Year columns (2015–2025) imported as string object due to text hyphens ('-'). Converted to numeric float64 via <code>pd.to_numeric()</code>, mapping hyphens to <code>np.nan</code> (or 0.0 for inactive retail channels). In tidy format, converted Year from string to <code>int64</code>. Categorical columns typed as clean strings.<br>
+  &bull; <strong>Failed Conversions Count:</strong> <strong>0 unexpected failures</strong>. Every non-numeric string across all four datasets was strictly the hyphen character '-'. Hyphen counts: Market Sizes = 22; Retail channels = 3,384; Pack type = 96; Pack Size = 2,758.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>5 Standardize text</h3>
+  <div class="prompt-text">Show text before and after cleaning. Keep meaningful differences and leading zeros in IDs.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically audited in Section 5 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Text Cleaning:</strong> In <code>Pack type.xls</code> (9 rows) and <code>Pack Size.xls</code> (56 rows), Pack Type contained an accidental trailing space: Before: <code>'PET Jars '</code> (length 9) &rarr; After: <code>'PET Jars'</code> (length 8). Applied <code>.str.strip()</code> across all text columns across all tables. Trailing/leading whitespace issues after cleaning: <strong>0</strong>.<br>
+  &bull; <strong>Preserved Differences:</strong> Preserved category distinctions (Coffee vs RTD Coffee), currency scale distinctions (USD million, JPY billion, CNY million, GBP million, EUR million), and package units (Tonnes, million litres, million units, g, ml).<br>
+  &bull; <strong>IDs:</strong> Euromonitor uses standardized text strings rather than numeric codes with leading zeros.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>6 Investigate duplicates</h3>
+  <div class="prompt-text">Count exact duplicate rows and repeated IDs separately. Explain which you kept or removed, and why.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically verified in Section 6 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Exact Duplicate Rows:</strong> Market Sizes = 0; Retail channels = 0; Pack type = 0; Pack Size = 0.<br>
+  &bull; <strong>Repeated IDs:</strong> <strong>0 repeated composite primary keys</strong> across all four tables in raw format.<br>
+  &bull; <strong>Semantic Duplicates Handled:</strong> (1) In <code>Retail channels.xls</code>, Outlet Type == 'Retail Channels' and Outlet Type == 'Total' both report identical values (100.0% across all years; max diff = 0.0). Retained 'Retail Channels' as primary total and filtered out redundant 'Total' rows (36 rows removed) to prevent double counting. (2) In <code>Pack Size.xls</code>, the 530 rows where Pack Size == 'Total' are exact replicas of <code>Pack type.xls</code>.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>7 Handle missing data</h3>
+  <div class="prompt-text">Report missing counts before and after cleaning for each affected column. Explain why you kept, filled, or dropped values.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically verified in Section 7 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Market Sizes.xls (22 missing values):</strong> India RTD Coffee Off-trade Volume and Value across 11 years. Kept strictly as <code>NaN</code> (NOT filled with 0) to avoid falsely reporting zero consumption and distorting growth metrics.<br>
+  &bull; <strong>Retail channels.xls (3,384 missing values, 35.61% of channel cells):</strong> Inactive/unmeasured retail channels in specific countries (e.g. forecourt retailers in China). Treated as 0.0% for additive channel share calculations; preserved as <code>NaN</code> for presence analysis.<br>
+  &bull; <strong>Pack type.xls (96 missing values) & Pack Size.xls (2,758 missing values):</strong> Preserved as <code>NaN</code> when analyzing launch timelines; treated as 0.0 when computing aggregate packaging volume.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>8 Check suspicious values</h3>
+  <div class="prompt-text">Check invalid dates, impossible values, and unusual records. Explain what you corrected, kept, or flagged. Unusual does not always mean wrong.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically verified in Section 8 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Date Bounds:</strong> All years span 2015 to 2025. Historical: 2015–2023; Forecast: 2024–2025. Valid range.<br>
+  &bull; <strong>Negative Values:</strong> <strong>0 negative values</strong> across all four datasets (minimum numeric value is 0.0).<br>
+  &bull; <strong>Percentages:</strong> All channel shares in Retail channels fall strictly within [0.0, 100.0]. Total channel sums equal 100.0%.<br>
+  &bull; <strong>CRITICAL FLAG — Currency Scaling Discrepancies:</strong> Regional aggregates report Retail Value RSP in USD million, whereas country-level rows report retail value in local currency (China: CNY million; India: INR million; Japan: JPY billion [1,000x scale difference!]; Thailand: THB million; Australia: AUD million; Brazil: BRL million; France/Germany: EUR million; UK: GBP million; USA: USD million).<br>
+  &bull; <strong>Correction / Action:</strong> Direct dollar comparisons across countries cannot be made from raw Retail Value RSP without external exchange rates. Market Volume (Tonnes for coffee, Million Litres for RTD) must be used as primary physically consistent metric.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>9 Verify merges</h3>
+  <div class="prompt-text">If you merged tables, list the keys and expected relationship. Report unmatched keys, row counts before and after, and any unexpected extra rows.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically verified in Section 9 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Primary Merge:</strong> Market Sizes (Volume) merged with Retail Channels (% Share) on <code>['Geography', 'Category', 'Year']</code>. Relationship: One-to-Many. Unmatched Keys: 0 on either side (18 geographies &times; 2 categories &times; 11 years = 396 groups perfectly matched). Pre-merge: Market Sizes Volume tidy = 396; Retail Channels tidy (filtered) = 9,108. Post-merge: Exactly 9,108 rows (0 unexpected extra rows, 0 dropped rows). Derived Metric: <code>Channel_Volume = Total_Market_Volume * (Channel_Share_Pct / 100.0)</code>.<br>
+  &bull; <strong>Secondary Merge Validation:</strong> Pack type.xls merged with Pack Size.xls ('Total') on <code>['Geography', 'Category', 'Packaging Class', 'Pack Type Clean']</code>. Exactly 530 rows matched 1-to-1, 0 unmatched, 0 numeric discrepancies across all 11 years.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>10 Reconcile changes</h3>
+  <div class="prompt-text">Report starting and final row counts. Account for the difference. Explain changes to important totals after cleaning or merging.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically audited in Section 10 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Row Counts Reconciliation:</strong> Market Sizes: raw 85 &rarr; 72 data rows &rarr; 792 tidy rows (8 footer rows parsed). Retail Channels: raw 877 &rarr; 864 data rows &rarr; 9,504 tidy rows &rarr; 9,108 clean rows (36 redundant 'Total' rows removed; 8 footer rows). Pack Type: raw 542 &rarr; 530 data rows &rarr; 5,830 tidy rows (7 footer rows). Pack Size: raw 7,221 &rarr; 7,209 data rows &rarr; 79,299 tidy rows (7 footer rows).<br>
+  &bull; <strong>Reconciliation of Totals:</strong> Summing granular pack sizes (Pack Size != 'Total') within each pack type reproduces reported Pack Type totals within a mean difference of &lt; 0.07 million units (max discrepancy &lt; 0.8 million units across all years), which is mathematically attributable to 1-decimal rounding in raw source tables. Retail channel sub-shares sum cleanly to 100.0% within rounding tolerance.
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>11 Check calculations</h3>
+  <div class="prompt-text">Explain how missing values affect totals, averages, and denominators. Give the record count for each metric. State how you handle missing group keys.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Programmatically verified in Section 11 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Impact of Missing Values:</strong> In RTD Coffee regional sums, India is omitted because its volume is unobserved (NaN). For channel penetration, including zeroes measures cross-market portfolio availability, while excluding zeroes measures average penetration among active markets.<br>
+  &bull; <strong>Record Counts by Metric:</strong> Market Sizes Volume: 396 observations (374 valid, 22 missing for India RTD); Market Sizes Value: 396 observations; Retail Channels (non-redundant): 9,108 observations (5,724 active non-zero, 3,384 inactive/0%); Pack Type: 5,830 observations; Pack Size: 79,299 observations.<br>
+  &bull; <strong>Missing Group Keys:</strong> 0 missing group keys across all datasets (no null or empty strings exist in any grouping dimension).
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>12 Verify individual records</h3>
+  <div class="prompt-text">Check five records, including difficult cases. Write the expected result and reason before checking the output. Show the original value, actual result, and whether it matches.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Audited across five targeted cases with 100% agreement. Detailed audit table included in Section 4 below.</p>
+</div>
+
+<div class="checklist-item">
+  <h3>13 Test reproducibility</h3>
+  <div class="prompt-text">Restart and run all code from the original data using the listed dependencies. Give the command or notebook steps. Confirm that outputs match your submitted files.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Tested and confirmed in Section 13 of <code>Datacleaner.ipynb</code>.<br>
+  &bull; <strong>Dependencies:</strong> Python 3.10+ (tested on Python 3.14.0), <code>pandas >= 2.0</code>, <code>xlrd >= 2.0.1</code>, <code>numpy >= 1.24</code>, <code>nbformat >= 5.11</code>, <code>nbclient >= 0.11</code>.<br>
+  &bull; <strong>Reproducibility Command:</strong> <code>python -m jupyter nbconvert --to notebook --execute Datacleaner.ipynb --output Datacleaner.ipynb</code><br>
+  &bull; <strong>Clean Output Directory:</strong> Clean datasets exported to <code>DATA/clean/</code>: <code>clean_market_channels_merged.csv</code> (858 KB), <code>clean_market_sizes_tidy.csv</code> (23 KB), <code>clean_market_sizes_wide.csv</code> (10 KB), <code>clean_retail_channels_tidy.csv</code> (611 KB), <code>clean_retail_channels_wide.csv</code> (85 KB), <code>clean_pack_type_tidy.csv</code> (561 KB), <code>cleaned_sample_50.csv</code> (5 KB).
+  </p>
+</div>
+
+<div class="checklist-item">
+  <h3>14 Document remaining limitations</h3>
+  <div class="prompt-text">List unresolved issues. Explain how they could affect your conclusions and what information you still need.</div>
+  <div><strong>Status:</strong> <span class="status-tag">Done</span></div>
+  <p><strong>Evidence or explanation:</strong> Documented in Section 14 of <code>Datacleaner.ipynb</code> and <code>data-fit.md</code> (lines 79–84).<br>
+  1. <strong>Cross-Country Currency Comparability:</strong> Country retail value is in local currency (CNY, INR, JPY, EUR, GBP, THB) without annual FX exchange rates. Direct revenue comparisons require linking an auxiliary exchange-rate table (e.g. IMF/World Bank annual FX rates). Strategic analysis must prioritize volume metrics (Tonnes and Litres).<br>
+  2. <strong>Missing India RTD Coffee Data:</strong> India RTD coffee is unobserved in Passport. Market sizing for India must be restricted to Packaged Coffee.<br>
+  3. <strong>Exclusion of Foodservice / On-Premise Consumption:</strong> Passport covers off-trade retail channels only. Out-of-home consumption (cafés, restaurants, specialty coffee shops) is unobserved.<br>
+  4. <strong>Rounding in Granular Pack Sizes:</strong> Granular pack sizes have minor decimal rounding differences (&lt; 0.8 million units) against reported totals.
+  </p>
+</div>
+
+<h1>4. Five Record Checks (Original, Expected, Actual)</h1>
+<table>
+  <tr>
+    <th style="width: 25%;">Case</th>
+    <th style="width: 14%;">Original Value</th>
+    <th style="width: 15%;">Expected Result</th>
+    <th style="width: 15%;">Actual Result</th>
+    <th style="width: 8%;">Match?</th>
+    <th style="width: 23%;">Reason & Verification Scope</th>
+  </tr>
+  <tr><td><strong>1. China Coffee Volume 2025</strong></td><td>61314.5</td><td>61,314.5 Tonnes</td><td>61,314.5 Tonnes</td><td><strong>Yes</strong></td><td>Forecast home market volume benchmark</td></tr><tr><td><strong>2. India RTD Coffee Volume 2020</strong></td><td>'-' (Hyphen)</td><td>NaN (Unobserved)</td><td>NaN</td><td><strong>Yes</strong></td><td>Unobserved category preserved without false zero imputation</td></tr><tr><td><strong>3. China Coffee E-Commerce 2025</strong></td><td>46.7</td><td>46.7%</td><td>46.7%</td><td><strong>Yes</strong></td><td>Verifies digital channel transition (expanded from 10.8% in 2015)</td></tr><tr><td><strong>4. PET Jars Text Standardization</strong></td><td>'PET Jars '</td><td>'PET Jars'</td><td>'PET Jars'</td><td><strong>Yes</strong></td><td>Verifies elimination of trailing whitespace</td></tr><tr><td><strong>5. Japan Coffee Value RSP 2023</strong></td><td>415.5</td><td>415.5 JPY billion</td><td>415.5 JPY billion</td><td><strong>Yes</strong></td><td>Verifies currency unit and scale preservation (JPY billion)</td></tr>
+</table>
+
+<h1>5. Cleaned Data Sample (50 Representative Rows)</h1>
+<p><em>Sample Selection Rationale: The 50 records below are drawn from <code>clean_market_channels_merged.csv</code> to represent key strategic entry markets (China, Japan, Thailand, India, USA), both product categories (Coffee in Tonnes, RTD Coffee in Million Litres), critical retail channels (E-Commerce, Supermarkets, Hypermarkets, Convenience Stores), and difficult edge cases (e.g. unobserved India RTD volume preserved as NaN).</em></p>
+<table>
+  <tr>
+    <th>#</th>
+    <th>Geography</th>
+    <th>Category</th>
+    <th>Outlet Type</th>
+    <th>Year</th>
+    <th>Share %</th>
+    <th>Total Mkt Vol</th>
+    <th>Unit</th>
+    <th>Channel Vol</th>
+  </tr>
+  <tr><td>1</td><td>China</td><td>Coffee</td><td>Convenience Stores</td><td>2015</td><td>5.4%</td><td>63,458.7</td><td>Tonnes</td><td>3,426.8</td></tr><tr><td>2</td><td>China</td><td>Coffee</td><td>Supermarkets</td><td>2015</td><td>31.6%</td><td>63,458.7</td><td>Tonnes</td><td>20,052.9</td></tr><tr><td>3</td><td>China</td><td>Coffee</td><td>Hypermarkets</td><td>2015</td><td>42.5%</td><td>63,458.7</td><td>Tonnes</td><td>26,969.9</td></tr><tr><td>4</td><td>China</td><td>Coffee</td><td>Retail E-Commerce</td><td>2015</td><td>10.8%</td><td>63,458.7</td><td>Tonnes</td><td>6,853.5</td></tr><tr><td>5</td><td>China</td><td>Coffee</td><td>Convenience Stores</td><td>2020</td><td>5.5%</td><td>67,782.7</td><td>Tonnes</td><td>3,728.0</td></tr><tr><td>6</td><td>China</td><td>Coffee</td><td>Supermarkets</td><td>2020</td><td>27.0%</td><td>67,782.7</td><td>Tonnes</td><td>18,301.3</td></tr><tr><td>7</td><td>China</td><td>Coffee</td><td>Hypermarkets</td><td>2020</td><td>33.9%</td><td>67,782.7</td><td>Tonnes</td><td>22,978.3</td></tr><tr><td>8</td><td>China</td><td>Coffee</td><td>Retail E-Commerce</td><td>2020</td><td>29.5%</td><td>67,782.7</td><td>Tonnes</td><td>19,995.9</td></tr><tr><td>9</td><td>China</td><td>Coffee</td><td>Convenience Stores</td><td>2025</td><td>5.5%</td><td>61,314.5</td><td>Tonnes</td><td>3,372.3</td></tr><tr><td>10</td><td>China</td><td>Coffee</td><td>Supermarkets</td><td>2025</td><td>20.5%</td><td>61,314.5</td><td>Tonnes</td><td>12,569.5</td></tr><tr><td>11</td><td>China</td><td>Coffee</td><td>Hypermarkets</td><td>2025</td><td>24.1%</td><td>61,314.5</td><td>Tonnes</td><td>14,776.8</td></tr><tr><td>12</td><td>China</td><td>Coffee</td><td>Retail E-Commerce</td><td>2025</td><td>46.7%</td><td>61,314.5</td><td>Tonnes</td><td>28,633.9</td></tr><tr><td>13</td><td>China</td><td>RTD Coffee</td><td>Convenience Stores</td><td>2015</td><td>6.5%</td><td>292.4</td><td>millio</td><td>19.0</td></tr><tr><td>14</td><td>China</td><td>RTD Coffee</td><td>Supermarkets</td><td>2015</td><td>36.6%</td><td>292.4</td><td>millio</td><td>107.0</td></tr><tr><td>15</td><td>China</td><td>RTD Coffee</td><td>Retail E-Commerce</td><td>2015</td><td>1.9%</td><td>292.4</td><td>millio</td><td>5.6</td></tr><tr><td>16</td><td>China</td><td>RTD Coffee</td><td>Convenience Stores</td><td>2020</td><td>14.5%</td><td>268.5</td><td>millio</td><td>38.9</td></tr><tr><td>17</td><td>China</td><td>RTD Coffee</td><td>Supermarkets</td><td>2020</td><td>19.1%</td><td>268.5</td><td>millio</td><td>51.3</td></tr><tr><td>18</td><td>China</td><td>RTD Coffee</td><td>Retail E-Commerce</td><td>2020</td><td>3.6%</td><td>268.5</td><td>millio</td><td>9.7</td></tr><tr><td>19</td><td>China</td><td>RTD Coffee</td><td>Convenience Stores</td><td>2025</td><td>16.7%</td><td>301.3</td><td>millio</td><td>50.3</td></tr><tr><td>20</td><td>China</td><td>RTD Coffee</td><td>Supermarkets</td><td>2025</td><td>18.9%</td><td>301.3</td><td>millio</td><td>56.9</td></tr><tr><td>21</td><td>China</td><td>RTD Coffee</td><td>Retail E-Commerce</td><td>2025</td><td>6.4%</td><td>301.3</td><td>millio</td><td>19.3</td></tr><tr><td>22</td><td>Japan</td><td>Coffee</td><td>Convenience Stores</td><td>2020</td><td>3.2%</td><td>119,096.3</td><td>Tonnes</td><td>3,811.1</td></tr><tr><td>23</td><td>Japan</td><td>Coffee</td><td>Supermarkets</td><td>2020</td><td>47.7%</td><td>119,096.3</td><td>Tonnes</td><td>56,808.9</td></tr><tr><td>24</td><td>Japan</td><td>Coffee</td><td>Retail E-Commerce</td><td>2020</td><td>9.6%</td><td>119,096.3</td><td>Tonnes</td><td>11,433.2</td></tr><tr><td>25</td><td>Japan</td><td>RTD Coffee</td><td>Convenience Stores</td><td>2020</td><td>21.4%</td><td>3,011.8</td><td>millio</td><td>644.5</td></tr><tr><td>26</td><td>Japan</td><td>RTD Coffee</td><td>Supermarkets</td><td>2020</td><td>24.5%</td><td>3,011.8</td><td>millio</td><td>737.9</td></tr><tr><td>27</td><td>Japan</td><td>RTD Coffee</td><td>Retail E-Commerce</td><td>2020</td><td>0.6%</td><td>3,011.8</td><td>millio</td><td>18.1</td></tr><tr><td>28</td><td>Japan</td><td>Coffee</td><td>Convenience Stores</td><td>2025</td><td>2.8%</td><td>97,775.2</td><td>Tonnes</td><td>2,737.7</td></tr><tr><td>29</td><td>Japan</td><td>Coffee</td><td>Supermarkets</td><td>2025</td><td>46.4%</td><td>97,775.2</td><td>Tonnes</td><td>45,367.7</td></tr><tr><td>30</td><td>Japan</td><td>Coffee</td><td>Retail E-Commerce</td><td>2025</td><td>12.4%</td><td>97,775.2</td><td>Tonnes</td><td>12,124.1</td></tr><tr><td>31</td><td>Japan</td><td>RTD Coffee</td><td>Convenience Stores</td><td>2025</td><td>21.8%</td><td>2,846.4</td><td>millio</td><td>620.5</td></tr><tr><td>32</td><td>Japan</td><td>RTD Coffee</td><td>Supermarkets</td><td>2025</td><td>23.2%</td><td>2,846.4</td><td>millio</td><td>660.4</td></tr><tr><td>33</td><td>Japan</td><td>RTD Coffee</td><td>Retail E-Commerce</td><td>2025</td><td>1.2%</td><td>2,846.4</td><td>millio</td><td>34.2</td></tr><tr><td>34</td><td>Thailand</td><td>Coffee</td><td>Convenience Stores</td><td>2020</td><td>16.3%</td><td>83,872.4</td><td>Tonnes</td><td>13,671.2</td></tr><tr><td>35</td><td>Thailand</td><td>Coffee</td><td>Supermarkets</td><td>2020</td><td>6.4%</td><td>83,872.4</td><td>Tonnes</td><td>5,367.8</td></tr><tr><td>36</td><td>Thailand</td><td>Coffee</td><td>Retail E-Commerce</td><td>2020</td><td>2.2%</td><td>83,872.4</td><td>Tonnes</td><td>1,845.2</td></tr><tr><td>37</td><td>Thailand</td><td>RTD Coffee</td><td>Convenience Stores</td><td>2020</td><td>14.7%</td><td>180.8</td><td>millio</td><td>26.6</td></tr><tr><td>38</td><td>Thailand</td><td>RTD Coffee</td><td>Supermarkets</td><td>2020</td><td>4.9%</td><td>180.8</td><td>millio</td><td>8.9</td></tr><tr><td>39</td><td>Thailand</td><td>RTD Coffee</td><td>Retail E-Commerce</td><td>2020</td><td>1.9%</td><td>180.8</td><td>millio</td><td>3.4</td></tr><tr><td>40</td><td>Thailand</td><td>Coffee</td><td>Convenience Stores</td><td>2025</td><td>16.3%</td><td>89,133.0</td><td>Tonnes</td><td>14,528.7</td></tr><tr><td>41</td><td>Thailand</td><td>Coffee</td><td>Supermarkets</td><td>2025</td><td>7.3%</td><td>89,133.0</td><td>Tonnes</td><td>6,506.7</td></tr><tr><td>42</td><td>Thailand</td><td>Coffee</td><td>Retail E-Commerce</td><td>2025</td><td>3.5%</td><td>89,133.0</td><td>Tonnes</td><td>3,119.7</td></tr><tr><td>43</td><td>Thailand</td><td>RTD Coffee</td><td>Convenience Stores</td><td>2025</td><td>19.0%</td><td>182.8</td><td>millio</td><td>34.7</td></tr><tr><td>44</td><td>Thailand</td><td>RTD Coffee</td><td>Supermarkets</td><td>2025</td><td>5.0%</td><td>182.8</td><td>millio</td><td>9.1</td></tr><tr><td>45</td><td>Thailand</td><td>RTD Coffee</td><td>Retail E-Commerce</td><td>2025</td><td>2.1%</td><td>182.8</td><td>millio</td><td>3.8</td></tr><tr><td>46</td><td>USA</td><td>Coffee</td><td>Supermarkets</td><td>2020</td><td>27.0%</td><td>858,536.5</td><td>Tonnes</td><td>231,804.9</td></tr><tr><td>47</td><td>USA</td><td>Coffee</td><td>Discounters</td><td>2020</td><td>2.1%</td><td>858,536.5</td><td>Tonnes</td><td>18,029.3</td></tr><tr><td>48</td><td>USA</td><td>Coffee</td><td>Retail E-Commerce</td><td>2020</td><td>17.9%</td><td>858,536.5</td><td>Tonnes</td><td>153,678.0</td></tr><tr><td>49</td><td>USA</td><td>Coffee</td><td>Supermarkets</td><td>2025</td><td>23.1%</td><td>735,187.2</td><td>Tonnes</td><td>169,828.2</td></tr><tr><td>50</td><td>USA</td><td>Coffee</td><td>Discounters</td><td>2025</td><td>1.8%</td><td>735,187.2</td><td>Tonnes</td><td>13,233.4</td></tr>
+</table>
+
+<div class="page-footer">
+  DSO 576 Module 6 | Project Data Cleaning Assignment | Student: Benjamin (Ru Yi) Cai (<code>betakappa123</code>)
+</div>
+
+</body>
+</html>

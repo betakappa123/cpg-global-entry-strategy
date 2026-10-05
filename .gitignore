@@ -1,15 +1,14 @@
-# Data files (Do not commit downloaded data)
-*.csv
+# Data files (Do not commit downloaded raw data)
+DATA/*.xls
+DATA/*.xlsx
 *.tsv
 *.parquet
-*.xlsx
-*.xls
 *.json
 *.zip
 *.tar.gz
-data/
 raw_data/
 downloads/
+!DATA/clean/cleaned_sample_50.csv
 
 # Python / Environment
 __pycache__/
