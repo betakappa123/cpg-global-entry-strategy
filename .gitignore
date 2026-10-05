@@ -1,14 +1,23 @@
-# Data files (Do not commit downloaded raw data)
-DATA/*.xls
-DATA/*.xlsx
-*.tsv
+# Data files (Do not commit downloaded raw data or full generated tables)
+DATA/
+data/
+raw_data/
+downloads/
+*.xls
+*.xlsx
 *.parquet
 *.json
 *.zip
 *.tar.gz
-raw_data/
-downloads/
-!DATA/clean/cleaned_sample_50.csv
+clean/
+*.csv
+!sample/cleaned_sample_50.csv
+
+# Gradescope individual submission deliverables (do not push to shared repo)
+*.pdf
+*.docx
+*.html
+data-cleaning.md
 
 # Python / Environment
 __pycache__/
