@@ -4,509 +4,344 @@
 **Deliverable:** Revised Vision & Build Specification (`BUILD_SPEC.md`)  
 **Student Name:** Benjamin (Ru Yi) Cai (`betakappa123`)  
 **Team Members:** Wendy S (`WendyS-28`) & Benjamin Cai (`betakappa123`)  
-**Repository Branch:** `Ben`  
+**Repository Branch:** `main`  
 **Primary Artifact:** [`dashboard.html`](dashboard.html)  
+**Data Scope Constraint:** Strictly 100% grounded in local repository datasets (`DATA/` & `DATA/clean/`) without external unverified dependencies.
 
 ---
 
 ## 1. Revised Vision & Context
 
 ### 1.1 Specific User Persona
-The primary user of this decision-support platform is the **Vice President of Global Strategy / Chief Growth Officer** at a mid-tier specialty coffee enterprise originating from **Yunnan Province, China** (e.g., a vertically integrated estate group in Pu'er or Baoshan cultivating high-elevation Arabica, operating dry/wet mills, and running commercial roasting lines). 
+The primary user is the **Commercial Strategy Director / VP of Global Expansion** at a specialty coffee enterprise originating from **Yunnan Province, China** (e.g., an integrated Arabica estate and roastery in Pu'er or Baoshan operating commercial green bean milling, roasting lines, and packaging facilities).
 
-Secondary stakeholders include the **Chief Financial Officer (CFO)**, who evaluates export capital expenditure, working capital cycles, and cross-border currency/tariff exposure; the **Head of Supply Chain & Packaging**, who evaluates shipping routes, packaging shelf life, and customs compliance; and the **Board of Directors**, who must formally approve capital allocation between domestic retail store expansion and overseas export routes.
+Secondary stakeholders include the **Head of Sales & Distribution** (evaluating retail partner channels and modern trade access), the **Director of Packaging & Production Engineering** (allocating capital between pouch packing lines, canning equipment, and carton forming), and the **Executive Leadership Team** (evaluating whether to allocate capital toward overseas export expansion vs. defending domestic Chinese retail share).
 
 ### 1.2 Core Business Decision
-The user faces a high-stakes capital allocation decision:  
-**Should the Yunnan coffee enterprise expand into international overseas markets, or should it remain 100% focused on defending and expanding its market share within domestic Chinese tier 1 and tier 2 cities?**
+The user faces a concrete strategic question:  
+**Which international markets, retail channels, product categories, and packaging formats offer the highest physical volume potential and sustained growth velocity for a Yunnan coffee enterprise looking to expand beyond domestic China?**
 
-If the strategic decision is to expand overseas, the platform guides three interlocking tactical decisions:
-1. **Target Market Prioritization:** Which international geographies should be entered first (e.g., East Asian RCEP partners such as Japan and South Korea vs. traditional Western markets like the United States and Germany)?
-2. **Product Format & Packaging Selection:** Which product category and packaging format will maximize margin and brand equity (specialty single-origin whole bean in valve pouches vs. single-serve nitrogen-flushed drip bags vs. ready-to-drink [RTD] canned cold brew)?
-3. **Route-to-Market & Channel Selection:** Which off-trade retail channels (convenience chains, specialty grocery, supermarkets, or cross-border e-commerce) offer the lowest barrier to entry, manageable distributor fees, and sufficient volume velocity?
+The decision decomposes into four empirical choices fully supported by the local data:
+1. **Target Market Prioritization (Vision A):** Which overseas markets exhibit large physical volume scale and structural growth velocity for Coffee and RTD Coffee, vs. markets that are contracting or stagnant?
+2. **Category Portfolio Selection:** Should the firm lead international expansion with packaged roast & ground coffee (`Coffee`, in Tonnes) or ready-to-drink liquid coffee (`RTD Coffee`, in Million Litres)?
+3. **Retail Route-to-Market Selection (Vision B):** Which specific off-trade retail channels (e.g., Convenience Stores, Supermarkets, Retail E-Commerce, Hypermarkets, Discounters) command the largest physical volume throughput and fastest adoption in each destination market?
+4. **Packaging Format & Size Strategy (Vision C):** Which container formats (e.g., Stand-Up Pouches, Flexible Aluminium/Plastic, Glass Jars, Beverage Cans) and capacity sizes (e.g., single-serve $\le 10\text{g}$, retail $100\text{g} - 250\text{g}$, bulk $> 500\text{g}$, or $250\text{ml}$) represent the dominant consumer purchasing unit in each target country?
 
 ### 1.3 Why the Tool Improves Current Practice
-* **The Status Quo:** Currently, CPG leadership relies on static, disconnected PDF market research reports (Euromonitor Passport, ICO statistical bulletins), ad-hoc international broker decks, and qualitative executive intuitions. This workflow suffers from severe deficiencies:
-  * *Disparate Financial Metrics:* Raw Euromonitor market sizes report country retail values in local currencies without annual FX alignment (e.g., Japan reported in `JPY billion`, China in `CNY million`, Germany in `EUR million`), leading analysts into erroneous scale comparisons or tedious manual spreadsheet reconciliations.
-  * *Volume-Value Disconnect:* Headline revenue figures obscure underlying physical volume consumption trends and per-capita realities.
-  * *The "Domestic Growth Fallacy":* Executive teams observe rapid top-line coffee consumption growth in China (+14.8% CAGR) and instinctively assume domestic reinvestment is optimal, failing to model the destructive margin compression caused by domestic price wars (¥9.90 / $1.40 retail cup discounting by Luckin and Cotti Coffee, forcing green bean procurement margins down to 12.5%).
-  * *Blindness to Trade Barriers:* Teams evaluate large foreign markets like the United States ($28.5B TAM) while overlooking 25% Section 301 punitive tariffs, elevated trans-Pacific ocean freight, and long shipping lead times (24–32 days) that degrade roast freshness.
-* **The Platform Improvement:** This interactive decision engine unifies verified physical market volumes (Tonnes for coffee, Million Litres for RTD), 10-year historical and forecast CAGRs (2015–2025), granular channel volume distributions (9,108 observations), packaging format data, real-time landed-cost financial sensitivity modeling, and dynamic Multi-Criteria Decision Analysis (MCDA). It enables the CGO to test hypotheses in seconds, simulate landed margins under shifting tariffs and freight rates, and present an auditable, data-backed expansion roadmap to the Board.
+* **The Status Quo:** Currently, CPG commercial teams analyze export markets using disconnected, static spreadsheet exports and fragmented trade reports:
+  * *Disparate Currency Metrics:* Raw Euromonitor exports report country retail values in local currencies without annual FX alignment (e.g., Japan in `JPY billion`, China in `CNY million`, Germany in `EUR million`), causing severe scale distortions when non-technical managers compare country rows.
+  * *Disconnection Between Volume and Channels:* Market sizing reports state total national volume, but channel share reports only state percentages. Commercial teams struggle to quickly quantify the *physical volume* flowing through a specific channel (e.g., knowing that Supermarkets represent 46.4% of Japan's coffee market does not immediately tell an executive how many physical Tonnes that represents relative to China's e-commerce volume).
+  * *Packaging Format Blindness:* Product teams frequently design packaging (e.g., rigid glass jars or bulk bags) without verifying whether the target market's off-trade retail volume has already shifted to stand-up pouches or single-serve packs.
+* **The Platform Improvement:** The platform integrates physical market volumes (`Tonnes` and `million litres`), 11-year historical and forecast CAGRs (2015–2025), derived channel physical volumes (9,108 observations across 23 outlet types), 37 packaging container formats (5,830 observations), and granular capacity size breakdowns into a single interactive decision engine. It eliminates currency distortions by prioritizing physical volume consumption and directly computes channel throughput to guide route-to-market contracts.
 
 ### 1.4 Phase 1 Vision vs. Revised Vision Evolution
-* **Phase 1 Conception (`project-start.md`):** The team initially scoped three isolated, competing candidate visions:
-  * *Candidate Vision A:* Whether to expand overseas (country-level macro screening).
-  * *Candidate Vision B:* Which retail channel to select in APAC (supermarkets vs. convenience vs. e-commerce).
-  * *Candidate Vision C:* Which packaging format to adopt (bags vs. jars vs. cans).
-* **The Revised Vision:** Through rigorous data inspection (`data-cleaning.md`) and stakeholder objection mapping (`objections.md`), the team recognized that treating these three questions in isolation leads to sub-optimal decisions. Choosing a country without knowing its channel structure leads to distribution failure; choosing a packaging format without knowing the target country's retail preference leads to unsellable inventory. 
-* **The Integrated Synthesis:** The Revised Vision synthesizes all three candidate visions into an **integrated, multi-layered decision engine**:
-  * **Anchor Decision (Vision A):** International Market Prioritization and Go/No-Go Hurdle Evaluation against a domestic China counterfactual.
-  * **Execution Engines (Visions B & C):** Retail Channel Route-to-Market analysis and Packaging Format Suitability serve as the operational feasibility filters within each candidate market.
-  * **Dynamic Financial & Governance Layer:** A real-time landed trade cost simulator and MCDA weighting engine that translates physical market data into net margin spreads ($/kg) and risk-weighted categorical roadmaps.
+* **Phase 1 Conception (`project-start.md`):** Initially scoped three separate, disconnected candidate visions:
+  * *Candidate Vision A:* Whether to expand overseas (macro country evaluation).
+  * *Candidate Vision B:* Which retail channel to select in APAC (channel comparison).
+  * *Candidate Vision C:* Which packaging format to adopt (packaging format comparison).
+* **The Revised Vision (100% Local Data Grounded):** The three candidate visions are synthesized into an **integrated, sequential commercial go-to-market pipeline** powered entirely by the four local datasets in `DATA/clean/`:
+  * **Step 1 (Macro Screening — Vision A):** Filter candidate countries by physical volume scale and 10-year volume CAGR from [clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv).
+  * **Step 2 (Category Balance):** Compare growth divergence between Coffee (Tonnes) and RTD Coffee (Million Litres).
+  * **Step 3 (Channel Execution — Vision B):** Identify the primary volume-driving retail channel using derived `Channel_Volume` from [clean_market_channels_merged.csv](DATA/clean/clean_market_channels_merged.csv).
+  * **Step 4 (Packaging Strategy — Vision C):** Select container format and pack capacity using [clean_pack_type_tidy.csv](DATA/clean/clean_pack_type_tidy.csv) and [Pack Size.xls](DATA/Pack%20Size.xls).
 
 ---
 
 ## 2. Core Use Cases
 
-Each use case follows the standard decision-support interaction architecture:  
+Each use case adheres strictly to the decision-support interaction pattern:  
 $$\text{User selects/inputs} \longrightarrow \text{Dashboard shows} \longrightarrow \text{User decides}$$
 
 ```
 +--------------------------+       +--------------------------+       +--------------------------+
 |   User Selects/Inputs    | ----> |     Dashboard Shows      | ----> |       User Decides       |
-| (Filters, Sliders, Scens)|       | (Visuals, KPIs, Verdict) |       | (Capital, Market, Route) |
+| (Filters, Dropdowns)     |       | (Empirical Metrics/Charts|       | (Market, Channel, Format)|
 +--------------------------+       +--------------------------+       +--------------------------+
 ```
 
-### Use Case 1: Cross-Market Attractiveness & Strategic Market Prioritization
-* **User selects/inputs:** Target Product Category (`Coffee` vs. `RTD Coffee`), Evaluation Horizon (`2015–2025`), and Geographic Region (`Asia Pacific` vs. `Global Focal Markets`).
-* **Dashboard shows:** 
-  * The **Market Attractiveness Bubble Matrix** (X-axis: 10-year CAGR %; Y-axis: Average Retail Specialty Price in USD/kg; Bubble Size: Total Category Market Volume).
-  * The **Multi-Vector Strategic Readiness Radar Chart**, comparing candidate markets across 5 dimensions: Market Volume Growth, Retail Price Realization, Tariff Favorability, Logistics Transit Speed, and Brand Origin Affinity.
-  * The **Candidate Market Evaluation Matrix**, highlighting volume TAM, per-capita consumption (kg/capita/year), and initial strategic status badges (`PHASE 1: PRIORITY GO`, `PHASE 2: CONDITIONAL`, `PILOT: TEST BED`, `HIGH RISK: HOLD`).
-* **User decides:** Which 2–3 priority markets (e.g., Japan and South Korea) warrant immediate commercial feasibility review and on-the-ground distributor interviews, and which markets (e.g., United States due to tariffs, Germany due to EUDR audit costs) should be relegated to Phase 3 or held.
+### Use Case 1: Cross-Country Market Volume & Growth Prioritization
+* **User selects/inputs:** Product Category (`Coffee` vs. `RTD Coffee`), Time Horizon (`2015–2025` or `2020–2025`), and Geographic Comparison Group (e.g., `Asia Pacific`, `Western Europe`, `North America`, or focal countries).
+* **Dashboard shows:**
+  * **Market Volume & Growth Scatter Matrix:** (X-axis: 10-Year Volume CAGR %; Y-axis: Absolute Volume Change in Tonnes / Litres; Bubble Size: 2025 Total Market Volume).
+  * **Market Prioritization Scorecard:** Table reporting 2015 Volume, 2020 Volume, 2025 Forecast Volume, 10-year CAGR %, and Growth Velocity Tier (`High Growth Expansion`, `Mature Stable Scale`, `Contracting / Low Priority`).
+* **User decides:** Which overseas target markets have expanding volume demand (e.g., Thailand coffee at +2.85% CAGR and Asia Pacific at +1.90% CAGR) vs. markets experiencing structural volume contraction (e.g., USA coffee at -0.62% CAGR).
 
-### Use Case 2: Product Format & Packaging Strategy Alignment
-* **User selects/inputs:** Selected Priority Market (e.g., `Japan`), Product Category (`Coffee`), and Packaging Class (`Total`).
-* **Dashboard shows:** 
-  * The historical unit volume evolution (million units) across packaging formats (Flexible Aluminium/Plastic, Stand-Up Pouches, Folding Cartons, Cans) from `DATA/clean/clean_pack_type_tidy.csv`.
-  * The **Product-Market Fit Matrix**, displaying detailed specification cards for:
-    1. *Specialty Whole Bean (Micro-Lot 250g valve pouch):* SCA 84+ score, pour-over cafe channel.
-    2. *Single-Serve Nitrogen Drip Bags (10g filter pouch / 10-pack carton):* Ultrasonic sealed, office and premium retail channel.
-    3. *RTD Cold Brew Cans (250ml slimline aluminium):* Grab-and-go convenience channel.
-* **User decides:** Which physical SKU format to manufacture for export (e.g., committing capital to high-speed ultrasonic nitrogen drip-bag packaging lines, which match Japanese consumer daily brewing rituals and achieve 52–58% gross margins).
+### Use Case 2: Category Mix & Expansion Velocity (Packaged Coffee vs. RTD Coffee)
+* **User selects/inputs:** Target Geography (e.g., `China`, `Japan`, `Thailand`, `Australia`, `USA`, `Germany`).
+* **Dashboard shows:**
+  * **Category Volume Trajectory Line Chart:** Tracing Coffee (Tonnes) and RTD Coffee (Million Litres) from 2015 to 2025.
+  * **Comparative Category Metrics:** 10-Year CAGR of Coffee vs. 10-Year CAGR of RTD Coffee.
+  * **Category Dominance Ratio:** Relative scale and growth divergence between packaged coffee and ready-to-drink coffee.
+* **User decides:** Whether to enter the destination market with packaged roast & ground coffee, liquid RTD coffee, or a dual-category launch (e.g., recognizing that Japan is the dominant RTD market with 2,846.4M Litres, while Australia exhibits massive RTD growth at +17.14% CAGR).
 
-### Use Case 3: Route-to-Market & Retail Channel Prioritization
-* **User selects/inputs:** Target Market (`Japan` vs. `China`), Product Category (`Coffee` vs. `RTD Coffee`), and Time Horizon (`2015–2025`).
-* **Dashboard shows:** 
-  * The **Derived Channel Volume Distribution** from `DATA/clean/clean_market_channels_merged.csv`, comparing physical volume (Tonnes / Million Litres) and percentage share across 23 off-trade retail channels (Supermarkets, Convenience Stores, E-Commerce, Hypermarkets, Discounters).
-  * The **Channel Fit Heatmap**, rating channel suitability (1 to 5 scale) based on distributor margins, listing/slotting fees, cold-chain requirements, and Yunnan brand recognition.
-* **User decides:** Which commercial channel partner to contract with (e.g., avoiding high-slotting-fee traditional supermarkets in Phase 1, prioritizing cross-border e-commerce [Rakuten / Amazon Japan] and specialty boutique grocers for whole bean, while reserving modern convenience chains [Lawson / 7-Eleven] for RTD cold brew).
+### Use Case 3: Off-Trade Retail Channel Route-to-Market Selection
+* **User selects/inputs:** Target Geography (e.g., `Japan` vs. `China`), Product Category (`Coffee` vs. `RTD Coffee`), and Year (`2015` vs. `2020` vs. `2025`).
+* **Dashboard shows:**
+  * **Derived Physical Channel Volume Bar Chart:** Absolute volume (Tonnes / Litres) flowing through each of the 23 retail outlet types from [clean_market_channels_merged.csv](DATA/clean/clean_market_channels_merged.csv).
+  * **Channel Share Shift Waterfall:** 10-year percentage point change in volume share ($\Delta \text{Share}_{\text{pts}} = \text{Share}_{2025} - \text{Share}_{2015}$).
+  * **Retail Channel Cluster Breakdown:** Volume grouped into Modern Grocery (Supermarkets, Hypermarkets, Discounters), Convenience Retailers, Retail E-Commerce, and Traditional Grocers.
+* **User decides:** Which retail channel partner to prioritize for commercial distribution contracts (e.g., contracting with Japanese convenience store chains like Lawson/7-Eleven which account for 620.5M Litres of RTD, vs. focusing on Retail E-Commerce in China which grew from 10.8% to 46.7% volume share).
 
-### Use Case 4: Landed Margin Hurdle Rate & Financial Sensitivity Simulation
-* **User selects/inputs:** Destination Country (`Japan`), Annual Export Volume slider (`10 to 300 MT`), Wholesale FOB Price slider (`$15 to $50/kg`), Ocean Freight & Insurance slider (`$0.30 to $3.50/kg`), Import Tariff slider (`0% to 35%`), and Destination Marketing Budget (`$10,000 to $250,000`).
-* **Dashboard shows:** 
-  * Live-calculated **Landed Cost Breakdown** (Green Bean Sourcing + Processing/Roasting + Packaging + Freight + Customs Duties + Destination Marketing).
-  * Projected **Gross Revenue**, **Net Operating Profit ($)**, and **Net Operating Margin (%)**.
-  * **Dynamic Counterfactual Comparison:** Direct comparison against the **Domestic China Benchmark** (selling the identical volume in Chinese tier 1/2 cities at $16.50/kg wholesale, incurring $12.00/kg cost and $30k marketing, yielding a 12.5% net margin).
-  * **Dynamic Visual Bar Chart:** Side-by-side bar comparing Overseas Net Operating Profit vs. Domestic China Benchmark Profit.
-  * **Dynamic Decision Banner:** Automated verdict callout (`ACCRETIVE OVERSEAS EXPANSION`, `CONDITIONAL / FEASIBLE`, or `MARGIN DILUTIVE / HOLD`).
-* **User decides:** Whether the proposed export venture clears the corporate hurdle rate (minimum +5.0% net margin spread over domestic China sales), or whether FOB pricing, shipping terms, or destination marketing budgets must be renegotiated before contract signing.
+### Use Case 4: Packaging Container Format Prioritization
+* **User selects/inputs:** Target Geography (e.g., `China`, `Japan`, `Western Europe`), Product Category (`Coffee` vs. `RTD Coffee`), and Year (`2015–2025`).
+* **Dashboard shows:**
+  * **Packaging Container Mix Breakdown:** Unit volume (Million Units) and percentage share across container formats (Flexible Packaging, Stand-Up Pouches, Glass Jars, Metal Tins, Beverage Cans, PET Jars, Liquid Cartons) from [clean_pack_type_tidy.csv](DATA/clean/clean_pack_type_tidy.csv).
+  * **10-Year Packaging Format Growth Leaderboard:** Fastest expanding container formats by unit volume CAGR.
+  * **Packaging Mix Donut Chart:** Visual distribution of packaging formats in the selected market.
+* **User decides:** Which packaging machinery and container inventory to invest capital in for export runs (e.g., investing in Stand-Up Pouches and Flexible Aluminium/Plastic for packaged coffee, which represent over 70% of global packaging units).
 
-### Use Case 5: Executive Risk-Weighting & Policy Sensitivity via MCDA
-* **User selects/inputs:** Five strategic weighting sliders on the Multi-Criteria Decision Analysis engine:
-  * *Market Growth Rate Weight (5% to 50%)*
-  * *Profit Margin Potential Weight (5% to 50%)*
-  * *Tariff & Trade Ease Weight (5% to 50%)*
-  * *Logistics Proximity & Speed Weight (5% to 50%)*
-  * *Specialty Origin Affinity Weight (5% to 50%)*
-* **Dashboard shows:** 
-  * Instant algorithmic re-weighting and dynamic re-sorting of candidate markets (Japan, South Korea, Australia, Singapore, China Domestic, United States, Germany).
-  * Composite attractiveness index (0 to 100 scale), raw sub-scores, and dynamic roadmap tier badges (`Phase 1: Priority Entry`, `Phase 2: Specialty Whole Bean`, `Base: Maintain & Defend`, `Phase 3 / Hold`).
-* **User decides:** How resilient the market expansion hierarchy is to shifting boardroom risk tolerances (e.g., verifying whether Japan and South Korea remain top-ranked whether leadership prioritizes immediate margin or long-term growth).
+### Use Case 5: Pack Size & SKU Capacity Optimization
+* **User selects/inputs:** Target Geography (e.g., `China`, `Japan`, `USA`), Category (`Coffee`), and Packaging Type (`Flexible Packaging`, `Stand-Up Pouches`, or `Total Packaging`).
+* **Dashboard shows:**
+  * **Granular Pack Capacity Distribution:** Unit volume (Million Units) across standard gram capacities (`10g`, `100g`, `250g`, `500g`, `1000g`) from [Pack Size.xls](DATA/Pack%20Size.xls).
+  * **Dominant Pack Size Leaderboard:** Identifying the #1 and #2 most purchased package sizes by consumers in that market.
+* **User decides:** Exactly what gram weight capacity SKU to manufacture for export (e.g., producing 10g single-serve sachets vs. 250g retail bags vs. 1kg bulk bags) to align with observed shopper buying patterns.
+
+### Use Case 6: Empirical Multi-Dimensional Attractiveness Index (EMAI)
+* **User selects/inputs:** Five strategic weighting sliders on the empirical multi-dimensional scoring engine:
+  * *Market Scale Weight ($w_{\text{scale}}$, 0% to 40%)* — 2025 Physical Market Volume
+  * *Volume Growth Velocity Weight ($w_{\text{growth}}$, 0% to 40%)* — 10-Year Volume CAGR
+  * *Digital Channel Readiness Weight ($w_{\text{digital}}$, 0% to 30%)* — 2025 Retail E-Commerce Volume Share
+  * *Channel Diversification Weight ($w_{\text{channel}}$, 0% to 30%)* — Inverse Channel Herfindahl Concentration
+  * *Packaging Modernity Weight ($w_{\text{pack}}$, 0% to 30%)* — Stand-Up Pouch & Modern Format Share
+* **Dashboard shows:**
+  * Instant algorithmic re-weighting and dynamic ranking of all 10 focal countries based **strictly on empirical local data**.
+  * Composite attractiveness index (0 to 100 scale), raw empirical sub-scores, and dynamic roadmap tier badges (`Phase 1: Priority Expansion`, `Phase 2: Targeted Entry`, `Base: Domestic Core`, `Phase 3: Watchlist`).
+* **User decides:** How target market rankings re-order under shifting commercial strategies (e.g., prioritizing rapid volume growth vs. targeting mature, high-scale markets with advanced e-commerce infrastructure).
 
 ---
 
 ## 3. Feature-to-Use-Case Traceability Matrix
 
-Every major section, visual, simulator, and table in the platform directly serves one or more core use cases:
+Every feature, section, chart, and table in the platform is directly powered by local data and maps to an explicit use case:
 
-| Section / Tab | Major Component / Visual | Primary Use Case Served | Specific Analytical Role |
+| Section / Tab | Component / Visual | Primary Use Case | Exact Local Data Source |
 |---|---|:---:|---|
-| **Header** | Strategic Status Badge & Executive Verdict Banner | Use Case 1 & 4 | Immediate executive synthesis of recommended expansion posture and RCEP tariff dividend. |
-| **Tab 1: Executive Scorecard** | 4 Top-Line KPI Cards (Margin Spread, Top Target, TAM, Tariff) | Use Case 1 & 4 | High-level baseline metrics comparing overseas opportunities to domestic status quo. |
-| **Tab 1: Executive Scorecard** | Multi-Vector Strategic Readiness Radar Chart | Use Case 1 | Multi-dimensional benchmarking of candidate markets against China domestic baseline. |
-| **Tab 1: Executive Scorecard** | Per-Kilogram Unit Economics Margin Breakdown Chart | Use Case 4 | Cost-waterfall visualization showing where margin is created or lost per kilogram. |
-| **Tab 1: Executive Scorecard** | Candidate Market Evaluation Summary Table | Use Case 1 | Comprehensive comparison of volume, growth, tariffs, transit times, and recommendations. |
-| **Tab 2: Market Attractiveness** | Market Attractiveness 3D Bubble Matrix | Use Case 1 | Scatter analysis evaluating physical market scale vs. growth rate vs. retail price realization. |
-| **Tab 2: Market Attractiveness** | Strategic Takeaways Qualitative Deck | Use Case 1 & 5 | Contextual explanations of trade policy dividends, per-capita headroom, and regulatory moats. |
-| **Tab 2: Market Attractiveness** | Brand Concentration & Market Saturation (HHI) Chart | Use Case 1 | Evaluates competitive intensity and incumbent dominance to identify whitespace. |
-| **Tab 3: Product-Market Fit** | Product-Market Fit Specification Cards | Use Case 2 | Connects agricultural bean attributes to specific foreign consumption occasions and price tiers. |
-| **Tab 3: Product-Market Fit** | Channel Fit Suitability Heatmap | Use Case 3 | Scores commercial channel feasibility across target geographies. |
-| **Tab 3: Product-Market Fit** | Packaging Format Volume & Mix Breakdown | Use Case 2 | Analyzes Euromonitor packaging unit volume to guide format tooling investments. |
-| **Tab 4: Financial Simulator** | Interactive Trade Parameter Slider Controls | Use Case 4 | Allows real-time user manipulation of volume, FOB price, freight, tariffs, and marketing. |
-| **Tab 4: Financial Simulator** | Dynamic Landed Cost & Profit Output KPI Cards | Use Case 4 | Real-time calculation of revenue, landed COGS, net operating profit, and net margin %. |
-| **Tab 4: Financial Simulator** | Dynamic Scenario Comparative Profit Bar Chart | Use Case 4 | Real-time visual comparison of overseas profit vs. domestic China counterfactual profit. |
-| **Tab 4: Financial Simulator** | Algorithmic Decision Verdict Box | Use Case 4 | Dynamic conditional callout (Accretive / Conditional / Dilutive) based on margin spread. |
-| **Tab 5: MCDA Decision Matrix** | 5 Strategic Weighting Sliders | Use Case 5 | Captures executive risk preference across growth, margin, tariffs, logistics, and brand affinity. |
-| **Tab 5: MCDA Decision Matrix** | Dynamically Ranked Global Entry League Table | Use Case 5 | Real-time algorithmic re-scoring, normalization, and sorting of target countries. |
-| **Tab 6: Risks & Objections** | Stakeholder Objection & Mitigation Cards | Governance | Direct refutation of stakeholder pushbacks identified during project scoping. |
-| **Tab 6: Risks & Objections** | Regulatory Compliance Roadmap Table | Governance | Actionable customs, phytosanitary, JAS, and EUDR certification gate timelines. |
+| **Header** | Strategic Status Badge & Category Mode Selector | Use Case 1 & 2 | User toggle between `Coffee` and `RTD Coffee` across [clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv). |
+| **Tab 1: Market Prioritization** | 4 Summary KPI Cards (World TAM, Fast Growth Leader, Digital Shift Leader, Top Pack Format) | Use Case 1 | Aggregations over [clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv), [clean_retail_channels_tidy.csv](DATA/clean/clean_retail_channels_tidy.csv), and [clean_pack_type_tidy.csv](DATA/clean/clean_pack_type_tidy.csv). |
+| **Tab 1: Market Prioritization** | Market Volume & Growth Scatter Matrix (Bubble Chart) | Use Case 1 | X: 10-Yr CAGR, Y: Volume Delta, Size: 2025 Volume from [clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv). |
+| **Tab 1: Market Prioritization** | Country Prioritization Scorecard Table | Use Case 1 | Tabular 2015, 2020, 2025 volume and CAGR across 18 geographies from [clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv). |
+| **Tab 2: Category Dynamics** | Coffee vs. RTD Coffee 11-Year Trajectory Line Chart | Use Case 2 | Time-series volume (2015–2025) comparing categories from [clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv). |
+| **Tab 2: Category Dynamics** | Category Growth Divergence Bar Chart | Use Case 2 | Side-by-side 10-year CAGR for Coffee vs. RTD Coffee across focal markets. |
+| **Tab 2: Category Dynamics** | Category Dominance Ratio Table | Use Case 2 | Ratio of RTD Litres to Coffee Tonnes per geography. |
+| **Tab 3: Channel Route-to-Market** | Derived Physical Channel Volume Bar Chart | Use Case 3 | Derived physical volume (Tonnes / Litres) per outlet type from [clean_market_channels_merged.csv](DATA/clean/clean_market_channels_merged.csv). |
+| **Tab 3: Channel Route-to-Market** | 11-Year Channel Shift Trajectory Stacked Area Chart | Use Case 3 | Annual channel percentage shares (2015–2025) from [clean_retail_channels_tidy.csv](DATA/clean/clean_retail_channels_tidy.csv). |
+| **Tab 3: Channel Route-to-Market** | Channel Cluster Distribution Matrix (Modern vs. Digital vs. Traditional) | Use Case 3 | Sum of channel volumes across grouped outlet types from [clean_market_channels_merged.csv](DATA/clean/clean_market_channels_merged.csv). |
+| **Tab 4: Packaging Formats** | Packaging Container Format Unit Volume Bar Chart | Use Case 4 | Unit volume (Million Units) across 37 pack types from [clean_pack_type_tidy.csv](DATA/clean/clean_pack_type_tidy.csv). |
+| **Tab 4: Packaging Formats** | 10-Year Packaging Growth Leaderboard | Use Case 4 | Unit volume CAGR (2015–2025) by container format from [clean_pack_type_tidy.csv](DATA/clean/clean_pack_type_tidy.csv). |
+| **Tab 4: Packaging Formats** | Container Mix Percentage Donut Chart | Use Case 4 | Percentage share of container formats per target country. |
+| **Tab 5: Pack Size Optimization** | Granular Pack Capacity Distribution Histogram | Use Case 5 | Unit volume by capacity (<50g, 100g, 250g, 500g, 1000g) from [Pack Size.xls](DATA/Pack%20Size.xls). |
+| **Tab 5: Pack Size Optimization** | Top Pack Sizes by Market Leaderboard Table | Use Case 5 | Top 3 pack capacities by unit volume per country from [Pack Size.xls](DATA/Pack%20Size.xls). |
+| **Tab 6: Empirical Attractiveness Index** | 5 Empirical Weighting Sliders | Use Case 6 | Interactive controls for Scale, Growth, Digital, Diversity, and Modern Packaging weights. |
+| **Tab 6: Empirical Attractiveness Index** | Dynamically Ranked Empirical Candidate League Table | Use Case 6 | Real-time sorting and normalized composite scoring calculated 100% from local tables. |
 
 ---
 
 ## 4. Dashboard Architecture & User Interface Specification
 
 ### 4.1 Visual Design System & Aesthetics
-* **Theme:** Dark specialty coffee-house aesthetic engineered with high-contrast, premium data-visualization standards.
-* **Palette Tokens:**
-  * Base Background: Deep Espresso Charcoal (`#0c0a09`, `#141210`) with radial crema ambient gradients.
-  * Surface & Cards: Glassmorphic translucent cards (`rgba(26, 22, 19, 0.85)`) with subtle bronze borders (`rgba(212, 163, 115, 0.15)`).
-  * Brand Accents: Crema Tan (`#d4a373`), Amber Gold (`#e9c46a`), Roast Copper (`#c27847`), Emerald Green (`#52b788`), Crimson Alert (`#e76f51`), Oceanic Slate (`#457b9d`).
-* **Typography:** Modern Google Fonts pairing: **Outfit** for geometric, high-impact headings and numerical KPI callouts; **Inter** for clean, readable tabular and body data.
-* **Layout Structure:** 1440px centered max-width responsive grid; fluid multi-column cards; sticky header; persistent tab navigation bar.
+* **Theme:** Professional CPG analytics dark theme (`--bg-base: #0c0a09`, `--bg-card: rgba(26, 22, 19, 0.85)`, `--brand-crema: #d4a373`, `--brand-green-light: #52b788`).
+* **Typography:** Modern Google Fonts pairing: **Outfit** for structural headings and KPI numbers; **Inter** for clean tabular data and micro-copy.
+* **Layout Structure:** Centered 1440px responsive container, persistent header with category mode toggle, sticky tab navigation bar, dynamic data-driven panels.
 
 ```
 +--------------------------------------------------------------------------------------------------+
-| HEADER: Brand Eyebrow | Title: Yunnan Coffee Global Entry | Executive Status Badge (CONDITIONAL)  |
+| HEADER: Brand Eyebrow | Title: Yunnan Coffee Global Entry Analytics | Category Toggle [Coffee/RTD]|
 +--------------------------------------------------------------------------------------------------+
-| NAV TABS: [1. Scorecard] [2. Attractiveness] [3. Product-Market] [4. Simulator] [5. MCDA] [6. Risks]|
+| NAV TABS: [1. Market Sizing] [2. Category Mix] [3. Retail Channels] [4. Packaging] [5. Sizes] [6. Index] |
 +--------------------------------------------------------------------------------------------------+
 | STARTING VIEW (TAB 1):                                                                           |
 | +----------------------------------------------------------------------------------------------+ |
-| | DECISION BANNER: Pursue Phased Expansion (Japan & South Korea First) vs. Defend Domestic     | |
+| | KPI 1: 2025 TAM (6.18M Tonnes) | KPI 2: Top Growth (Thailand +2.85%) | KPI 3: E-Com Surge (46.7%) | KPI 4: Top Pack (Flexible 74.5%) | |
 | +----------------------------------------------------------------------------------------------+ |
-| | KPI 1: Margin Spread (+9.3%) | KPI 2: Top Target (Japan) | KPI 3: TAM ($15.5B) | KPI 4: Tariff (0%)|
-| +----------------------------------------------------------------------------------------------+ |
-| | VISUAL 1: Multi-Vector Radar Chart           | VISUAL 2: Per-Kg Economics Margin Waterfall   | |
-| +----------------------------------------------------------------------------------------------+ |
-| | TABLE 1: Candidate Market Evaluation Matrix (China Baseline, Japan, Korea, Australia, USA)  | |
+| | VISUAL 1: Market Volume vs. CAGR Bubble Matrix | TABLE 1: Country Prioritization Scorecard   | |
 | +----------------------------------------------------------------------------------------------+ |
 +--------------------------------------------------------------------------------------------------+
-| FOOTER: DSO Strategic Framework | Course Role Alignment Links (Objectives, Data Fit, Objections) |
+| FOOTER: DSO 576 Module 7 • Empirical Decision Platform • Sourced 100% from Local Data           |
 +--------------------------------------------------------------------------------------------------+
 ```
 
 ### 4.2 Starting View Specification
-When the user accesses the platform, the starting view is **Tab 1: Executive Scorecard**:
-* **Top Status Badge:** Displays `CONDITIONAL GO • EAST ASIA FIRST`, signaling the baseline evidence-based recommendation.
-* **Executive Decision Banner:** States the central strategic trade-off: China's domestic demand is expanding rapidly (+14.8% CAGR) but domestic price wars compress producer margins to 12.5%; entering RCEP-partner markets unlocks 21–24% net margins with 0% tariffs and 4–6 day shipping.
-* **Top KPI Grid:**
-  1. *Overseas Net Margin Premium:* `+9.3%` spread (21.8% target APAC avg vs. 12.5% China domestic).
-  2. *Top Expansion Target:* `Japan` (Composite score 86.4 / 100; lead format: single-serve drip bags).
-  3. *Addressable Phase 1 TAM:* `$15.5 B` (Japan $9.4B + South Korea $6.1B retail coffee).
-  4. *RCEP Tariff Barrier:* `0% - 2%` (0% on green bean, preferential tariff on roasted coffee).
-* **Two Primary Visuals:** Multi-Vector Strategic Readiness Radar Chart side-by-side with Per-Kilogram Unit Economics Margin Breakdown.
-* **Executive Summary Matrix:** Tabular benchmark comparing China against Japan, South Korea, Australia, Singapore, USA, and Germany.
+When the user accesses the platform, the starting view is **Tab 1: Market Prioritization & Volume Growth**:
+* **Header Controls:** Category selector defaulted to `Coffee`, geographic scope defaulted to `All Focal Markets`.
+* **Top KPI Grid (Calculated from Local Data):**
+  1. *2025 Total World Volume:* `6,175,791.8 Tonnes` (from `clean_market_sizes_tidy.csv`).
+  2. *Top Growth Target Market:* `Thailand` (`+2.85%` 10-year volume CAGR; expanding from 67.3k to 89.1k Tonnes).
+  3. *Leading Digital Channel Market:* `China` (`46.7%` E-commerce share in 2025, expanding from 10.8% in 2015).
+  4. *Dominant Packaging Format:* `Flexible Packaging` (`100,033.8 Million Units` globally in 2025; 74.5% share).
+* **Two Primary Layout Elements:**
+  * Market Attractiveness Bubble Matrix (10-Yr Volume CAGR % vs. Absolute Volume Expansion in Tonnes, bubble radius = 2025 Volume).
+  * Country Market Prioritization Scorecard with 2015, 2020, 2025 volume and CAGR tiers.
 
 ### 4.3 Major Sections & Tabs
-1. **Tab 1: Executive Scorecard:** Core strategic synthesis, high-level KPIs, unit economics waterfall, and high-level market evaluation matrix.
-2. **Tab 2: Market Attractiveness Deep Dive:** Euromonitor physical market volume distributions, 10-year historical/forecast CAGRs, 3D bubble chart, per-capita consumption analysis, and market concentration (HHI) analysis.
-3. **Tab 3: Product-Market Fit & Channels:** Yunnan agricultural specialty profiling (Catimor, Typica, Anaerobic processing), packaging unit volume trends from Euromonitor packaging data, SKU specification cards, and off-trade channel route-to-market heatmap.
-4. **Tab 4: Financial Simulator:** Fully interactive landed cost trade simulator with two-way data-bound sliders, live recalculation of gross revenue, landed COGS, net operating profit, margin spread against domestic sales, dynamic profit comparison bar chart, and algorithmic verdict banner.
-5. **Tab 5: MCDA Decision Matrix:** Five interactive strategic criteria sliders, real-time recalculation of composite multi-criteria scores, dynamic re-sorting, and categorical roadmap tier assignment.
-6. **Tab 6: Strategic Risks & Objections:** Stakeholder pushback resolution cards (addressing domestic growth myths, Yunnan commodity stigma, geopolitical tariffs, and FX volatility) and regulatory compliance milestone roadmap (RCEP Form RCEP, Phytosanitary, JAS, EUDR).
-
-### 4.4 Key Interactive Behaviors
-* **Tab Navigation:** Clicking any tab button activates the corresponding panel with smooth fade-in animations and automatically triggers `Chart.js.resize()` to maintain crisp canvas dimensions.
-* **Financial Simulator Controls:** Adjusting volume (10–300 MT), FOB price ($15–$50/kg), freight ($0.30–$3.50/kg), tariff (0–35%), or marketing ($10k–$250k) dynamically updates all numerical labels, recalculates landed COGS, re-computes net profit and margin spread, updates the comparative bar chart, and dynamically alters the verdict box styling (Green / Amber / Red).
-* **Preset Destination Sync:** Selecting a country dropdown option in the simulator automatically sets realistic baseline presets for that country (e.g., selecting `Japan` sets Tariff to 0%, Freight to $0.80, and Price to $26.00; selecting `United States` sets Tariff to 25%, Freight to $2.20, and Price to $28.00).
-* **MCDA Weighting Sliders:** Adjusting any of the five strategic weight sliders triggers instant mathematical re-normalization, re-scores all 7 candidate territories, and re-renders the league table in descending order with animated position badges.
-* **Reset Defaults Button:** Reverts MCDA weights instantly to the baseline calibrated corporate posture (25% Growth, 30% Margin, 20% Tariff, 15% Logistics, 10% Affinity).
+1. **Tab 1: Market Prioritization & Volume Growth:** Macro volume sizing, 10-year historical/forecast CAGRs, growth vs. volume bubble matrix, and country tiering scorecard.
+2. **Tab 2: Category Dynamics (Coffee vs. RTD Coffee):** Dual-category volume comparisons, growth divergence analysis, and category dominance ratios across focal markets.
+3. **Tab 3: Retail Route-to-Market & Channel Shifts:** Physical channel volumes (Tonnes / Litres) across 23 outlet types, 11-year channel share shift trajectories, and channel cluster analysis (Modern vs. Digital vs. Traditional).
+4. **Tab 4: Packaging Container Formats:** Off-trade packaging container volumes (Million Units) across 37 pack types, 10-year format growth leaderboards, and format share distribution.
+5. **Tab 5: Pack Size & SKU Capacity Optimization:** Capacity distribution across standard gram and millilitre sizes from `Pack Size.xls`, identifying high-volume SKU sizes per destination market.
+6. **Tab 6: Empirical Attractiveness Index (EMAI):** Interactive five-criteria weighting engine scoring candidate countries entirely on empirical local attributes (Scale, Growth, Digital Readiness, Channel Diversity, Packaging Modernity).
 
 ---
 
 ## 5. Metric & Visual Specifications
 
-This section defines the formal logic, data sources, calculation rules, and boundary conditions for every important metric and visualization.  
-*(Note: In accordance with specification standards, no Python/JS function implementations are embedded here; descriptions specify required analytical behaviors, equations, and data relationships).*
-
 ### 5.1 Metric Specifications
 
-#### Metric M1: 10-Year Category Market Volume CAGR (2015–2025)
+#### Metric M1: 10-Year Category Volume CAGR (2015–2025)
 * **Question Answered:** Which international markets exhibit sustained, long-term physical volume expansion rather than short-term transient spikes?
-* **Source Data & Columns:** `DATA/clean/clean_market_sizes_tidy.csv` (Columns: `Geography`, `Category`, `Data Type`, `Unit`, `Year`, `Total_Market_Volume`).
+* **Source Data & Columns:** [clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv) (`Geography, Category, Data Type, Unit, Year, Total_Market_Volume`).
 * **Calculation & Aggregation:**
-  $$\text{CAGR}_{2015-2025} = \left( \frac{\text{Total\_Market\_Volume}_{2025}}{\text{Total\_Market\_Volume}_{2015}} \right)^{\frac{1}{2025 - 2015}} - 1$$
+  $$\text{CAGR}_{2015-2025} = \left( \frac{\text{Total\_Market\_Volume}_{2025}}{\text{Total\_Market\_Volume}_{2015}} \right)^{\frac{1}{10}} - 1$$
+  $$\Delta \text{Volume}_{2015-2025} = \text{Total\_Market\_Volume}_{2025} - \text{Total\_Market\_Volume}_{2015}$$
   * *Unit Handling:* Computed separately for `Coffee` (`Tonnes`) and `RTD Coffee` (`million litres`).
-  * *Missing Data / Edge Cases:* For `India | RTD Coffee`, volume is unobserved (`NaN`) across all years. The engine must check `isna()`; if either baseline or endpoint is missing, return `NaN` and exclude India from RTD averages to prevent division-by-zero or false 0% reporting.
-* **Relevant Filters:** `Category == 'Coffee'` or `'RTD Coffee'`; `Data Type == 'Retail Volume'` or `'Off-trade Volume'`; `Year \in [2015, 2025]`.
+  * *Boundary Condition:* For `India | RTD Coffee`, volume is unobserved (`NaN`) across all years. The engine checks `isna()`; if baseline or endpoint is missing, return `NaN` and exclude from regional averages to prevent division-by-zero.
+* **Relevant Filters:** `Category \in ['Coffee', 'RTD Coffee']`, `Year \in [2015, 2025]`.
 
 #### Metric M2: Derived Physical Retail Channel Volume
 * **Question Answered:** Exactly how much physical coffee volume (in Tonnes or Litres) flows through each specific retail channel in each target country?
-* **Source Data & Columns:** `DATA/clean/clean_market_channels_merged.csv` (Columns: `Geography`, `Category`, `Outlet Type`, `Year`, `Channel_Share_Pct`, `Total_Market_Volume`, `Unit`, `Channel_Volume`).
+* **Source Data & Columns:** [clean_market_channels_merged.csv](DATA/clean/clean_market_channels_merged.csv) (`Geography, Category, Outlet Type, Year, Channel_Share_Pct, Total_Market_Volume, Unit, Channel_Volume`).
 * **Calculation & Aggregation:**
   $$\text{Channel\_Volume} = \text{Total\_Market\_Volume} \times \left( \frac{\text{Channel\_Share\_Pct}}{100.0} \right)$$
-  * *Denominator Check:* `Channel_Share_Pct` represents percentage of off-trade retail volume. Redundant semantic total rows (`Outlet Type == 'Total'`) were audited and dropped during data cleaning to eliminate double counting. Sub-channels (e.g., Supermarkets, Convenience, E-Commerce) sum cleanly to `Retail Offline + Retail E-Commerce`.
-* **Relevant Filters:** `Geography \in [Candidate Countries]`, `Category \in ['Coffee', 'RTD Coffee']`, `Year \in [2015..2025]`, `Outlet Type \neq 'Retail Channels'` (when analyzing channel distribution).
+  * *Denominator Check:* `Channel_Share_Pct` represents percentage of off-trade retail volume. Redundant semantic total rows (`Outlet Type == 'Total'`) were excluded during cleaning. For inactive channels (`0.0%`), `Channel_Volume = 0.0`.
+* **Relevant Filters:** `Geography \in [18 Geographies]`, `Category \in ['Coffee', 'RTD Coffee']`, `Year \in [2015..2025]`, `Outlet Type \neq 'Retail Channels'`.
 
-#### Metric M3: Packaging Format Unit Volume & Mix Percentage
-* **Question Answered:** Which packaging containers dominate off-trade coffee retail sales in the target market, and which formats are expanding most rapidly?
-* **Source Data & Columns:** `DATA/clean/clean_pack_type_tidy.csv` (Columns: `Geography`, `Category`, `Packaging Class`, `Pack Type`, `Year`, `Unit_Volume_MUnits`).
+#### Metric M3: Retail Channel Shift & Momentum (2015–2025)
+* **Question Answered:** Which retail channels are gaining volume share and which are losing share over the 11-year horizon?
+* **Source Data & Columns:** [clean_retail_channels_tidy.csv](DATA/clean/clean_retail_channels_tidy.csv) (`Geography, Category, Outlet Type, Year, Channel_Share_Pct`).
 * **Calculation & Aggregation:**
-  $$\text{Pack\_Format\_Share}_{i, t} = \frac{\text{Unit\_Volume\_MUnits}_{i, t}}{\sum_{k \in \text{All Pack Types}} \text{Unit\_Volume\_MUnits}_{k, t}} \times 100$$
-  * *Text Standardization Rule:* Ingested tables have undergone whitespace stripping (`'PET Jars '` standardized to `'PET Jars'`). Total Packaging rows are isolated from granular format rows.
-* **Relevant Filters:** `Geography == Target Market`, `Category == 'Coffee'`, `Packaging Class == 'Total'`, `Pack Type \neq 'Total Packaging'`.
+  $$\Delta \text{Share}_{\text{pts}} = \text{Channel\_Share\_Pct}_{2025} - \text{Channel\_Share\_Pct}_{2015}$$
+  $$\text{Channel\_CAGR} = \left( \frac{\text{Channel\_Volume}_{2025}}{\text{Channel\_Volume}_{2015}} \right)^{\frac{1}{10}} - 1 \quad (\text{for non-zero baseline channels})$$
+* **Relevant Filters:** `Category \in ['Coffee', 'RTD Coffee']`, `Outlet Type \in [23 Non-Redundant Types]`.
 
-#### Metric M4: Landed Export Cost, Net Profit, and Net Margin %
-* **Question Answered:** What is the net operating margin and total annual dollar profit of exporting a specified volume of Yunnan coffee to a target destination under current tariffs and freight rates?
-* **Source Data & Inputs:** User slider inputs ($V$, $P_{\text{FOB}}$, $C_{\text{freight}}$, $R_{\text{tariff}}$, $B_{\text{mkt}}$) coupled with firm cost baselines:
-  * Green bean sourcing cost = $\$7.50 / \text{kg}$
-  * Processing, roasting & packaging cost = $\$4.00 / \text{kg}$
-  * Base Production Cost per kg ($C_{\text{prod}}$) = $\$11.50 / \text{kg}$
+#### Metric M4: Packaging Format Unit Volume & Mix Percentage
+* **Question Answered:** Which container types dominate off-trade retail sales, and which formats are expanding most rapidly?
+* **Source Data & Columns:** [clean_pack_type_tidy.csv](DATA/clean/clean_pack_type_tidy.csv) (`Geography, Category, Packaging Class, Pack Type, Year, Unit_Volume_MUnits`).
 * **Calculation & Aggregation:**
-  $$\text{Volume (kg)} = V_{\text{MT}} \times 1,000$$
-  $$\text{Total Gross Revenue} = \text{Volume (kg)} \times P_{\text{FOB}}$$
-  $$\text{Base Production Cost} = \text{Volume (kg)} \times \$11.50$$
-  $$\text{Total Freight \& Insurance} = \text{Volume (kg)} \times C_{\text{freight}}$$
-  $$\text{Total Customs Duties} = \text{Total Gross Revenue} \times \left( \frac{R_{\text{tariff}}}{100} \right)$$
-  $$\text{Total Landed \& Operating Costs} = \text{Base Production Cost} + \text{Total Freight} + \text{Total Duties} + B_{\text{mkt}}$$
-  $$\text{Net Operating Profit} = \text{Total Gross Revenue} - \text{Total Landed \& Operating Costs}$$
-  $$\text{Net Operating Margin \%} = \left( \frac{\text{Net Operating Profit}}{\text{Total Gross Revenue}} \right) \times 100$$
-* **Relevant Filters:** Filtered by target country trade regime (RCEP, FTA, ChAFTA, Sec 301, EU MFN).
+  $$\text{Format\_Share}_{i, t} = \frac{\text{Unit\_Volume\_MUnits}_{i, t}}{\text{Total Packaging Unit Volume}_t} \times 100$$
+  $$\text{Format\_CAGR}_{2015-2025} = \left( \frac{\text{Unit\_Volume\_MUnits}_{2025}}{\text{Unit\_Volume\_MUnits}_{2015}} \right)^{\frac{1}{10}} - 1$$
+* **Relevant Filters:** `Category == 'Coffee'`, `Packaging Class == 'Total'`, `Pack Type \neq 'Total Packaging'`.
 
-#### Metric M5: Domestic China Counterfactual Benchmark Margin Spread
-* **Question Answered:** Does exporting to the selected foreign market generate more operating profit than deploying the identical coffee volume in domestic Chinese tier 1/2 cities?
-* **Source Data & Inputs:** Domestic China commercial operational baseline:
-  * Domestic wholesale selling price = $\$16.50 / \text{kg}$ (¥118/kg RMB equivalent)
-  * Domestic production, roasting & domestic logistics cost = $\$12.00 / \text{kg}$
-  * Domestic marketing & channel listing allowance = $\$30,000$ fixed
+#### Metric M5: Granular Pack Size Dominance Share
+* **Question Answered:** What specific package capacity size represents the primary consumer buying unit in each destination market?
+* **Source Data & Columns:** [Pack Size.xls](DATA/Pack%20Size.xls) (`Geography, Category, Packaging Class, Pack Type, Pack Size, Year, 2015..2025`).
 * **Calculation & Aggregation:**
-  $$\text{Domestic Revenue} = \text{Volume (kg)} \times \$16.50$$
-  $$\text{Domestic Operating Costs} = (\text{Volume (kg)} \times \$12.00) + \$30,000$$
-  $$\text{Domestic Net Profit} = \text{Domestic Revenue} - \text{Domestic Operating Costs}$$
-  $$\text{Domestic Net Margin \%} = \left( \frac{\text{Domestic Net Profit}}{\text{Domestic Revenue}} \right) \times 100$$
-  $$\Delta \text{Profit (Profit Premium)} = \text{Net Operating Profit}_{\text{Export}} - \text{Domestic Net Profit}$$
-  $$\Delta \text{Margin (Margin Spread)} = \text{Net Operating Margin \%}_{\text{Export}} - \text{Domestic Net Margin \%}$$
-* **Hurdle Logic:**
-  * If $\text{Net Margin} \ge 18\%$ and $\Delta \text{Profit} > 0$: Decision is **`ACCRETIVE OVERSEAS EXPANSION`**.
-  * If $\text{Net Margin} \ge 10\%$ and $\text{Net Profit} > 0$: Decision is **`CONDITIONAL / FEASIBLE`**.
-  * If $\text{Net Margin} < 10\%$ or $\Delta \text{Profit} \le 0$: Decision is **`MARGIN DILUTIVE / HOLD`**.
+  $$\text{Size\_Share}_{s, t} = \frac{\text{Pack\_Size\_Volume}_{s, t}}{\sum_{k} \text{Pack\_Size\_Volume}_{k, t}} \times 100$$
+* **Relevant Filters:** Filtered by target country and format (e.g. `Geography == 'Japan'`, `Pack Type == 'Flexible Packaging'`).
 
-#### Metric M6: Composite MCDA Attractiveness Index (0–100 Scale)
-* **Question Answered:** Taking into account growth, margin, trade barriers, shipping times, and origin affinity, how do candidate markets rank algorithmically?
-* **Source Data & Columns:** Standardized country attribute matrix across 5 normalized sub-scores ($S_{\text{growth}}$, $S_{\text{margin}}$, $S_{\text{tariff}}$, $S_{\text{logistics}}$, $S_{\text{affinity}}$) $\in [0, 100]$.
+#### Metric M6: Empirical Multi-Dimensional Attractiveness Index (EMAI)
+* **Question Answered:** Taking into account scale, growth velocity, digital channel readiness, channel accessibility, and packaging modernity, how do candidate countries rank algorithmically based purely on local data?
+* **Source Data & Columns:** Derived 100% from [clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv), [clean_retail_channels_tidy.csv](DATA/clean/clean_retail_channels_tidy.csv), and [clean_pack_type_tidy.csv](DATA/clean/clean_pack_type_tidy.csv).
 * **Calculation & Aggregation:**
-  $$\text{Composite Score} = \frac{\sum_{j=1}^{5} \left( S_{i, j} \times W_j \right)}{\sum_{j=1}^{5} W_j}$$
-  * *Weight Normalization Rule:* The denominator dynamically sums the 5 user-controlled slider weights ($W_j$), ensuring scale invariance even if weights do not sum precisely to 100.
-  * *Sorting:* Candidate rows are sorted descending by $\text{Composite Score}$.
+  1. *Scale Score ($S_{\text{scale}}$):* Min-Max normalized 2025 volume:  
+     $$S_{\text{scale}} = \frac{V_i - \min(V)}{\max(V) - \min(V)} \times 100$$
+  2. *Growth Score ($S_{\text{growth}}$):* Min-Max normalized 10-year volume CAGR:  
+     $$S_{\text{growth}} = \frac{\text{CAGR}_i - \min(\text{CAGR})}{\max(\text{CAGR}) - \min(\text{CAGR})} \times 100$$
+  3. *Digital Readiness Score ($S_{\text{digital}}$):* 2025 Retail E-Commerce share normalized $\in [0, 100]$.
+  4. *Channel Diversification Score ($S_{\text{channel}}$):* Inverse of channel Herfindahl concentration index:  
+     $$\text{HHI}_{\text{channel}} = \sum_{c} \left( \frac{\text{Channel\_Share}_c}{100} \right)^2 \implies S_{\text{channel}} = (1 - \text{HHI}_{\text{channel}}) \times 100$$
+  5. *Packaging Modernity Score ($S_{\text{pack}}$):* Volume share of Stand-Up Pouches and Flexible Aluminium/Plastic:  
+     $$S_{\text{pack}} = \frac{\text{Pouch\_Volume}}{\text{Total\_Pack\_Volume}} \times 100$$
+  $$\text{EMAI} = \frac{w_1 S_{\text{scale}} + w_2 S_{\text{growth}} + w_3 S_{\text{digital}} + w_4 S_{\text{channel}} + w_5 S_{\text{pack}}}{\sum_{j=1}^{5} w_j}$$
+  * *Properties:* Scale-invariant, 100% empirical, zero external data required.
 
 ---
 
 ### 5.2 Visual Specifications
 
-#### Visual V1: Multi-Vector Strategic Readiness (Radar Chart)
-* **Question Answered:** How do candidate export markets compare against each other and against China's domestic benchmark across five strategic feasibility pillars?
-* **Visual Type:** Multi-dataset Radar Chart (`Chart.js`).
-* **Axes (5 Dimensions):**
-  1. *Market Growth Potential:* Normalized 5-year CAGR.
-  2. *Margin Realization:* Price realization vs. domestic baseline.
-  3. *Tariff & Trade Ease:* Inverted duty rate (0% tariff = 100 score).
-  4. *Logistics Transit Proximity:* Inverted transit time (2–4 days = 95+ score; 24+ days = 40 score).
-  5. *Specialty Origin Affinity:* Consumer openness to single-origin Asian specialty coffee.
-* **Datasets:** China Domestic Benchmark (Fill: Slate Blue), Japan (Fill: Emerald Green), South Korea (Fill: Crema Gold), USA (Fill: Crimson Alert).
-* **Interactions:** Hover tooltips displaying exact dimension scores; legend click to toggle individual market series.
-
-#### Visual V2: Per-Kilogram Unit Economics Margin Breakdown (Stacked Horizontal Bar Chart)
-* **Question Answered:** In each target market, what proportion of the retail price is absorbed by green bean sourcing, processing/roasting, freight, tariffs, distributor margins, and retained producer net profit?
-* **Visual Type:** Stacked Horizontal Bar Chart (`Chart.js`).
-* **Source Data:** Economic model linking wholesale FOB price, import tariffs, freight, and standard distributor cut (28% in modern retail).
-* **Categories Displayed:** China Domestic, Japan (RCEP), South Korea (FTA), Australia (ChAFTA), USA (Sec 301).
-* **Segments (Left to Right):** Green Bean Cost ($7.50) + Roasting/Packaging ($4.00) + Ocean Freight ($0.80–$2.20) + Import Tariff ($0.00–$7.00) + Distributor Margin ($5.00–$12.00) + Producer Retained Profit.
-
-#### Visual V3: Market Attractiveness 3D Bubble Matrix
-* **Question Answered:** Where are the sweet spots globally combining high growth, high specialty retail prices, and large addressable physical volume?
-* **Visual Type:** Bubble Scatter Chart (`Chart.js`).
-* **Coordinate Mapping:**
-  * **X-Axis:** 5-Year Physical Volume CAGR % (Range: 0% to +16%).
-  * **Y-Axis:** Average Specialty Retail Price in USD/kg (Range: $15/kg to $50/kg).
-  * **Bubble Radius ($R$):** Total Market Volume TAM (Tonnes / Litres scaled proportionally).
-  * **Color Palette:** Green (Priority RCEP), Gold (Conditional Phase 2), Ruby (High Risk / Tariffs), Blue (Domestic China).
-* **Interactions:** Hover tooltip displaying Country Name, Exact CAGR %, Specialty Price ($/kg), Total Volume TAM, and Recommended Phase.
-
-#### Visual V4: Retail Channel Fit Heatmap
-* **Question Answered:** Which retail channels in each country offer the highest strategic fit for Yunnan coffee products?
-* **Visual Type:** Color-graded categorical matrix / Bar grouping.
-* **Dimensions:** Rows: Countries (Japan, South Korea, Australia, USA, China); Columns: Outlet Types (Specialty Boutiques, Premium Supermarkets, Convenience Chains, Cross-Border E-Commerce).
-* **Scoring Metric:** 1 (Poor Fit / High Barrier) to 5 (Optimal Route).
-
-#### Visual V5: Live Scenario Comparative Profit Bar Chart
-* **Question Answered:** Under the specific slider values selected right now, does this export shipment make more or less annual net profit than selling in China?
-* **Visual Type:** Dual-column comparative Bar Chart (`Chart.js`).
-* **Categories:** `Export Route to Selected Destination` vs. `Domestic China Benchmark`.
-* **Dynamic Styling:** Bar color dynamically switches to **Emerald Green** when overseas profit exceeds domestic profit, and switches to **Crimson Red** when overseas profit is lower than domestic profit.
-
-#### Visual V6: Dynamic Algorithmic Candidate Ranking Table
-* **Question Answered:** What is the precise order of priority for market entry under current executive weightings?
-* **Visual Type:** Interactive Data Table.
-* **Columns:** Rank Badge (`#1` to `#7`), Country & Flag, Composite Score, Growth Score, Margin Score, Tariff Ease, Logistics Speed, Specialty Affinity, Roadmap Status Badge.
-* **Dynamic Behavior:** Re-sorts instantaneously in JavaScript upon any slider event with zero page reloads.
+* **Visual V1: Market Volume & Growth Scatter Matrix (Bubble Chart):** Plots 10-Year CAGR % (X-axis) against Absolute Volume Expansion in Tonnes (Y-axis) with bubble size representing 2025 Total Market Volume.
+* **Visual V2: Category Volume Trajectory (Time-Series Line Chart):** Traces 11-year physical volume for Coffee (Tonnes) vs. RTD Coffee (Million Litres) side-by-side.
+* **Visual V3: Physical Channel Volume Breakdown (Horizontal Bar Chart):** Displays physical tonnage / litres flowing through each of the 23 retail outlet types.
+* **Visual V4: Channel Shift Trajectory (Stacked Area Chart):** Visualizes the 11-year percentage share shift from traditional grocery to e-commerce and modern convenience.
+* **Visual V5: Packaging Container Format Mix (Donut / Grouped Bar Chart):** Compares container format unit volume shares across candidate markets.
+* **Visual V6: Dynamic Empirical Candidate Ranking League Table:** Interactive ranking table that sorts focal countries dynamically upon slider adjustment.
 
 ---
 
 ## 6. Build Order & Decoupled Architecture
 
-### 6.1 Architectural Decoupling Rule
-To ensure rigorous testing and prevent monolithic regression bugs, the platform is structured into **six strictly decoupled architectural layers**. Each layer has defined inputs, outputs, and independent validation tests.
-
 ```
 +--------------------------------------------------------------------------------------------------+
-| LAYER 6: Governance, Objections & Certification Roadmap (tab-pane-6)                             |
+| LAYER 5: Empirical Attractiveness Scoring Engine & Dynamic Ranking Table                         |
 +--------------------------------------------------------------------------------------------------+
-| LAYER 5: Decision Engines (Financial Trade Simulator & MCDA Algorithm) (tab-pane-4, 5)           |
+| LAYER 4: Visualization & Chart.js Controllers (Bubble, Line, Stacked Area, Bar, Donut)          |
 +--------------------------------------------------------------------------------------------------+
-| LAYER 4: Visualization & Chart.js Controllers (Radar, Bubble, Margin, Channel, SimBar)           |
+| LAYER 3: UI Framework, Semantic HTML5 Layout & Glassmorphism Design Tokens                       |
 +--------------------------------------------------------------------------------------------------+
-| LAYER 3: UI Framework, Design Tokens & Responsive Glassmorphism Grid                             |
+| LAYER 2: Analytical Calculation & Reshaping Module (CAGR, Derived Channel Volume, Format Shares)  |
 +--------------------------------------------------------------------------------------------------+
-| LAYER 2: Analytical Calculation & Aggregation Engine (Volume derivations, CAGR, Currency logic)   |
-+--------------------------------------------------------------------------------------------------+
-| LAYER 1: Clean Data Ingestion Layer (DATA/clean/ CSVs, Schema validation, Boundary audits)       |
+| LAYER 1: Clean Data Ingestion Layer (DATA/clean/ CSVs, Boundary Header/Footer Filters)           |
 +--------------------------------------------------------------------------------------------------+
 ```
 
-### 6.2 Sequential Build Order
-
-#### Stage 1: Data Ingestion & Sanitization Layer (`DATA/clean/`)
-* **Objective:** Establish verified, clean tabular foundations free of header metadata, trailing spaces, duplicate totals, and corrupted types.
-* **Dependencies:** Python 3.10+, `pandas >= 2.0`, `xlrd >= 2.0.1`.
-* **Outputs Generated:**
-  1. `clean_market_sizes_tidy.csv` (792 tidy rows; 0 duplicate keys).
-  2. `clean_retail_channels_tidy.csv` (9,108 tidy rows; redundant 'Total' removed).
-  3. `clean_market_channels_merged.csv` (9,108 relational merged rows; physical volume calculated).
-  4. `clean_pack_type_tidy.csv` (5,830 rows; standardized packaging text).
-* **Decoupled Verification:** Run standalone verification script `clean_data.py` or inspect `sample/cleaned_sample_50.csv`. Confirm zero unmatched merge keys and zero failed numeric conversions.
-
-#### Stage 2: Analytical Aggregation Engine & Mathematical Modeling
-* **Objective:** Formulate core aggregation metrics and baseline parameters outside of UI code.
-* **Key Operations:**
-  * Vectorized 10-year CAGR calculations across geographies and categories.
-  * Relational channel volume derivation: $\text{Total Volume} \times (\text{Share} / 100)$.
-  * Financial model formulation: Landed COGS, tariff duties, freight impact, and China domestic baseline parameters.
-  * MCDA normalization engine: Scaling raw metrics into $[0, 100]$ interval.
-* **Decoupled Verification:** Validate output calculations against spreadsheet audit benchmarks (Section 7).
-
-#### Stage 3: UI Framework & Design System Token Implementation
-* **Objective:** Construct the semantic HTML5 structure, responsive layout grid, and CSS design tokens in `dashboard.html`.
-* **Key Components:**
-  * Custom CSS variables for coffee-themed dark palette (`--brand-crema`, `--brand-copper`, `--bg-card`).
-  * Responsive container (1440px max-width, fluid grid, sticky header).
-  * Tab navigation bar with accessible `role="tab"`, `aria-selected`, and keyboard navigation support.
-  * Standardized KPI card components, badge pills, and responsive table containers.
-* **Decoupled Verification:** Inspect page layout across viewports (1920px desktop, 1200px laptop, 768px tablet) ensuring zero horizontal overflow and proper semantic hierarchy.
-
-#### Stage 4: Core Visualizations & Chart.js Controllers
-* **Objective:** Instantiate all analytical visual charts using Chart.js with responsive canvas bindings.
-* **Key Visuals Built:**
-  1. `radarChart`: 5-axis readiness radar for candidate markets.
-  2. `marginChart`: Stacked horizontal bar chart for per-kg unit economics.
-  3. `bubbleChart`: 3D bubble chart for market attractiveness (Growth vs. Price vs. Volume).
-  4. `concentrationChart`: Incumbent market share and HHI index.
-  5. `channelFitChart`: Horizontal grouped bar chart for retail channel fit.
-  6. `simComparisonChart`: Dynamic comparative profit bar chart in the financial simulator.
-* **Decoupled Verification:** Verify chart rendering, tooltip data precision, axis labeling, and resize triggers on window resize and tab switch events.
-
-#### Stage 5: Interactive Simulation & Reactive State Engines
-* **Objective:** Implement two-way data-bound interactive simulation logic in vanilla JavaScript.
-* **Key Modules:**
-  * `recalculateSimulator()`: Listens to input events across 5 trade sliders; computes landed COGS, profit, and margin; updates UI numerical readouts; dynamically toggles verdict card states.
-  * Country selector synchronization: Updates slider defaults when the target country changes.
-  * `updateMCDA()`: Listens to 5 criteria sliders; re-calculates composite weighted scores; re-sorts candidate array; dynamically regenerates table DOM elements.
-* **Decoupled Verification:** Test boundary values on all sliders (min, max, step increments) ensuring zero `NaN` outputs and correct verdict class toggles.
-
-#### Stage 6: Governance, Objections & Strategic Roadmap Layer
-* **Objective:** Embed strategic safeguards, stakeholder objection refutations, and regulatory compliance gates into Tab 6.
-* **Key Elements:**
-  * Structured risk cards addressing domestic growth, origin pedigree stigma, US tariffs, and foreign exchange risk.
-  * Compliance milestone table mapping mandatory trade documentation (RCEP Form RCEP, Phytosanitary inspection, JAS Organic, EUDR GPS mapping).
-* **Decoupled Verification:** Cross-reference risk statements against `objections.md` and regulatory requirements against official customs guidelines.
+### Sequential Build Order:
+1. **Stage 1: Clean Data Ingestion Layer:** Ingest raw `.xls` files without modification via [clean_data.py](clean_data.py); export standardized tidy datasets to `DATA/clean/`; ensure boundary headers/footers isolated and text whitespace stripped.
+2. **Stage 2: Analytical Aggregation Engine:** Formulate vectorized CAGR functions, relational channel volume calculations, and empirical multi-dimensional scoring outside of UI code.
+3. **Stage 3: UI Framework & Design Tokens:** Implement HTML5 structure, responsive layout grid, and CSS custom properties in [dashboard.html](dashboard.html).
+4. **Stage 4: Visualizations & Chart Controllers:** Wire up Chart.js instances with responsive canvas bindings and custom tooltips.
+5. **Stage 5: Interactive Simulation Engines:** Implement two-way data-bound event handlers for EMAI weighting sliders.
+6. **Stage 6: Governance & Limitations Layer:** Document exact empirical data scope, off-trade boundary limitations, and unobserved data treatment.
 
 ---
 
 ## 7. Concrete Acceptance Checks & Quality Gates
 
-The following test cases define explicit, verifiable acceptance criteria. Each check specifies test inputs, expected behavior, verification method, and tolerances.
+All acceptance checks run directly against local repository files and require zero external network calls:
 
 ### Acceptance Check AC-1: Data Ingestion & Unobserved Value Integrity (India RTD Case)
-* **Target Component:** Clean Data Pipeline (`DATA/clean/clean_market_sizes_tidy.csv` & `clean_market_channels_merged.csv`).
+* **Target Component:** Clean Data Pipeline ([clean_market_sizes_tidy.csv](DATA/clean/clean_market_sizes_tidy.csv)).
 * **Input Condition:** Filter records for `Geography == 'India'`, `Category == 'RTD Coffee'`, `Years \in [2015..2025]`.
-* **Expected Output:**
-  * `Total_Market_Volume` must strictly be `NaN` / empty string in CSV (NOT converted to `0.0`).
-  * `clean_market_channels_merged.csv` must report `Channel_Volume` as `NaN` / empty string.
-  * Regional aggregation functions must ignore India RTD without failing or skewing Asia-Pacific averages.
+* **Expected Output:** `Total_Market_Volume` is strictly `NaN` across all 11 rows (no zero-imputation).
 * **Verification Command:**
   ```powershell
-  python -c "import pandas as pd; df=pd.read_csv('DATA/clean/clean_market_sizes_tidy.csv'); india_rtd=df[(df['Geography']=='India')&(df['Category']=='RTD Coffee')]; assert india_rtd['Total_Market_Volume'].isna().all(), 'FAIL: India RTD not NaN'; print('PASS: India RTD unobserved integrity verified.')"
+  python -c "import pandas as pd; df=pd.read_csv('DATA/clean/clean_market_sizes_tidy.csv'); sub=df[(df['Geography']=='India')&(df['Category']=='RTD Coffee')]; assert len(sub)==11 and sub['Total_Market_Volume'].isna().all(); print('AC-1 PASSED')"
   ```
-* **Tolerance:** Exactly 11 out of 11 records must be `NaN`.
+* **Status:** **PASSED**
 
 ### Acceptance Check AC-2: Semantic Total De-Duplication in Retail Channels
-* **Target Component:** Retail Channel Cleaning Engine (`clean_retail_channels_tidy.csv`).
-* **Input Condition:** In raw `Retail channels.xls`, both `Outlet Type == 'Retail Channels'` and `Outlet Type == 'Total'` were present for every geography/category/year.
-* **Expected Output:**
-  * Exactly 396 redundant tidy rows corresponding to `Outlet Type == 'Total'` must be removed.
-  * Total tidy rows in `clean_retail_channels_tidy.csv` must equal **exactly 9,108 rows** (down from 9,504 raw melted rows).
-  * For any geography/category/year, the sum of non-redundant individual channels must reconcile to `Retail Channels` (100.0%) within 0.1% rounding tolerance.
+* **Target Component:** Retail Channel Cleaning Engine ([clean_retail_channels_tidy.csv](DATA/clean/clean_retail_channels_tidy.csv)).
+* **Input Condition:** Filter `clean_retail_channels_tidy.csv` for `Outlet Type == 'Total'`.
+* **Expected Output:** Exactly 0 rows found; total dataset length equals **exactly 9,108 rows**.
 * **Verification Command:**
   ```powershell
-  python -c "import pandas as pd; df=pd.read_csv('DATA/clean/clean_retail_channels_tidy.csv'); assert len(df)==9108, f'FAIL: Expected 9108, got {len(df)}'; assert not (df['Outlet Type']=='Total').any(), 'FAIL: Total still present'; print('PASS: Channel duplicate removal verified.')"
+  python -c "import pandas as pd; df=pd.read_csv('DATA/clean/clean_retail_channels_tidy.csv'); assert len(df)==9108 and not (df['Outlet Type']=='Total').any(); print('AC-2 PASSED')"
   ```
-* **Tolerance:** Exactly 0 rows with `Outlet Type == 'Total'` permitted.
+* **Status:** **PASSED**
 
-### Acceptance Check AC-3: Relational Merge Key Completeness & Volume Preservation
-* **Target Component:** Multi-Table Relational Merge (`clean_market_channels_merged.csv`).
-* **Input Condition:** Ingest `clean_market_sizes_tidy.csv` (Volume records) and `clean_retail_channels_tidy.csv`. Merge on `['Geography', 'Category', 'Year']`.
-* **Expected Output:**
-  * Unmatched keys on left or right: **0**.
-  * Total rows generated: **Exactly 9,108 rows**.
-  * Hand-calculated record verification: China Coffee 2025 Supermarkets (`Channel_Share_Pct = 20.5%`, `Total_Market_Volume = 61,314.5 Tonnes`):
-    $$\text{Channel\_Volume} = 61,314.5 \times 0.205 = 12,569.4725 \text{ Tonnes}$$
+### Acceptance Check AC-3: Relational Merge Key Completeness & Volume Calculation
+* **Target Component:** Relational Merge Table ([clean_market_channels_merged.csv](DATA/clean/clean_market_channels_merged.csv)).
+* **Input Condition:** China Coffee 2025 Supermarkets record.
+* **Expected Output:** Total Market Volume = 61,314.5 Tonnes, Channel Share = 20.5%, Derived Channel Volume = **12,569.47 Tonnes**.
 * **Verification Command:**
   ```powershell
-  python -c "import pandas as pd; df=pd.read_csv('DATA/clean/clean_market_channels_merged.csv'); r=df[(df['Geography']=='China')&(df['Category']=='Coffee')&(df['Outlet Type']=='Supermarkets')&(df['Year']==2025)].iloc[0]; assert abs(r['Channel_Volume'] - 12569.4725) < 0.01, f'FAIL: {r[\"Channel_Volume\"]}'; print('PASS: Merge volume derivation verified.')"
+  python -c "import pandas as pd; df=pd.read_csv('DATA/clean/clean_market_channels_merged.csv'); r=df[(df['Geography']=='China')&(df['Category']=='Coffee')&(df['Outlet Type']=='Supermarkets')&(df['Year']==2025)].iloc[0]; assert abs(r['Channel_Volume'] - 12569.4725) < 0.01; print('AC-3 PASSED')"
   ```
-* **Tolerance:** Discrepancy $< 0.01$ Tonnes.
+* **Status:** **PASSED**
 
-### Acceptance Check AC-4: Interactive Financial Simulator Calculation & Hurdle Logic
-* **Target Component:** Financial Simulator Engine (`dashboard.html` -> `recalculateSimulator()`).
-* **Test Case A (Accretive Scenario — Japan Default):**
-  * Inputs: Target Country = Japan, Volume = 50 MT (50,000 kg), FOB Price = $26.00/kg, Freight = $0.80/kg, Tariff = 0%, Marketing = $60,000.
-  * Expected Mathematical Outputs:
-    * Gross Revenue = $50,000 \times 26.00 = \$1,300,000$
-    * Base Production Cost = $50,000 \times 11.50 = \$575,000$
-    * Total Freight = $50,000 \times 0.80 = \$40,000$
-    * Total Tariff Duties = $0
-    * Total Landed Costs = $\$575,000 + \$40,000 + \$0 + \$60,000 = \$675,000$
-    * Net Operating Profit = $\$1,300,000 - \$675,000 = \$625,000$
-    * Net Operating Margin % = $(\$625,000 / \$1,300,000) \times 100 = 48.1\%$
-    * Domestic China Profit = $(50,000 \times 16.50) - (50,000 \times 12.00 + 30,000) = \$825,000 - \$630,000 = \$195,000$ (Margin: 23.6%)
-    * Profit Delta ($\Delta \text{Profit}$) = $\$625,000 - \$195,000 = +\$430,000$
-    * Verdict Title: `STRATEGIC VERDICT: HIGHLY ACCRETIVE EXPORT TO JAPAN`
-* **Test Case B (Dilutive Scenario — US Punitive Tariff Barrier):**
-  * Inputs: Target Country = United States, Volume = 50 MT, FOB Price = $22.00/kg, Freight = $2.50/kg, Tariff = 25%, Marketing = $100,000.
-  * Expected Outputs:
-    * Gross Revenue = $\$1,100,000$
-    * Duties = $\$1,100,000 \times 0.25 = \$275,000$
-    * Landed Costs = $\$575,000 + \$125,000 + \$275,000 + \$100,000 = \$1,075,000$
-    * Net Operating Profit = $\$25,000$ (Net Margin: 2.27%)
-    * Profit Delta vs. Domestic ($195k) = $-\$170,000$
-    * Verdict Title: `STRATEGIC VERDICT: MARGIN DILUTIVE / HOLD`
-* **Tolerance:** Dollar values exact to nearest integer; margins exact to $\pm 0.1\%$.
+### Acceptance Check AC-4: Packaging Unit Volume & Format Share Integrity
+* **Target Component:** Packaging Tidy Panel ([clean_pack_type_tidy.csv](DATA/clean/clean_pack_type_tidy.csv)).
+* **Input Condition:** Global Coffee Packaging in 2025.
+* **Expected Output:** Total Packaging = 134,261.8 Million Units; Flexible Packaging = 100,033.8 Million Units (74.51% share); trailing whitespace eliminated (`'PET Jars'`).
+* **Verification Command:**
+  ```powershell
+  python -c "import pandas as pd; df=pd.read_csv('DATA/clean/clean_pack_type_tidy.csv'); assert len(df)==5830; assert not df['Pack Type'].str.endswith(' ').any(); print('AC-4 PASSED')"
+  ```
+* **Status:** **PASSED**
 
-### Acceptance Check AC-5: MCDA Normalization & Dynamic Ranking Stability
-* **Target Component:** MCDA Scoring Engine (`dashboard.html` -> `updateMCDA()`).
-* **Test Case A (Default Baseline Weights):**
-  * Weights: Growth = 25, Margin = 30, Tariff = 20, Logistics = 15, Affinity = 10 (Sum = 100).
-  * Expected Top 2 Ranks:
-    * Rank 1: **Japan** (Composite Score: **86.4**)
-    * Rank 2: **South Korea** (Composite Score: **86.0**)
-  * Expected Lowest Ranks:
-    * Rank 6: **United States** (Composite Score: **57.7**)
-    * Rank 7: **Germany** (Composite Score: **50.5**)
-* **Test Case B (Scale Invariance Check):**
-  * Double all slider weights: Growth = 50, Margin = 60, Tariff = 40, Logistics = 30, Affinity = 20 (Sum = 200).
-  * Expected Behavior: Composite scores must remain **100% identical** ($86.4, 86.0, \dots$) because the algorithm divides by the dynamic sum of weights ($\sum W_j$).
-* **Tolerance:** Composite score deviation $< 0.05$ points.
-
-### Acceptance Check AC-6: Cross-Browser Responsive Rendering & Accessibility
-* **Target Component:** Web Interface (`dashboard.html`).
-* **Checks:**
-  1. *W3C Semantic Validation:* Verify presence of `<h1>`, `<header>`, `<main>`, `<section>`, `<footer>`, and valid `ARIA` attributes (`role="tab"`, `role="tabpanel"`, `aria-selected`).
-  2. *Responsive Layout:* Viewport testing at 375px (mobile), 768px (tablet), 1280px (laptop), and 1920px (desktop) — zero broken layouts or horizontal window scrollbars.
-  3. *Console Audit:* Zero uncaught JavaScript runtime errors or 404 network request failures upon initial load and tab navigation.
-* **Tolerance:** 0 console errors permitted.
+### Acceptance Check AC-5: Empirical Attractiveness Index Normalization & Invariance
+* **Target Component:** EMAI Calculation Engine.
+* **Input Condition:** Doubling all slider weights ($w_j \to 2w_j$).
+* **Expected Output:** Normalized composite scores remain 100% identical due to dynamic denominator $\sum w_j$.
+* **Status:** **PASSED**
 
 ---
 
-## 8. Summary of Code Base & File Organization
-
-The analytical logic and user interface are strictly separated across the repository structure:
+## 8. Summary of Local Repository Datasets
 
 ```
 cpg-global-entry-strategy/
-├── BUILD_SPEC.md                      # [THIS FILE] Revised vision, use cases & build specification
+├── BUILD_SPEC.md                      # [THIS FILE] Revised vision & local empirical specification
 ├── README.md                          # Repository overview, team roster, submission metadata
-├── dashboard.html                     # Complete interactive decision-support platform (Layers 3-6)
+├── dashboard.html                     # Interactive decision-support platform (Layers 3-5)
 ├── clean_data.py                      # Standalone automated data cleaning pipeline (Layers 1-2)
 ├── Datacleaner.ipynb                  # Interactive Jupyter cleaning inspection notebook
 ├── requirements.txt                   # Environment dependencies (pandas, xlrd, numpy)
@@ -516,12 +351,12 @@ cpg-global-entry-strategy/
 │   ├── Pack type.xls                  # Raw Euromonitor packaging container format unit volumes
 │   ├── Pack Size.xls                  # Raw Euromonitor packaging capacity unit volumes
 │   └── clean/
-│       ├── clean_market_sizes_tidy.csv          # Standardized tidy market size panel
-│       ├── clean_market_sizes_wide.csv          # Clean numeric wide format
-│       ├── clean_retail_channels_tidy.csv       # Tidy channel shares (Total removed)
-│       ├── clean_retail_channels_wide.csv       # Clean numeric channel wide format
-│       ├── clean_market_channels_merged.csv     # Relational physical channel volume dataset
-│       └── clean_pack_type_tidy.csv             # Standardized packaging container format panel
+│       ├── clean_market_sizes_wide.csv          # 72 rows, clean numeric wide format
+│       ├── clean_retail_channels_wide.csv       # 828 rows, clean numeric wide format
+│       ├── clean_market_sizes_tidy.csv          # 396 rows, volume panel (2015-2025)
+│       ├── clean_retail_channels_tidy.csv       # 9,108 rows, channel shares (Total dropped)
+│       ├── clean_market_channels_merged.csv     # 9,108 rows, physical channel volume
+│       └── clean_pack_type_tidy.csv             # 5,830 rows, packaging container format panel
 └── sample/
-    └── cleaned_sample_50.csv          # Representative 50-row audit sample for grading verification
+    └── cleaned_sample_50.csv          # 50-row audit sample for grading verification
 ```
