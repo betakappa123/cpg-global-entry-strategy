@@ -1,0 +1,51 @@
+Geography,Category,Outlet Type,Data Type,Year,Channel_Share_Pct,Total_Market_Volume,Unit,Channel_Volume
+China,Coffee,Convenience Stores,Retail Volume,2015,5.4,63458.7,Tonnes,3426.8
+China,Coffee,Supermarkets,Retail Volume,2015,31.6,63458.7,Tonnes,20052.9
+China,Coffee,Hypermarkets,Retail Volume,2015,42.5,63458.7,Tonnes,26969.9
+China,Coffee,Retail E-Commerce,Retail Volume,2015,10.8,63458.7,Tonnes,6853.5
+China,Coffee,Convenience Stores,Retail Volume,2020,5.5,67782.7,Tonnes,3728.0
+China,Coffee,Supermarkets,Retail Volume,2020,27.0,67782.7,Tonnes,18301.3
+China,Coffee,Hypermarkets,Retail Volume,2020,33.9,67782.7,Tonnes,22978.3
+China,Coffee,Retail E-Commerce,Retail Volume,2020,29.5,67782.7,Tonnes,19995.9
+China,Coffee,Convenience Stores,Retail Volume,2025,5.5,61314.5,Tonnes,3372.3
+China,Coffee,Supermarkets,Retail Volume,2025,20.5,61314.5,Tonnes,12569.5
+China,Coffee,Hypermarkets,Retail Volume,2025,24.1,61314.5,Tonnes,14776.8
+China,Coffee,Retail E-Commerce,Retail Volume,2025,46.7,61314.5,Tonnes,28633.9
+China,RTD Coffee,Convenience Stores,Off-trade Volume,2015,6.5,292.4,million litres,19.0
+China,RTD Coffee,Supermarkets,Off-trade Volume,2015,36.6,292.4,million litres,107.0
+China,RTD Coffee,Retail E-Commerce,Off-trade Volume,2015,1.9,292.4,million litres,5.6
+China,RTD Coffee,Convenience Stores,Off-trade Volume,2020,14.5,268.5,million litres,38.9
+China,RTD Coffee,Supermarkets,Off-trade Volume,2020,19.1,268.5,million litres,51.3
+China,RTD Coffee,Retail E-Commerce,Off-trade Volume,2020,3.6,268.5,million litres,9.7
+China,RTD Coffee,Convenience Stores,Off-trade Volume,2025,16.7,301.3,million litres,50.3
+China,RTD Coffee,Supermarkets,Off-trade Volume,2025,18.9,301.3,million litres,56.9
+China,RTD Coffee,Retail E-Commerce,Off-trade Volume,2025,6.4,301.3,million litres,19.3
+Japan,Coffee,Convenience Stores,Retail Volume,2020,3.2,119096.3,Tonnes,3811.1
+Japan,Coffee,Supermarkets,Retail Volume,2020,47.7,119096.3,Tonnes,56808.9
+Japan,Coffee,Retail E-Commerce,Retail Volume,2020,9.6,119096.3,Tonnes,11433.2
+Japan,RTD Coffee,Convenience Stores,Off-trade Volume,2020,21.4,3011.8,million litres,644.5
+Japan,RTD Coffee,Supermarkets,Off-trade Volume,2020,24.5,3011.8,million litres,737.9
+Japan,RTD Coffee,Retail E-Commerce,Off-trade Volume,2020,0.6,3011.8,million litres,18.1
+Japan,Coffee,Convenience Stores,Retail Volume,2025,2.8,97775.2,Tonnes,2737.7
+Japan,Coffee,Supermarkets,Retail Volume,2025,46.4,97775.2,Tonnes,45367.7
+Japan,Coffee,Retail E-Commerce,Retail Volume,2025,12.4,97775.2,Tonnes,12124.1
+Japan,RTD Coffee,Convenience Stores,Off-trade Volume,2025,21.8,2846.4,million litres,620.5
+Japan,RTD Coffee,Supermarkets,Off-trade Volume,2025,23.2,2846.4,million litres,660.4
+Japan,RTD Coffee,Retail E-Commerce,Off-trade Volume,2025,1.2,2846.4,million litres,34.2
+Thailand,Coffee,Convenience Stores,Retail Volume,2020,16.3,83872.4,Tonnes,13671.2
+Thailand,Coffee,Supermarkets,Retail Volume,2020,6.4,83872.4,Tonnes,5367.8
+Thailand,Coffee,Retail E-Commerce,Retail Volume,2020,2.2,83872.4,Tonnes,1845.2
+Thailand,RTD Coffee,Convenience Stores,Off-trade Volume,2020,14.7,180.8,million litres,26.6
+Thailand,RTD Coffee,Supermarkets,Off-trade Volume,2020,4.9,180.8,million litres,8.9
+Thailand,RTD Coffee,Retail E-Commerce,Off-trade Volume,2020,1.9,180.8,million litres,3.4
+Thailand,Coffee,Convenience Stores,Retail Volume,2025,16.3,89133.0,Tonnes,14528.7
+Thailand,Coffee,Supermarkets,Retail Volume,2025,7.3,89133.0,Tonnes,6506.7
+Thailand,Coffee,Retail E-Commerce,Retail Volume,2025,3.5,89133.0,Tonnes,3119.7
+Thailand,RTD Coffee,Convenience Stores,Off-trade Volume,2025,19.0,182.8,million litres,34.7
+Thailand,RTD Coffee,Supermarkets,Off-trade Volume,2025,5.0,182.8,million litres,9.1
+Thailand,RTD Coffee,Retail E-Commerce,Off-trade Volume,2025,2.1,182.8,million litres,3.8
+USA,Coffee,Supermarkets,Retail Volume,2020,27.0,858536.5,Tonnes,231804.9
+USA,Coffee,Discounters,Retail Volume,2020,2.1,858536.5,Tonnes,18029.3
+USA,Coffee,Retail E-Commerce,Retail Volume,2020,17.9,858536.5,Tonnes,153678.0
+USA,Coffee,Supermarkets,Retail Volume,2025,23.1,735187.2,Tonnes,169828.2
+USA,Coffee,Discounters,Retail Volume,2025,1.8,735187.2,Tonnes,13233.4
