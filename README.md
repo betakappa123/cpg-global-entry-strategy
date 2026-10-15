@@ -2,8 +2,8 @@
 
 **DSO 576 — Decision-Support Analytics & CPG Global Entry Strategy**  
 **Module 6 Deliverable: Project Data Cleaning Assignment**  
-**Student Name:** Benjamin (Ru Yi) Cai (`betakappa123`)  
-**Team Members:** Wendy S (`WendyS-28`) & Benjamin Cai (`betakappa123`)  
+**Student Name:**
+**Team Members:** 
 
 ---
 
