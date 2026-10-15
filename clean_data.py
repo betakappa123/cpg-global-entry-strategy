@@ -101,9 +101,24 @@ def run_cleaning_pipeline():
         cleaned_dfs[name] = clean_df
     print("Rule R3: Stripped leading/trailing whitespace (e.g. 'PET Jars ' -> 'PET Jars').")
     
-    # 3. Market Sizes Tidy & Reshaping
-    vol_mask = cleaned_dfs["market_sizes"]["Data Type"].isin(["Retail Volume", "Off-trade Volume"])
-    ms_vol = cleaned_dfs["market_sizes"][vol_mask].copy()
+    # 3. Clean Wide Tables
+    # 3a. Market Sizes Wide: Convert year columns to numeric, preserving NaN for unobserved India RTD
+    ms_wide = cleaned_dfs["market_sizes"].copy()
+    for y in years:
+        ms_wide[y] = pd.to_numeric(ms_wide[y].replace("-", np.nan), errors="coerce")
+    ms_wide.to_csv(os.path.join(out_dir, "clean_market_sizes_wide.csv"), index=False)
+    print(f"Exported clean_market_sizes_wide.csv ({len(ms_wide)} rows).")
+
+    # 3b. Retail Channels Wide: Drop redundant 'Total' rows, convert hyphens to 0.0%
+    ret_filtered = cleaned_dfs["retail_channels"][cleaned_dfs["retail_channels"]["Outlet Type"] != "Total"].copy()
+    for y in years:
+        ret_filtered[y] = pd.to_numeric(ret_filtered[y].replace("-", 0.0), errors="coerce")
+    ret_filtered.to_csv(os.path.join(out_dir, "clean_retail_channels_wide.csv"), index=False)
+    print(f"Exported clean_retail_channels_wide.csv ({len(ret_filtered)} rows, redundant 'Total' excluded).")
+
+    # 4. Market Sizes Tidy & Reshaping
+    vol_mask = ms_wide["Data Type"].isin(["Retail Volume", "Off-trade Volume"])
+    ms_vol = ms_wide[vol_mask].copy()
     tidy_vol = ms_vol.melt(
         id_vars=["Geography", "Category", "Data Type", "Unit"],
         value_vars=years,
@@ -111,11 +126,11 @@ def run_cleaning_pipeline():
         value_name="Total_Market_Volume"
     )
     tidy_vol["Year"] = tidy_vol["Year"].astype(int)
-    # Rule R4: Preserve NaN for unobserved India RTD Coffee
-    tidy_vol["Total_Market_Volume"] = pd.to_numeric(tidy_vol["Total_Market_Volume"].replace("-", np.nan), errors="coerce")
-    
-    # 4. Retail Channels Tidy (Rule R5: Drop redundant 'Total')
-    ret_filtered = cleaned_dfs["retail_channels"][cleaned_dfs["retail_channels"]["Outlet Type"] != "Total"].copy()
+    tidy_vol["Total_Market_Volume"] = pd.to_numeric(tidy_vol["Total_Market_Volume"], errors="coerce")
+    tidy_vol.to_csv(os.path.join(out_dir, "clean_market_sizes_tidy.csv"), index=False)
+    print(f"Exported clean_market_sizes_tidy.csv ({len(tidy_vol)} rows).")
+
+    # 5. Retail Channels Tidy
     tidy_ret = ret_filtered.melt(
         id_vars=["Geography", "Category", "Outlet Type", "Data Type"],
         value_vars=years,
@@ -123,20 +138,36 @@ def run_cleaning_pipeline():
         value_name="Channel_Share_Pct"
     )
     tidy_ret["Year"] = tidy_ret["Year"].astype(int)
-    # Rule R4: Inactive channels treated as 0.0% share
-    tidy_ret["Channel_Share_Pct"] = pd.to_numeric(tidy_ret["Channel_Share_Pct"].replace("-", 0.0), errors="coerce")
-    
-    # 5. Rule R8: Primary Relational Merge & Channel Volume Calculation
+    tidy_ret["Channel_Share_Pct"] = pd.to_numeric(tidy_ret["Channel_Share_Pct"], errors="coerce")
+    tidy_ret.to_csv(os.path.join(out_dir, "clean_retail_channels_tidy.csv"), index=False)
+    print(f"Exported clean_retail_channels_tidy.csv ({len(tidy_ret)} rows).")
+
+    # 6. Primary Relational Merge & Channel Volume Calculation (Rule R8)
     merged_channels = pd.merge(
         tidy_ret,
         tidy_vol[["Geography", "Category", "Year", "Total_Market_Volume", "Unit"]],
         on=["Geography", "Category", "Year"],
         how="inner"
     )
+    # Derived Field: Channel_Volume = Total_Market_Volume * (Channel_Share_Pct / 100.0)
     merged_channels["Channel_Volume"] = merged_channels["Total_Market_Volume"] * (merged_channels["Channel_Share_Pct"] / 100.0)
-    print(f"Rule R8: Merged Market Sizes & Channels -> {len(merged_channels)} rows (0 unmatched keys).")
-    
-    # 6. Generate 50-row representative sample
+    merged_channels.to_csv(os.path.join(out_dir, "clean_market_channels_merged.csv"), index=False)
+    print(f"Rule R8: Merged Market Sizes & Channels -> clean_market_channels_merged.csv ({len(merged_channels)} rows, 0 unmatched keys).")
+
+    # 7. Packaging Container Format Tidy (Pack Type)
+    if "pack_type" in cleaned_dfs:
+        tidy_pack_type = cleaned_dfs["pack_type"].melt(
+            id_vars=["Geography", "Category", "Packaging Class", "Pack Type", "Data Type", "Unit"],
+            value_vars=years,
+            var_name="Year",
+            value_name="Unit_Volume_MUnits"
+        )
+        tidy_pack_type["Year"] = tidy_pack_type["Year"].astype(int)
+        tidy_pack_type["Unit_Volume_MUnits"] = pd.to_numeric(tidy_pack_type["Unit_Volume_MUnits"].replace("-", np.nan), errors="coerce")
+        tidy_pack_type.to_csv(os.path.join(out_dir, "clean_pack_type_tidy.csv"), index=False)
+        print(f"Exported clean_pack_type_tidy.csv ({len(tidy_pack_type)} rows).")
+
+    # 8. Generate 50-row representative sample
     sample_rows = []
     # China Coffee & RTD Coffee key channels
     sample_rows.append(merged_channels[(merged_channels['Geography'] == 'China') & (merged_channels['Category'] == 'Coffee') & 
@@ -169,15 +200,36 @@ def run_cleaning_pipeline():
     sample_csv_2 = os.path.join(out_dir, "cleaned_sample_50.csv")
     sample_50.to_csv(sample_csv_1, index=False)
     sample_50.to_csv(sample_csv_2, index=False)
-    print(f"Exported representative 50-row sample to {sample_csv_1}")
+    print(f"Exported representative 50-row sample to {sample_csv_1} and {sample_csv_2}")
     
-    # Export full cleaned files
-    merged_channels.to_csv(os.path.join(out_dir, "clean_market_channels_merged.csv"), index=False)
-    tidy_vol.to_csv(os.path.join(out_dir, "clean_market_sizes_tidy.csv"), index=False)
-    tidy_ret.to_csv(os.path.join(out_dir, "clean_retail_channels_tidy.csv"), index=False)
-    print("Exported clean datasets to DATA/clean/.")
+    # 9. Automated Quality & Specification Audits (AC-1 through AC-3)
+    print("-" * 70)
+    print("RUNNING AUTOMATED ACCEPTANCE CHECKS (AC-1 to AC-3)")
+    print("-" * 70)
+    
+    # AC-1: India RTD Unobserved NaN check
+    india_rtd = tidy_vol[(tidy_vol['Geography'] == 'India') & (tidy_vol['Category'] == 'RTD Coffee')]
+    assert len(india_rtd) == 11, f"Expected 11 India RTD rows, got {len(india_rtd)}"
+    assert india_rtd['Total_Market_Volume'].isna().all(), "AC-1 FAILED: India RTD volume contains non-NaN values"
+    print("AC-1 PASSED: India RTD volume correctly preserved as NaN (11 of 11 rows).")
+    
+    # AC-2: Semantic Total de-duplication check
+    assert len(tidy_ret) == 9108, f"AC-2 FAILED: Expected 9108 rows in tidy_ret, got {len(tidy_ret)}"
+    assert not (tidy_ret['Outlet Type'] == 'Total').any(), "AC-2 FAILED: Redundant 'Total' outlet rows found"
+    print("AC-2 PASSED: Exactly 9,108 channel rows; 0 redundant 'Total' rows.")
+    
+    # AC-3: Relational merge volume calculation check
+    assert len(merged_channels) == 9108, f"AC-3 FAILED: Expected 9108 rows in merged_channels, got {len(merged_channels)}"
+    r_check = merged_channels[(merged_channels['Geography'] == 'China') & 
+                              (merged_channels['Category'] == 'Coffee') & 
+                              (merged_channels['Outlet Type'] == 'Supermarkets') & 
+                              (merged_channels['Year'] == 2025)].iloc[0]
+    expected_vol = 61314.5 * 0.205
+    assert abs(r_check['Channel_Volume'] - expected_vol) < 0.01, f"AC-3 FAILED: {r_check['Channel_Volume']} != {expected_vol}"
+    print(f"AC-3 PASSED: China 2025 Supermarket Channel Volume = {r_check['Channel_Volume']:.1f} Tonnes (matches {expected_vol:.1f}).")
+    
     print("=" * 70)
-    print("DATA CLEANING PIPELINE COMPLETED SUCCESSFULLY.")
+    print("DATA CLEANING PIPELINE & ACCEPTANCE CHECKS COMPLETED SUCCESSFULLY.")
     print("=" * 70)
 
 if __name__ == "__main__":
