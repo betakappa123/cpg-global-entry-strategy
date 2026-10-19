@@ -1,0 +1,73 @@
+﻿Geography,Geography_Level,Region,Category,Data Type,Unit,Original_Unit,Current Constant,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025
+World,Global,Not applicable,Coffee,Retail Volume,Tonnes,Tonnes,-,5485017.6,5601169.2,5694325.5,5807390.1,5915938.4,6163793.8,6211134.5,6084333.8,6123042.7,6148465.5,6175791.8
+World,Global,Not applicable,Coffee,Retail Value RSP,USD million,USD million,Current Prices,79774.3,81240.8,85844.5,88374.3,89025.7,92552.5,98356.5,102967.6,111017.1,116219.3,125307.9
+World,Global,Not applicable,RTD Coffee,Off-trade Volume,million litres,million litres,-,4884.7,5056.9,5197.5,5499.4,5642.4,5411.7,5593.4,5726.3,5792.3,5722.3,5667.1
+World,Global,Not applicable,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,18160.1,20048.4,20084.4,20606.4,20884.2,20462.6,21789.7,21080.1,22196.0,21692.2,22685.0
+Asia Pacific,Region,Asia Pacific,Coffee,Retail Volume,Tonnes,Tonnes,-,1324787.7,1401710.6,1449430.7,1487609.8,1522277.8,1532808.0,1560101.5,1556709.8,1595433.1,1599417.9,1599384.2
+Asia Pacific,Region,Asia Pacific,Coffee,Retail Value RSP,USD million,USD million,Current Prices,13216.9,14009.1,14229.3,14555.2,14829.8,15847.5,16867.8,16396.0,16837.4,17902.9,19034.1
+Asia Pacific,Region,Asia Pacific,RTD Coffee,Off-trade Volume,million litres,million litres,-,4195.0,4288.6,4365.3,4583.0,4661.1,4310.2,4403.0,4396.9,4417.3,4325.6,4256.9
+Asia Pacific,Region,Asia Pacific,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,14525.2,16045.4,15613.1,15614.1,15571.1,14324.7,14681.9,12635.0,12693.2,11969.6,12518.9
+China,Country,Asia Pacific,Coffee,Retail Volume,Tonnes,Tonnes,-,63458.7,63448.1,64333.5,65537.8,65946.6,67782.7,69420.8,71146.8,66917.4,63432.7,61314.5
+China,Country,Asia Pacific,Coffee,Retail Value RSP,USD million,CNY million,Current Prices,1130.680499,1060.986308,1064.826275,1121.077389,1114.645462,1503.311095,1827.995871,1970.415386,1786.843989,1868.192652,1937.134306
+China,Country,Asia Pacific,RTD Coffee,Off-trade Volume,million litres,million litres,-,292.4,314.3,328.8,355.4,370.1,268.5,293.2,275.0,288.2,295.4,301.3
+China,Country,Asia Pacific,RTD Coffee,Off-trade Value RSP,USD million,CNY million,Current Prices,894.967505,934.068885,1042.248152,1237.220825,1311.637957,1003.091356,1176.295425,1055.044261,1052.625869,1060.897455,1082.192652
+India,Country,Asia Pacific,Coffee,Retail Volume,Tonnes,Tonnes,-,55723.8,59068.3,62633.3,66526.5,70662.7,75757.4,80640.3,85788.9,91189.6,97341.5,104240.0
+India,Country,Asia Pacific,Coffee,Retail Value RSP,USD million,INR million,Current Prices,570.86968,585.231296,658.609749,694.174147,737.903276,778.243415,900.398935,990.889953,1085.301275,1230.079882,1352.994486
+India,Country,Asia Pacific,RTD Coffee,Off-trade Volume,million litres,million litres,-,,,,,,,,,,,
+India,Country,Asia Pacific,RTD Coffee,Off-trade Value RSP,USD million,INR million,Current Prices,,,,,,,,,,,
+Japan,Country,Asia Pacific,Coffee,Retail Volume,Tonnes,Tonnes,-,109749.0,112114.4,110789.0,108641.3,110318.2,119096.3,122065.8,116127.3,111469.9,108136.7,97775.2
+Japan,Country,Asia Pacific,Coffee,Retail Value RSP,USD million,JPY billion,Current Prices,3016.257911,3449.673644,3210.416232,3303.654198,3379.516825,3690.016778,3681.859501,3076.089127,2957.482715,2840.791013,3081.026242
+Japan,Country,Asia Pacific,RTD Coffee,Off-trade Volume,million litres,million litres,-,3212.9,3238.4,3208.3,3266.3,3242.2,3011.8,3069.4,3010.4,3019.4,2926.1,2846.4
+Japan,Country,Asia Pacific,RTD Coffee,Off-trade Value RSP,USD million,JPY billion,Current Prices,11659.394109,13067.948362,12309.418749,11904.203518,11644.838919,10652.347927,10657.438897,8806.20818,8869.600989,8185.442012,8594.265781
+Thailand,Country,Asia Pacific,Coffee,Retail Volume,Tonnes,Tonnes,-,67308.4,69814.1,73414.0,76235.0,78063.4,83872.4,78407.1,81000.2,83663.2,86288.9,89133.0
+Thailand,Country,Asia Pacific,Coffee,Retail Value RSP,USD million,THB million,Current Prices,695.187952,702.479905,771.554089,846.874306,909.271401,975.545433,914.761063,915.905971,989.00964,1023.439473,1157.154783
+Thailand,Country,Asia Pacific,RTD Coffee,Off-trade Volume,million litres,million litres,-,150.9,159.5,179.5,178.9,185.4,180.8,174.7,181.5,182.8,187.0,182.8
+Thailand,Country,Asia Pacific,RTD Coffee,Off-trade Value RSP,USD million,THB million,Current Prices,318.771616,319.338667,369.076893,399.619616,434.410308,425.737813,407.053881,418.594832,454.408204,467.842016,496.064672
+Australasia,Region,Australasia,Coffee,Retail Volume,Tonnes,Tonnes,-,39171.2,39311.5,38945.9,38781.4,39158.1,41850.5,43769.7,45352.0,46223.1,46335.7,47389.1
+Australasia,Region,Australasia,Coffee,Retail Value RSP,USD million,USD million,Current Prices,884.4,897.5,942.4,939.4,911.8,975.2,1089.9,1057.0,1077.1,1113.8,1127.2
+Australasia,Region,Australasia,RTD Coffee,Off-trade Volume,million litres,million litres,-,3.0,3.2,3.4,3.5,5.4,10.5,12.7,13.2,14.0,14.8,15.6
+Australasia,Region,Australasia,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,21.2,22.2,24.3,25.3,36.6,72.1,96.3,101.8,113.2,128.7,136.0
+Australia,Country,Australasia,Coffee,Retail Volume,Tonnes,Tonnes,-,34573.7,34399.5,33772.9,33411.2,33636.2,35706.2,37115.4,38427.2,39258.2,39313.0,40315.7
+Australia,Country,Australasia,Coffee,Retail Value RSP,USD million,AUD million,Current Prices,712.949397,722.264277,749.257673,746.48157,724.570913,770.085651,849.819249,825.712247,842.417969,870.355366,895.49091
+Australia,Country,Australasia,RTD Coffee,Off-trade Volume,million litres,million litres,-,3.0,3.1,3.3,3.4,5.2,10.2,12.3,12.6,13.2,13.9,14.6
+Australia,Country,Australasia,RTD Coffee,Off-trade Value RSP,USD million,AUD million,Current Prices,20.810009,21.855259,23.682551,24.506651,35.522953,70.195475,92.771747,97.17934,107.029602,120.82953,128.543989
+Eastern Europe,Region,Eastern Europe,Coffee,Retail Volume,Tonnes,Tonnes,-,479393.9,482147.3,489544.3,500139.2,509309.0,518880.9,525586.1,507603.6,509396.9,514665.7,514074.6
+Eastern Europe,Region,Eastern Europe,Coffee,Retail Value RSP,USD million,USD million,Current Prices,7467.5,7443.0,8283.1,8563.9,8538.5,8492.6,8945.0,10080.6,10262.8,10954.9,12606.7
+Eastern Europe,Region,Eastern Europe,RTD Coffee,Off-trade Volume,million litres,million litres,-,24.8,25.3,26.4,28.4,30.9,34.0,39.1,41.8,40.9,50.0,57.2
+Eastern Europe,Region,Eastern Europe,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,80.4,82.4,98.7,120.5,134.3,150.7,190.8,218.1,219.3,280.2,345.3
+Latin America,Region,Latin America,Coffee,Retail Volume,Tonnes,Tonnes,-,1017900.6,1038129.5,1066370.6,1095533.3,1129174.0,1163646.8,1191422.4,1186422.0,1197331.6,1204409.9,1214379.9
+Latin America,Region,Latin America,Coffee,Retail Value RSP,USD million,USD million,Current Prices,10339.1,10503.6,12133.1,12099.1,12314.9,10966.6,11709.5,14375.9,16331.0,17332.5,19672.1
+Latin America,Region,Latin America,RTD Coffee,Off-trade Volume,million litres,million litres,-,18.4,19.4,20.5,21.6,22.0,20.1,20.4,21.2,22.3,24.0,25.0
+Latin America,Region,Latin America,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,93.5,93.9,106.7,113.8,116.4,102.6,111.4,124.9,147.8,161.7,168.5
+Brazil,Country,Latin America,Coffee,Retail Volume,Tonnes,Tonnes,-,707374.4,723156.6,745302.8,770459.3,797329.8,814284.4,823080.0,812665.1,821221.0,826615.9,830985.4
+Brazil,Country,Latin America,Coffee,Retail Value RSP,USD million,BRL million,Current Prices,4944.1457,5311.869134,6591.64303,6451.950399,6676.890095,5247.131305,5335.958732,6961.329747,7780.886085,8463.397832,10054.791826
+Brazil,Country,Latin America,RTD Coffee,Off-trade Volume,million litres,million litres,-,1.9,1.6,1.5,1.4,1.3,1.1,1.1,1.1,1.1,1.2,1.2
+Brazil,Country,Latin America,RTD Coffee,Off-trade Value RSP,USD million,BRL million,Current Prices,13.766551,11.313794,11.40569,9.688476,8.949235,5.838789,5.450096,6.409797,7.328237,7.311278,7.660248
+Middle East and Africa,Region,Middle East and Africa,Coffee,Retail Volume,Tonnes,Tonnes,-,475943.0,496512.9,518196.2,539559.2,562342.9,579536.5,594587.9,605088.6,623100.8,642228.5,672798.1
+Middle East and Africa,Region,Middle East and Africa,Coffee,Retail Value RSP,USD million,USD million,Current Prices,11796.6,11816.0,12703.2,13131.8,14055.9,13215.3,13243.1,14154.4,15441.8,14973.5,15079.5
+Middle East and Africa,Region,Middle East and Africa,RTD Coffee,Off-trade Volume,million litres,million litres,-,20.1,23.1,24.6,26.7,28.1,27.6,30.8,37.7,44.0,49.8,58.5
+Middle East and Africa,Region,Middle East and Africa,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,104.3,119.0,133.5,145.5,165.7,164.2,197.5,258.0,277.2,303.8,352.6
+North America,Region,North America,Coffee,Retail Volume,Tonnes,Tonnes,-,846123.2,844709.7,832060.5,843795.1,854882.3,937651.5,890343.0,825101.2,819091.2,814999.9,809258.3
+North America,Region,North America,Coffee,Retail Value RSP,USD million,USD million,Current Prices,14808.2,15310.6,15370.3,15523.9,15596.5,17583.0,18254.7,19920.1,20714.6,21241.8,21973.8
+North America,Region,North America,RTD Coffee,Off-trade Volume,million litres,million litres,-,456.3,516.7,559.7,603.0,631.5,734.9,797.3,891.5,903.8,879.3,849.0
+North America,Region,North America,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,2525.2,2817.9,3139.6,3411.8,3586.8,4273.6,4924.2,6005.1,6680.4,6588.0,6610.0
+USA,Country,North America,Coffee,Retail Volume,Tonnes,Tonnes,-,782346.6,779549.1,765586.2,776206.6,786121.7,858536.5,814420.2,747952.4,740939.5,738918.9,735187.2
+USA,Country,North America,Coffee,Retail Value RSP,USD million,USD million,Current Prices,13473.9,13973.6,13954.0,14072.3,14150.6,15924.9,16497.8,18008.6,18724.0,19275.0,19969.6
+USA,Country,North America,RTD Coffee,Off-trade Volume,million litres,million litres,-,450.9,510.1,551.9,594.3,621.4,723.0,784.6,878.3,889.8,865.3,835.2
+USA,Country,North America,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,2489.4,2774.4,3083.2,3348.3,3514.0,4185.5,4818.8,5892.0,6556.1,6458.7,6479.2
+Western Europe,Region,Western Europe,Coffee,Retail Volume,Tonnes,Tonnes,-,1301698.0,1298647.6,1299777.4,1301972.1,1298794.3,1389419.5,1405323.8,1358056.8,1332466.0,1326408.0,1318507.5
+Western Europe,Region,Western Europe,Coffee,Retail Value RSP,USD million,USD million,Current Prices,21261.7,21261.0,22183.2,23560.9,22778.3,25472.3,28246.4,26983.7,30352.5,32699.8,35814.4
+Western Europe,Region,Western Europe,RTD Coffee,Off-trade Volume,million litres,million litres,-,167.1,180.6,197.6,233.2,263.4,274.4,290.1,324.0,350.0,378.9,405.0
+Western Europe,Region,Western Europe,RTD Coffee,Off-trade Value RSP,USD million,USD million,Current Prices,810.2,867.6,968.4,1175.4,1273.2,1374.8,1587.7,1737.3,2065.0,2260.2,2553.6
+France,Country,Western Europe,Coffee,Retail Volume,Tonnes,Tonnes,-,181134.9,179444.9,180358.5,181684.3,186450.0,196493.5,200610.8,188713.8,183060.3,180283.2,178909.5
+France,Country,Western Europe,Coffee,Retail Value RSP,USD million,EUR million,Current Prices,3571.632946,3678.239044,3950.833978,4326.663038,4318.932659,4804.990591,5291.461873,4800.216912,5379.635802,5543.844523,5964.728988
+France,Country,Western Europe,RTD Coffee,Off-trade Volume,million litres,million litres,-,3.1,3.8,4.5,5.1,5.6,5.0,4.9,4.9,4.9,4.8,4.9
+France,Country,Western Europe,RTD Coffee,Off-trade Value RSP,USD million,EUR million,Current Prices,26.961163,33.981926,42.476012,52.198189,55.190093,50.599288,51.330929,49.072067,53.955305,57.041451,63.166057
+Germany,Country,Western Europe,Coffee,Retail Volume,Tonnes,Tonnes,-,381919.7,384437.2,387371.9,387030.1,382178.7,415848.5,417665.1,418953.6,411862.9,407680.9,405072.7
+Germany,Country,Western Europe,Coffee,Retail Value RSP,USD million,EUR million,Current Prices,5111.858741,5156.06539,5379.315826,5505.255638,5130.439731,5704.812686,6338.305322,6323.135853,7467.241141,8430.444995,9614.800518
+Germany,Country,Western Europe,RTD Coffee,Off-trade Volume,million litres,million litres,-,78.1,80.7,83.1,98.9,111.6,105.9,99.3,106.1,104.5,109.0,112.8
+Germany,Country,Western Europe,RTD Coffee,Off-trade Value RSP,USD million,EUR million,Current Prices,262.51075,271.301953,287.842764,362.67113,392.039973,371.442175,370.907361,417.8497,483.975838,515.862531,565.217565
+United Kingdom,Country,Western Europe,Coffee,Retail Volume,Tonnes,Tonnes,-,77903.9,77904.7,76630.5,76568.8,75663.5,80975.9,82995.3,76048.4,73708.2,75035.2,74710.0
+United Kingdom,Country,Western Europe,Coffee,Retail Value RSP,USD million,GBP million,Current Prices,2346.055468,2107.922432,2060.293489,2267.816508,2202.579323,2416.539773,2748.172656,2444.836442,2633.558156,2803.117495,2983.38077
+United Kingdom,Country,Western Europe,RTD Coffee,Off-trade Volume,million litres,million litres,-,8.7,10.7,13.2,16.0,21.0,27.2,37.2,47.9,61.7,68.4,73.5
+United Kingdom,Country,Western Europe,RTD Coffee,Off-trade Value RSP,USD million,GBP million,Current Prices,70.583331,77.3661,91.637242,116.606167,147.425772,193.974464,288.557441,347.219776,427.076922,469.316407,517.990112
