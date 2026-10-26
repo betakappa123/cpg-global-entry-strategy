@@ -1,70 +1,61 @@
 # Module 9 Individual Audit
 
-## Audit object: Financial Simulator decision verdict
+## Audit object: Financial Simulator verdict
 
 - **Name:** Ralph Jiang
 - **Team app:** CPG Global Entry Strategy Decision Platform - Yunnan Coffee
-- **Feature selected:** Financial Simulator's comparison of an export scenario with selling the same volume domestically, including the resulting strategic verdict.
-- **Primary reference:** `BUILD_SPEC.md`, Use Case 4, Metric M5, and Acceptance Check AC-4.
-- **Implementation evidence:** `dashboard.html` from local `Ben` commit `0863abd521abd29b1199e5e6f0f69b5813f7acc1`. The specification blob is identical on local `main` and `Ben`. No branch was switched and no teammate's source was changed.
+- **Feature audited:** Financial Simulator's modeled export-versus-domestic comparison and its exclusive strategic verdict.
 
-### Why this is the audit object
+## Context
 
-This is a complete, decision-facing feature: a user enters scenario assumptions and receives a recommendation about where to allocate the same coffee volume. Its requirements can be checked against explicit inputs, formulas, and output verdicts. The test cases below show that the current verdict can conflict with the domestic-comparison requirement, making this a more focused and actionable audit object than auditing an isolated number claim.
+- **Intended user:** VP of Global Strategy / Chief Growth Officer of a mid-tier, vertically integrated specialty coffee company in Yunnan, China; the CFO is a secondary user for this financial decision.
+- **Intended decision:** Decide whether to allocate the next increment of sellable coffee volume to an overseas export scenario or to domestic Chinese markets. For this audit, the user compares export and domestic deployment of the same volume, then decides whether the export scenario clears the financial hurdles or needs revised terms.
+- **Decision boundary:** The simulator provides a conditional planning scenario, not proof of commercial demand or authorization to invest.
 
-## Requirement and finding
+### Why I selected this feature
 
-Use Case 4 requires an export scenario to exceed the same-volume domestic margin by at least **5 percentage points**. M5 defines domestic profit and margin, but its verdict rules overlap: a profitable export with at least 10% margin can be Conditional, while a nonpositive profit difference versus domestic can also be Hold. The Accretive rule does not include the 5-point hurdle.
+The simulator supports the product's central allocation decision: whether the same volume of coffee should be sold overseas or domestically, and whether an export scenario clears the stated financial hurdles. Section 6 gives explicit inputs, formulas, and mutually exclusive verdict rules, so the feature can be checked with reproducible cases and clear expected outcomes.
 
-In the audited implementation, `recalculateSimulator()` calculates the export-versus-domestic profit difference and margin spread, but its verdict branches do not consistently use both. The Python below is an equivalent illustration of the audited decision logic; the app itself is implemented in JavaScript:
+## Requirement and audit method
 
-```python
-if net_margin >= 18 and profit_delta > 0:
-    verdict = "HIGHLY ACCRETIVE EXPORT"
-elif net_margin >= 10 and net_profit > 0:
-    verdict = "CONDITIONAL / FEASIBLE"
-else:
-    verdict = "MARGIN DILUTIVE / HOLD"
-```
+The final-data prompt defines a contribution-style operating scenario for finished Coffee. For each scenario it calculates export profit and margin, domestic profit and margin at the same volume, profit delta, and margin spread in percentage points. It then requires exactly one verdict, in this order:
 
-Thus, the calculation can show a scenario that fails the domestic-comparison hurdle while the verdict still presents it as positive.
+1. **MARGIN DILUTIVE / HOLD** if export profit is nonpositive, profit delta is nonpositive, or export margin is below 10%.
+2. Otherwise, **ACCRETIVE OVERSEAS EXPANSION** only if export margin is at least 18% and margin spread is at least 5 pp.
+3. Otherwise, **CONDITIONAL / FEASIBLE**, with the unmet hurdle explained.
 
-## Inputs and checked results
+I used the prompt's Japan default scenario and two price variations. The figures below were checked against the specified equations. The historical implementation's verdict strings were captured by the automated check that executes its original `recalculateSimulator()` function. The final-data prompt specifies the expected outcomes shown here; it does not establish that the historical implementation meets them.
 
-All cases use Japan, 50 MT annual volume, $0.80/kg freight and insurance, 0% tariff, and $60,000 annual marketing. I checked the domestic benchmark from the M5 formula:
+## Inputs and results
+
+All cases use Japan, 50 metric tonnes, $0.80/kg freight and insurance, 0% tariff, and $60,000 annual marketing. The domestic benchmark uses the prompt's $16.50/kg domestic selling price, $12.00/kg domestic cost, and $30,000 annual marketing:
 
 ```text
-Domestic revenue = 50,000 kg * $16.50/kg = $825,000
-Domestic cost = 50,000 kg * $12.00/kg + $30,000 = $630,000
+Q = 50 * 1,000 = 50,000 kg
+Domestic revenue = 50,000 * $16.50 = $825,000
+Domestic cost = 50,000 * $12.00 + $30,000 = $630,000
 Domestic profit = $195,000
-Domestic margin = $195,000 / $825,000 = 23.636364% (23.6%)
+Domestic margin = $195,000 / $825,000 * 100 = 23.636364%
 ```
 
-| Case | Export price | Export profit | Export margin | Profit vs. domestic | Margin spread | Actual verdict |
-|---|---:|---:|---:|---:|---:|---|
-| Baseline | $26.00/kg | $625,000 | 48.076923% | +$430,000 | +24.440559 pp | Highly Accretive |
-| A: below domestic | $16.00/kg | $125,000 | 15.625000% | -$70,000 | -8.011364 pp | Conditional / Feasible |
-| B: below 5-point hurdle | $18.00/kg | $225,000 | 25.000000% | +$30,000 | +1.363636 pp | Highly Accretive |
+| Case | Export price | Export profit | Export margin | Profit delta vs. domestic | Margin spread | Historical app verdict | Final-prompt verdict |
+|---|---:|---:|---:|---:|---:|---|---|
+| Japan default | $26.00/kg | $625,000 | 48.076923% | +$430,000 | +24.440559 pp | Highly Accretive | ACCRETIVE OVERSEAS EXPANSION |
+| A: underperforms domestic | $16.00/kg | $125,000 | 15.625000% | -$70,000 | -8.011364 pp | CONDITIONAL / FEASIBLE | MARGIN DILUTIVE / HOLD |
+| B: misses the spread hurdle | $18.00/kg | $225,000 | 25.000000% | +$30,000 | +1.363636 pp | Highly Accretive | CONDITIONAL / FEASIBLE |
 
-The baseline clears the stated hurdle. Case A earns a profit but yields $70,000 less than the domestic alternative and is still labeled Conditional / Feasible. Case B beats domestic profit, but its margin advantage is only 1.36 percentage points; it receives the strongest positive verdict despite failing Use Case 4's 5-point requirement.
+The default scenario clears all stated hurdles. Case A makes an export profit but earns $70,000 less than the same-volume domestic alternative, so the final prompt requires Hold. Case B is more profitable than domestic and exceeds the 18% export-margin threshold, but its spread is below 5 pp, so it must be Conditional rather than Accretive.
 
-The automated check ran the original `recalculateSimulator()` function from the pinned Git object in Node.js and captured its output strings. This verifies the calculation and verdict function, not browser rendering, event wiring, CDN loading, or a manual end-to-end browser session.
+## Finding and recommendation
 
-## Conclusion and requested change
+**Finding:** The historical implementation's verdict logic does not match the exclusive rules in the final-data prompt. It labels Case A Conditional despite a negative profit delta, and labels Case B Highly Accretive despite a margin spread of only 1.36 pp. These are implementation mismatches against the prompt, not conflicts within the final-data prompt's verdict rules.
 
-**Finding:** The Financial Simulator verdict is not a reliable indication that the export option meets the specified domestic-comparison hurdle.
-
-Request `CR-M9-RJ-01`: align Use Case 4 and M5, specify one ordered and mutually exclusive verdict policy, and update the implementation and tests accordingly. A candidate policy for the team to approve is:
-
-1. Hold if export margin is below 10% or export profit does not exceed same-volume domestic profit.
-2. Label Highly Accretive only if export margin is at least 18% **and** margin spread is at least 5.0 percentage points.
-3. Otherwise label Conditional and clearly state which hurdle is unmet.
-
-This is a proposed policy, not a claim that the current specification already defines these exclusive rules.
+The expected outcomes are also consistent with prompt acceptance check 9: scenarios with zero or negative profit delta must Hold, and the 10%, 18%, and +5 pp boundaries should be tested explicitly. The final-data prompt further requires the Japan default outputs listed in acceptance check 8. I recommend verifying the implementation against those exact rules and boundary cases when auditing the final-data build.
 
 ## My contribution and AI assistance
 
-I checked the domestic benchmark against the M5 inputs and formula: at 50 MT, domestic revenue is **$825,000**, cost is **$630,000**, profit is **$195,000**, and margin is **23.6%**. I also reviewed the three simulator cases above, focusing on whether the actual verdict agrees with the same-volume profit comparison and the 5-percentage-point requirement.
+I checked the domestic benchmark against the specified inputs and formula: at 50 MT, domestic revenue is **$825,000**, cost is **$630,000**, profit is **$195,000**, and margin is **23.636364%**. I also reviewed the default and two price-variation cases to compare the historical app verdicts with the final-data prompt's required verdicts.
 
-AI analysis recommends that I use the **Financial Simulator's domestic-comparison verdict** as my audit object. It is one bounded feature with a clear user decision, an explicit requirement, reproducible scenarios, and observable outputs. The 12.5% domestic-margin statement is a separate specification inconsistency; I did not select it as a second audit object.
+AI analysis recommends the **Financial Simulator's export-versus-domestic verdict** as my audit object. It is a focused, decision-facing feature with explicit formulas, ordered rules, and reproducible acceptance cases. The final-data prompt's verdict policy is clear, so the issue identified here is the historical implementation's mismatch with that policy, not an ambiguity in the prompt.
 
+AI assistance was used to inspect the historical implementation, run the original-function check, and help organize the calculations and findings. I reviewed the evidence and conclusions for this audit. No manual browser test of a final-data dashboard is claimed.
