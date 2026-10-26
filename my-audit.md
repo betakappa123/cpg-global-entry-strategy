@@ -68,4 +68,3 @@ I checked the domestic benchmark against the M5 inputs and formula: at 50 MT, do
 
 AI analysis recommends that I use the **Financial Simulator's domestic-comparison verdict** as my audit object. It is one bounded feature with a clear user decision, an explicit requirement, reproducible scenarios, and observable outputs. The 12.5% domestic-margin statement is a separate specification inconsistency; I did not select it as a second audit object.
 
-AI assistance was used to inspect the pinned implementation, run the reproducible function check, and help organize the evidence and recommendation. The calculations and conclusions should be reviewed by me before submission. No personal manual browser test is claimed.
