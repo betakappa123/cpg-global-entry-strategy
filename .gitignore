@@ -17,6 +17,8 @@ clean/
 *.pdf
 *.docx
 *.html
+# Track the explicitly published team dashboard
+!dashboard/index.html
 data-cleaning.md
 
 # Python / Environment

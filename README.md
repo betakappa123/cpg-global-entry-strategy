@@ -1,5 +1,13 @@
 # cpg-global-entry-strategy
 
+## Published Dashboard
+
+- **Live website:** [Yunnan Coffee | Global Entry](https://yunnan-coffee-global-entry.flaredlaugh2.chatgpt.site)
+- **Published HTML source:** [`dashboard/index.html`](dashboard/index.html)
+- This snapshot matches the version deployed to Sites on November 4, 2026. It includes the data, chart library, and calculation code; download the file and open it in a browser to run it locally.
+- Editing this repository does not automatically update the live website. Publish the updated HTML to Sites separately.
+- The existing root-level `Yunnan Coffee _ Global Entry.html` is retained as a separate artifact; the snapshot above identifies the deployed version.
+
 **DSO 576 — Decision-Support Analytics & CPG Global Entry Strategy**  
 **Module 6 Deliverable: Project Data Cleaning Assignment**  
 **Student Name:**
